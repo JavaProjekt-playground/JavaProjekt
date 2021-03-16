@@ -17,22 +17,18 @@
       <scope value="GLOBAL" />
       <destination value="FILE" />
       <format value="EXCEL" />
-      <charset value="windows-1252" />
+      <charset value="windows-1250" />
     </export-instructions>
   </component>
   <component name="DBNavigator.Project.DatabaseBrowserManager">
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
-    <loaded-nodes>
-      <connection connection-id="2b669788-c325-476f-bab8-38146ab3056b">
-        <schema name="public" object-types="constraint, view, column, index, sequence, table, function, dataset trigger" />
-      </connection>
-    </loaded-nodes>
+    <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="2b669788-c325-476f-bab8-38146ab3056b">
-      <console name="Heroku" type="STANDARD" schema="public" session="Main"><![CDATA[CREATE FUNCTION add_user()]]></console>
+      <console name="Heroku" type="STANDARD" schema="" session="Main" />
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
@@ -188,7 +184,7 @@
         </object-type-filter>
       </filters>
       <sorting>
-        <object-type name="COLUMN" sorting-type="POSITION" />
+        <object-type name="COLUMN" sorting-type="NAME" />
         <object-type name="FUNCTION" sorting-type="NAME" />
         <object-type name="PROCEDURE" sorting-type="NAME" />
         <object-type name="ARGUMENT" sorting-type="POSITION" />
