@@ -1,8 +1,10 @@
 package Database;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
 public class DatabaseManager {
@@ -26,6 +28,28 @@ public class DatabaseManager {
     }
 
     public void TestFunction(){
+
+        Statement st;
+        ResultSet set;
+
+        try{
+            st = conn.createStatement();
+            set = st.executeQuery("SELECT * FROM users;");
+
+            while(set.next()){
+                System.out.println(set.getInt(0));
+            }
+
+//            System.out.println(set.getArray(0).toString());
+
+
+        }catch(SQLException ex){
+            System.out.println("Failed to create statement.");
+            return;
+        }
+
+
+
 
     }
 }
