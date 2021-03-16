@@ -1,4 +1,4 @@
-CREATE FUNCTION add_user(
+CREATE TRUSTED FUNCTION add_user(
     name VARCHAR(100),
     surnmae
 

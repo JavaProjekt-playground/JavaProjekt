@@ -26,7 +26,7 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="2b669788-c325-476f-bab8-38146ab3056b">
-        <schema name="public" object-types="view, sequence, table, function" />
+        <schema name="public" object-types="constraint, view, column, index, sequence, table, function, dataset trigger" />
       </connection>
     </loaded-nodes>
   </component>
@@ -188,7 +188,7 @@
         </object-type-filter>
       </filters>
       <sorting>
-        <object-type name="COLUMN" sorting-type="NAME" />
+        <object-type name="COLUMN" sorting-type="POSITION" />
         <object-type name="FUNCTION" sorting-type="NAME" />
         <object-type name="PROCEDURE" sorting-type="NAME" />
         <object-type name="ARGUMENT" sorting-type="POSITION" />

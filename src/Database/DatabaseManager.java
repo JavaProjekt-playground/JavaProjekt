@@ -37,14 +37,14 @@ public class DatabaseManager {
             set = st.executeQuery("SELECT * FROM users;");
 
             while(set.next()){
-                System.out.println(set.getInt(0));
+                System.out.println(set.getInt(1));
             }
 
 //            System.out.println(set.getArray(0).toString());
 
 
         }catch(SQLException ex){
-            System.out.println("Failed to create statement.");
+            System.out.println(ex.getMessage());
             return;
         }
 
