@@ -52,4 +52,31 @@ public class DatabaseManager {
 
 
     }
+
+    ///
+    /// User related functions
+    ///
+
+    /**
+     * Adds user to database and updates user object.
+     * @param user User to add to database
+     * @param password User's password
+     * @return boolean True on success, False on faliure
+     * @throws SQLException
+     */
+    public boolean addUser(User user, String password) throws SQLException {
+        return user.selfInsert(conn, password);
+    }
+
+    /**
+     * Updates user's database entry and refreshes user object.
+     * @param user User to update.
+     * @param passChk User's current password for authentication purposess
+     * @param newPass User's new password (pass "" if it stays the same)
+     * @return boolean True on success, False on faliure
+     * @throws SQLException
+     */
+    public boolean updateUser(User user, String passChk, String newPass) throws SQLException {
+        return user.selfUpdate(conn, passChk, newPass);
+    }
 }

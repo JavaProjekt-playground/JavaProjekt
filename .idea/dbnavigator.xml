@@ -24,7 +24,11 @@
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
-    <loaded-nodes />
+    <loaded-nodes>
+      <connection connection-id="2b669788-c325-476f-bab8-38146ab3056b">
+        <schema name="public" object-types="dataset trigger, table, argument, sequence, column, constraint, view, index, function" />
+      </connection>
+    </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="2b669788-c325-476f-bab8-38146ab3056b">
@@ -116,7 +120,7 @@
           <max-connection-pool-size value="7" />
           <alternative-statement-delimiter value="" />
         </details>
-        <object-filters hide-empty-schemas="false" hide-pseudo-columns="false">
+        <object-filters hide-empty-schemas="false" hide-pseudo-columns="true">
           <object-type-filter use-master-settings="true">
             <object-type name="SCHEMA" enabled="true" />
             <object-type name="USER" enabled="true" />

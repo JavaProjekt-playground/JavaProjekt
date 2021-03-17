@@ -1,8 +1,10 @@
 package Database;
 
-import java.sql.Statement;
+import java.sql.SQLException;
 import java.sql.Connection;
 
-public interface IInsertableTable {
-    Statement getInsertCommand(Connection conn);
+interface IInsertableTable {
+    default boolean selfInsert(Connection conn, Object... extra) throws SQLException {
+        return false;
+    }
 }
