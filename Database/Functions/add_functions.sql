@@ -44,7 +44,7 @@ CREATE OR REPLACE FUNCTION add_reservation (
 	to_dateR TIMESTAMP,
 	user_idR INTEGER,
 	playfield_idR INTEGER,
-	paid BOOL
+	paidR BOOL
 )
 RETURNS SETOF reservations AS
 $$
