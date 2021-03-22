@@ -5,33 +5,21 @@ import com.sun.istack.internal.NotNull;
 
 import java.sql.*;
 
-public class User implements IUpdatableTable, IInsertableTable
+public class Regions implements IUpdatableTable, IInsertableTable
 {
     private int ID;
     public int getID(){return ID;}
 
     public String Name;
-    public String Surname;
-    public String Email;
-    public String Phone;
-    public Timestamp BDate;
+    public String Postcode;
 
-    private Timestamp _createdAt;
-    public Timestamp getCreatedAt() {return _createdAt;}
-
-    private Timestamp _updatedAt;
-    public Timestamp getUpdatedAt() {return _updatedAt;}
-
-    public User(String name, String surname, String email, String phone, Timestamp bDate){
+    public Regions(String name, String postcode){
         ID = 0;
         Name = name;
-        Surname = surname;
-        Email = email;
-        Phone = phone;
-        BDate = bDate;
+        Postcode = postcode;
     }
 
-    public User(@NotNull ResultSet rs) throws SQLException {
+    public Regions(@NotNull ResultSet rs) throws SQLException {
         getDataFromResultSet(rs);
     }
 
@@ -44,8 +32,8 @@ public class User implements IUpdatableTable, IInsertableTable
      */
     @Override
     public boolean selfInsert(Connection conn, Object... extra) throws SQLException {
-        String command = String.format("SELECT * FROM add_user('%s', '%s', '%s', '%s', %s, '%s');",
-            Name, Surname, BDate.toString(), Email, Phone != "" ? "'" + Phone + "'" : "NULL", extra[0]
+        String command = String.format("SELECT * FROM add_region ('%s', '%s','%s');",
+                Name, Postcode,  extra[0]
         );
 
         Statement st = conn.createStatement();
@@ -67,7 +55,7 @@ public class User implements IUpdatableTable, IInsertableTable
      *              2 (optional) String - new password
      * @return boolean True on success, False on faliure.
      */
-    @Override
+    /**@Override
     public boolean selfUpdate(Connection conn, Object... extra) throws SQLException {
 
         if (ID < 1) return false;
@@ -87,16 +75,11 @@ public class User implements IUpdatableTable, IInsertableTable
         }
 
         return false;
-    }
+    }*/
 
     private void getDataFromResultSet(ResultSet rs) throws SQLException {
         ID = rs.getInt("id");
         Name = rs.getString("name");
-        Surname = rs.getString("surname");
-        Email = rs.getString("email");
-        String p = rs.getString("phone");
-        Phone = p != "" ? p : "";
-        BDate = rs.getTimestamp("bdate");
+        Postcode = rs.getString("postcode");
     }
-
 }
