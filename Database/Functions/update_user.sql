@@ -16,7 +16,7 @@ DECLARE
 BEGIN
 
 	IF a_password IS NOT NULL THEN 
-		newpass = SHA1(a_password);
+		newpass = MD5(a_password);
 	ELSE
 		SELECT INTO newpass password FROM users WHERE id = a_id AND password = SHA1(a_passchk);
 	END IF;
@@ -29,7 +29,7 @@ BEGIN
 	phone = a_phone,
 	password = newpass
 	WHERE id = a_id
-	AND password = SHA1(a_passchk)
+	AND password = MD5(a_passchk)
 	RETURNING * INTO res;
 	
 	res.password := NULL;
