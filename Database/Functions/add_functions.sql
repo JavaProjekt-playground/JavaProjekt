@@ -80,3 +80,52 @@ BEGIN
 	RETURN NEXT res;
 END
 $$LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION add_archive_reservations (
+	order_dateR TIMESTAMP,
+	from_dateR TIMESTAMP,
+	to_dateR TIMESTAMP,
+	paidR BOOLEAN,
+	playfield_idR INTEGER,
+	user_idR INTEGER,
+	original_idR INTEGER,
+	created_atR TIMESTAMP
+)
+RETURNS SETOF archive_reservations AS
+$$
+DECLARE
+	res archive_reservations%ROWTYPE;
+BEGIN
+	INSERT INTO archive_reservations (order_date, from_date, to_date, paid, playfield_id, user_id, original_id, created_at) VALUES (order_dateR, from_dateR, to_dateR, paidR, playfield_idR, user_idR, original_idR, created_atR)
+	RETURNING * INTO res;
+	RETURN NEXT res;
+END
+$$LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION add_playfields (
+	titleR VARCHAR(255),
+	descriptionR TEXT,
+	phoneR VARCHAR(20),
+	emailR VARCHAR(255),
+	websiteR VARCHAR(255),
+	addressR VARCHAR(255),
+	region_idR INTEGER,
+	owner_idR TIMESTAMP,
+	title_image_idR INTEGER,
+	type_idR INTEGER,
+	avg_scoreR REAL,
+	price_per_hourR REAL,
+	created_atR TIMESTAMP,
+	updated_atR TIMESTAMP
+	
+)
+RETURNS SETOF playfields AS
+$$
+DECLARE
+	res playfields%ROWTYPE;
+BEGIN
+	INSERT INTO playfields (title, description, phone, email, website, address, region_id, owner_id, title_image_id, type_id, avg_score, price_per_hour, created_at, updated_at) VALUES (titleR, descriptionR, phoneR, emailR, websiteR, addressR, region_idR, owner_idR, title_image_idR, type_idR, avg_scoreR, price_per_hourR, created_atR, updated_atR)
+	RETURNING * INTO res;
+	RETURN NEXT res;
+END
+$$LANGUAGE 'plpgsql';

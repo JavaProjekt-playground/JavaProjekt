@@ -45,7 +45,9 @@ public class User implements IUpdatableTable, IInsertableTable
     @Override
     public boolean selfInsert(Connection conn, Object... extra) throws SQLException {
         String command = String.format("SELECT * FROM add_user('%s', '%s', '%s', '%s', %s, '%s');",
-            Name, Surname, BDate.toString(), Email, Phone != "" ? "'" + Phone + "'" : "NULL", extra[0]
+            Name, Surname, BDate.toString(), Email,
+            Phone != "" ? "'" + Phone + "'" : "NULL",
+            extra[0]
         );
 
         Statement st = conn.createStatement();
@@ -94,8 +96,8 @@ public class User implements IUpdatableTable, IInsertableTable
         Name = rs.getString("name");
         Surname = rs.getString("surname");
         Email = rs.getString("email");
-        String p = rs.getString("phone");
-        Phone = p != "" ? p : "";
+        Object p = rs.getString("phone");
+        Phone = p != null && (String)p != "" ? (String)p : "";
         BDate = rs.getTimestamp("bdate");
     }
 

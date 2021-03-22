@@ -9,7 +9,7 @@ DECLARE
 BEGIN
 	DELETE FROM users
 	WHERE id = a_id
-	AND password = SHA1(a_pass)
+	AND password = MD5(a_pass)
 	RETURNING * INTO res;
 	
 	IF res = 1 THEN

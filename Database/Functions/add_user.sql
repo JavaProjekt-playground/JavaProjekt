@@ -12,7 +12,7 @@ DECLARE
     res users%ROWTYPE;
 BEGIN
     INSERT INTO users (name, surname, bdate, email, phone, password, created_at, updated_at)
-    VALUES (a_name, a_surname, a_bdate, a_email, a_phone, SHA1(a_password), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+    VALUES (a_name, a_surname, a_bdate, a_email, a_phone, MD5(a_password), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
     RETURNING * INTO res;
 
     RETURN NEXT res;
