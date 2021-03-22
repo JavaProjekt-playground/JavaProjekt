@@ -118,3 +118,64 @@ BEGIN
 	RETURN NEXT res;
 END
 $$LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION update_archive_reservations (
+	order_dateR TIMESTAMP,
+	from_dateR TIMESTAMP,
+	to_dateR TIMESTAMP,
+	paidR BOOLEAN,
+	playfield_idR INTEGER,
+	user_idR INTEGER
+)
+RETURNS SETOF archive_reservations AS
+$$
+DECLARE
+	res archive_reservations%ROWTYPE;
+BEGIN
+	UPDATE archive_reservations
+	SET order_date = order_dateR,
+	 	from_date = from_dateR,
+		to_date = to_dateR,
+		paid = paidR,
+		playfield_id = playfield_idR,
+		user_id = user_idR
+	RETURNING * INTO res;
+	RETURN NEXT res;
+END
+$$LANGUAGE 'plpgsql';
+
+
+CREATE OR REPLACE FUNCTION update_playfields (
+	titleR VARCHAR(255),
+	descriptionR TEXT,
+	phoneR VARCHAR(20),
+	emailR VARCHAR(255),
+	websiteR VARCHAR(255),
+	addressR VARCHAR(255),
+	region_idR INTEGER,
+	owner_idR TIMESTAMP,
+	title_image_idR INTEGER,
+	type_idR INTEGER,
+	price_per_hourR REAL
+)
+RETURNS SETOF playfields AS
+$$
+DECLARE
+	res playfields%ROWTYPE;
+BEGIN
+	UPDATE playfields SET
+		title = titleR, 
+		description = descriptionR, 
+		phone = phoneR, 
+		email = emailR,
+		website = websiteR, 
+		address = adressR, 
+		region_id = region_idR, 
+		owner_id = owner_idR, 
+		title_image_id = title_image_idR, 
+		type_id = type_idR, 
+		price_per_hour = price_per_hourR
+	RETURNING * INTO res;
+	RETURN NEXT res;
+END
+$$LANGUAGE 'plpgsql';
