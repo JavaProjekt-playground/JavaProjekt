@@ -9,4 +9,11 @@ public class LoginForm {
     private JLabel GesloLabel;
     private JButton PrijavaButton;
     private JLabel EmailLabel;
+    public JPanel Prijava;
+
+    public static void main(String[] args){
+
+    }
 }
+
+

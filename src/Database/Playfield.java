@@ -1,8 +1,5 @@
 package Database;
 
-import org.jetbrains.annotations.NotNull;
-import sun.security.krb5.internal.crypto.Des;
-
 import java.sql.*;
 
 public class Playfield implements IUpdatableTable, IInsertableTable{
@@ -57,7 +54,7 @@ public class Playfield implements IUpdatableTable, IInsertableTable{
         TypeID = typeID;
     }
 
-    public Playfield(@NotNull ResultSet rs) throws SQLException {
+    public Playfield(ResultSet rs) throws SQLException {
         getValues(rs);
     }
 
