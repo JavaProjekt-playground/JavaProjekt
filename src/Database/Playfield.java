@@ -3,9 +3,7 @@ package Database;
 import org.jetbrains.annotations.NotNull;
 import sun.security.krb5.internal.crypto.Des;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 
 public class Playfield implements IUpdatableTable, IInsertableTable{
     // ID
@@ -80,5 +78,57 @@ public class Playfield implements IUpdatableTable, IInsertableTable{
         pendingReservations = rs.getInt("pending_reservations");
         createdAt = rs.getTimestamp("created_at");
         updatedAt = rs.getTimestamp("updated_at");
+    }
+
+    @Override
+    public boolean selfInsert(Connection conn, Object... extra) throws SQLException {
+
+        String sql = String.format("SELECT * FROM add_playfields('%s', '%s', '%s', '%s', '%s', '%s', %d, %d, %d, %d);",
+            Title,
+            Description,
+            Phone,
+            Email,
+            Website,
+            Address,
+            RegionID,
+            UserID,
+            TypeID,
+            PricePerHour
+        );
+
+        Statement st = conn.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        if(rs.next()) {
+            getValues(rs);
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean selfUpdate(Connection conn, Object... extra) throws SQLException {
+        String sql = String.format("SELECT * FROM update_playfields('%s', '%s', '%s', '%s', '%s', '%s', %d, %d, %d, %d, %d);",
+                Title,
+                Description,
+                Phone,
+                Email,
+                Website,
+                Address,
+                RegionID,
+                UserID,
+                ThumbnailID,
+                TypeID,
+                PricePerHour
+        );
+
+        Statement st = conn.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        if(rs.next()) {
+            getValues(rs);
+            return true;
+        }
+
+        return false;
     }
 }
