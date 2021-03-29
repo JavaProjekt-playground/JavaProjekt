@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 public class Register {
     private JButton register;
-    private JPanel panel1;
+    public JPanel panel1;
     private JTextField name;
     private JTextField bdate;
     private JPasswordField password1;
@@ -15,12 +15,23 @@ public class Register {
     private JTextField email;
     private JTextField surname;
     private JLabel Registration;
+    private JButton Back;
 
     public Register() {
         register.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                  JOptionPane.showMessageDialog(null,"hello");
+            }
+        });
+        Back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame frame = new JFrame("LoginForm");
+                frame.setContentPane(new LoginForm().Prijava);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.pack();
+                frame.setVisible(true);
             }
         });
     }
