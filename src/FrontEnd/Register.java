@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 public class Register {
     private JButton register;
-    private JPanel panel1;
+    public JPanel panel1;
     private JTextField name;
     private JTextField bdate;
     private JPasswordField password1;
