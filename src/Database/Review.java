@@ -1,5 +1,6 @@
 package Database;
 
+<<<<<<< HEAD
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -75,4 +76,11 @@ public class Review implements IUpdatableTable, IInsertableTable {
         }
         return false;
     }
+=======
+public class Review implements IUpdatableTable, IInsertableTable {
+    private int id;
+    public int getID(){return id;}
+    private int userID;
+    public int getUserID() {return userID;}
+>>>>>>> dcebe3c... added Review class
 }
