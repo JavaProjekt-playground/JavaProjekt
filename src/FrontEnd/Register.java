@@ -59,6 +59,16 @@ public class Register {
                 frame.setVisible(true);
             }
         });
+        Back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame frame = new JFrame("LoginForm");
+                frame.setContentPane(new LoginForm().Prijava);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.pack();
+                frame.setVisible(true);
+            }
+        });
     }
 
     public static void main(String[] args) {
