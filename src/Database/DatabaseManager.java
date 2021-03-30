@@ -85,4 +85,23 @@ public class DatabaseManager {
     public boolean updateUser(User user, String passChk, String newPass) throws SQLException {
         return user.selfUpdate(conn, passChk, newPass);
     }
+
+    /**
+     * User login function
+     * @param email User's email
+     * @param password user's password
+     * @return A User object if login is successful, else null
+     * @throws SQLException thrown when SQL transaction fails.
+     */
+    public User userLogin(String email, String password) throws SQLException {
+        User res = null;
+
+        String sql = String.format("SELECT * FROM user_login('%s', '%s')", email, password);
+
+        ResultSet rs = conn.createStatement().executeQuery(sql);
+
+        if(rs.next()) res = new User(rs);
+
+        return res;
+    }
 }
