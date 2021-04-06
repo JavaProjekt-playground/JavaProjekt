@@ -104,4 +104,45 @@ public class DatabaseManager {
 
         return res;
     }
+
+    /**
+     * Deletes user from database.
+     * @param user User to delete.
+     * @param password User's password.
+     * @return True if deletion is successful, otherwise false.
+     * @throws SQLException SQL execution failure.
+     */
+    public boolean deleteUser(User user, String password) throws SQLException {
+        String sql = String.format("SELECT * FROM delete_user(%d, '%s');", user.getID(), password);
+
+        ResultSet rs = conn.createStatement().executeQuery(sql);
+        if(rs.next()) return rs.getBoolean(1);
+        return false;
+    }
+
+    //
+    // Playfield related functions
+    //
+
+    /**
+     * Inserts a new playfield into the database.
+     * @param playfield Playfield to insert.
+     * @return True on success, False on failure.
+     * @throws SQLException SQL execution failure.
+     */
+    public boolean addPlayfield(Playfield playfield) throws SQLException {
+        return playfield.selfInsert(conn);
+    }
+
+    /**
+     * Updates a playfield database entry.
+     * @param playfield Playfield to update.
+     * @return True on success, False on failure.
+     * @throws SQLException SQL execution failure.
+     */
+    public boolean updatePlayfield(Playfield playfield) throws SQLException{
+        return playfield.selfUpdate(conn);
+    }
+
+//    public Playfield getPlayfield
 }
