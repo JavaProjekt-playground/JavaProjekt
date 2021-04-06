@@ -13,35 +13,27 @@ public class Picture implements IUpdatableTable, IInsertableTable{
     public int getId(){return id;}
 
     public String Caption;
-    public URL Url;
+    private String fileName;
     private int playfieldID;
     public int getPlayfieldID(){return playfieldID;}
 
-    public BufferedImage Image;
+    public URL getURL(){
+        return ImageLoader.getImageURL(fileName);
+    }
 
-    public Picture(String caption, int playfieldId, BufferedImage image){
+    public Picture(String caption, int playfieldId){
         Caption = caption;
         playfieldID = playfieldId;
-        Image = image;
     }
 
     public Picture(ResultSet rs) throws SQLException {
         getValues(rs);
     }
 
-    private boolean getValues(ResultSet rs) throws SQLException{
+    private void getValues(ResultSet rs) throws SQLException{
         Caption = rs.getString("caption");
-        try {
-            Url = new URL(rs.getString("url"));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            return false;
-        }
+        fileName = rs.getString("url");
         playfieldID = rs.getInt("playfield_id");
-
-        // TODO: image download
-
-        return true;
     }
 
     @Override
@@ -50,7 +42,12 @@ public class Picture implements IUpdatableTable, IInsertableTable{
 
         ResultSet rs = conn.createStatement().executeQuery(sql);
         if(rs.next()){
-            return getValues(rs);
+            getValues(rs);
+
+            if(ImageLoader.FTPLoader.uploadImage((String)extra[0], fileName)) return true;
+
+            sql = String.format("SELECT * FROM delete_images(%d);", id);
+            conn.createStatement().executeQuery(sql);
         }
 
         return false;
@@ -62,7 +59,8 @@ public class Picture implements IUpdatableTable, IInsertableTable{
 
         ResultSet rs = conn.createStatement().executeQuery(sql);
         if(rs.next()){
-            return getValues(rs);
+            getValues(rs);
+            return true;
         }
 
         return false;
