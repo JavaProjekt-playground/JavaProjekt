@@ -6,13 +6,24 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class ImageLoader {
     private static final String password = "E*PZH)dF{j?a";
     private static final String user = "imageloader@javaproject.zerdoner.com";
-    private static final String domain = "javaproject.zerdoner.com";
-
     private static FTPClient client;
+    private static final String domain = "javaproject.zerdoner.com";
+    private static final String directory = "javaproject_images";
+
+    public static URL getImageURL(String fileName){
+        try{
+            return new URL(String.format("%s/%s/%s", domain, directory, fileName));
+        }catch(MalformedURLException ex){
+            ex.printStackTrace();
+        }
+        return null;
+    }
 
     public static class FTPLoader{
 
@@ -56,8 +67,8 @@ public class ImageLoader {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                return false;
             }
+            return false;
         }
 
 
