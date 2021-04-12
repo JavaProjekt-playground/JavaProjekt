@@ -30,6 +30,12 @@ public class Picture implements IUpdatableTable, IInsertableTable{
         getValues(rs);
     }
 
+    public Picture(Picture p){
+        id = p.id;
+        fileName = p.fileName;
+        playfieldID = p.getPlayfieldID();
+    }
+
     private void getValues(ResultSet rs) throws SQLException{
         Caption = rs.getString("caption");
         fileName = rs.getString("url");
