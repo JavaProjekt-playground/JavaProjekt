@@ -5,7 +5,7 @@ import javax.swing.*;
 
 public class JavaProject {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         DatabaseManager db = new DatabaseManager();
         JFrame frame = new JFrame("AddPlayground");
         frame.setContentPane(new AddPlayground().addplayground);
