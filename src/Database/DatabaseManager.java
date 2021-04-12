@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Dictionary;
 import java.util.Properties;
 
 public class DatabaseManager {
@@ -51,7 +52,6 @@ public class DatabaseManager {
 
         }catch(SQLException ex){
             System.out.println(ex.getMessage());
-            return;
         }
 
 
@@ -127,11 +127,26 @@ public class DatabaseManager {
     /**
      * Inserts a new playfield into the database.
      * @param playfield Playfield to insert.
+     * @param pics Pictures to insert. Dictionary key is picture caption, value is path to file.
+     * @param thumbnail Thumbnail picture caption.
      * @return True on success, False on failure.
      * @throws SQLException SQL execution failure.
      */
-    public boolean addPlayfield(Playfield playfield) throws SQLException {
-        return playfield.selfInsert(conn);
+    public boolean addPlayfield(Playfield playfield, Dictionary<String, String> pics, String thumbnail) throws SQLException {
+        if(playfield.selfInsert(conn)){
+            while(pics.keys().hasMoreElements()){
+                String k = pics.keys().nextElement();
+                Picture p = new Picture(k, playfield.getID());
+                if(p.selfInsert(conn, pics.get(k))){
+
+                    if(p.Caption == thumbnail){
+                        playfield.ThumbnailID = p.getId();
+                        if(playfield.selfUpdate(conn)) playfield.Thumbnail = new Picture(p);
+                    }
+                }
+            }
+        }
+        return true;
     }
 
     /**
@@ -144,5 +159,22 @@ public class DatabaseManager {
         return playfield.selfUpdate(conn);
     }
 
-//    public Playfield getPlayfield
+    public Playfield getPlayfield(int id) throws SQLException {
+        Playfield res = null;
+        String sql = String.format("SELECT * FROM playfields WHERE id = %d;", id);
+
+        Statement stmnt = conn.createStatement();
+
+        ResultSet rs1 = stmnt.executeQuery(sql);
+        if(rs1.next()){
+            res = new Playfield(rs1);
+            sql = String.format("SELECT * FROM images WHERE id = %d;", res.ThumbnailID);
+            ResultSet rs2 = stmnt.executeQuery(sql);
+            if(rs2.next()){
+                res.Thumbnail = new Picture(rs2);
+            }
+        }
+
+        return res;
+    }
 }
