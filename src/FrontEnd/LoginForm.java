@@ -24,8 +24,9 @@ public class LoginForm {
             public void actionPerformed(ActionEvent e) {
                 DatabaseManager db = new DatabaseManager();
                 try {
-                    User user = db.userLogin(EmailTextBox.getText(), GesloPasswordField.toString());
-                    System.out.println(user.Name);
+//                    System.out.println(EmailTextBox.getText() + "   " + String.valueOf(GesloPasswordField.getPassword()));
+                    User user = db.userLogin(EmailTextBox.getText(), String.valueOf(GesloPasswordField.getPassword()));
+//                    System.out.println(user.Name);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
