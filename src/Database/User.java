@@ -1,13 +1,15 @@
 package Database;
 
-import com.sun.istack.internal.NotNull;
-/**import org.jetbrains.annotations.NotNull;*/
-
 import java.sql.*;
+
+/**
+ * import org.jetbrains.annotations.NotNull;
+ */
 
 public class User implements IUpdatableTable, IInsertableTable
 {
     private int ID;
+
     public int getID(){return ID;}
 
     public String Name;
@@ -31,7 +33,7 @@ public class User implements IUpdatableTable, IInsertableTable
         BDate = bDate;
     }
 
-    public User(@NotNull ResultSet rs) throws SQLException {
+    public User(ResultSet rs) throws SQLException {
         getDataFromResultSet(rs);
     }
 
