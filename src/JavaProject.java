@@ -4,10 +4,9 @@ import FrontEnd.LoginForm;
 import javax.swing.*;
 
 public class JavaProject {
-    public static DatabaseManager db;
 
     public static void main(String[] args){
-        db = new DatabaseManager();
+        DatabaseManager db = new DatabaseManager();
         //JFrame frame = new JFrame("LoginForm");
         JFrame frame = new JFrame("LoginForm");
         frame.setContentPane(new LoginForm().Prijava);
