@@ -19,6 +19,8 @@ public class LoginForm {
     private JButton Registracija;
 
     public LoginForm() {
+
+        // Login button function
         PrijavaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -38,6 +40,8 @@ public class LoginForm {
                 }
             }
         });
+
+        // Registration button function
         Registracija.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -47,6 +51,7 @@ public class LoginForm {
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 frame.pack();
                 frame.setVisible(true);
+
 
             }
         });
