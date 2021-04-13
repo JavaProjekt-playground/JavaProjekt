@@ -19,4 +19,5 @@ public class AddPlayground {
     private JComboBox TypeComboBox;
     private JLabel PricePerHourLabel;
     private JTextField PricePerHourTextField;
+    public JPanel addplayground;
 }
