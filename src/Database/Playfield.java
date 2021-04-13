@@ -1,6 +1,8 @@
 package Database;
 
 import java.sql.*;
+import java.util.Dictionary;
+import java.util.List;
 
 public class Playfield implements IUpdatableTable, IInsertableTable{
     // ID
@@ -29,6 +31,8 @@ public class Playfield implements IUpdatableTable, IInsertableTable{
     public Timestamp getCreatedAt() {return createdAt;}
     private Timestamp updatedAt;
     public Timestamp getUpdatedAt() {return updatedAt;}
+
+    public Picture Thumbnail;
 
     public Playfield(
             String title,
@@ -77,6 +81,13 @@ public class Playfield implements IUpdatableTable, IInsertableTable{
         updatedAt = rs.getTimestamp("updated_at");
     }
 
+    /**
+     *
+     * @param conn
+     * @param extra
+     * @return
+     * @throws SQLException
+     */
     @Override
     public boolean selfInsert(Connection conn, Object... extra) throws SQLException {
 
@@ -106,17 +117,17 @@ public class Playfield implements IUpdatableTable, IInsertableTable{
     @Override
     public boolean selfUpdate(Connection conn, Object... extra) throws SQLException {
         String sql = String.format("SELECT * FROM update_playfields('%s', '%s', '%s', '%s', '%s', '%s', %d, %d, %d, %d, %d);",
-                Title,
-                Description,
-                Phone,
-                Email,
-                Website,
-                Address,
-                RegionID,
-                UserID,
-                ThumbnailID,
-                TypeID,
-                PricePerHour
+            Title,
+            Description,
+            Phone,
+            Email,
+            Website,
+            Address,
+            RegionID,
+            UserID,
+            ThumbnailID,
+            TypeID,
+            PricePerHour
         );
 
         Statement st = conn.createStatement();
