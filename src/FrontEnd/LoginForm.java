@@ -23,12 +23,18 @@ public class LoginForm {
             @Override
             public void actionPerformed(ActionEvent e) {
                 DatabaseManager db = new DatabaseManager();
+                User user = null;
                 try {
 //                    System.out.println(EmailTextBox.getText() + "   " + String.valueOf(GesloPasswordField.getPassword()));
-                    User user = db.userLogin(EmailTextBox.getText(), String.valueOf(GesloPasswordField.getPassword()));
-//                    System.out.println(user.Name);
+                    user = db.userLogin(EmailTextBox.getText(), String.valueOf(GesloPasswordField.getPassword()));
+                    System.out.println(user.Name);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
+                }
+
+                if(user == null){
+                    JOptionPane.showMessageDialog(null,
+                            "Prijava ni uspela!\nPreverite prijavne podatke.", "Napaka", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
