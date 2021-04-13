@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Dictionary;
 import java.util.Properties;
+import java.util.Vector;
 
 public class DatabaseManager {
 
@@ -168,12 +169,26 @@ public class DatabaseManager {
         ResultSet rs1 = stmnt.executeQuery(sql);
         if(rs1.next()){
             res = new Playfield(rs1);
+
+            // get thumbnail
             sql = String.format("SELECT * FROM images WHERE id = %d;", res.ThumbnailID);
             ResultSet rs2 = stmnt.executeQuery(sql);
             if(rs2.next()){
                 res.Thumbnail = new Picture(rs2);
             }
         }
+
+        return res;
+    }
+
+    public Vector<Playfield> GetPlayfields() throws SQLException {
+        Vector<Playfield> res = new Vector<Playfield>();
+
+        String sql = String.format("SELECT * FROM playfields;");
+
+        ResultSet rs = conn.createStatement().executeQuery(sql);
+
+        while(rs.next()) res.add(new Playfield(rs));
 
         return res;
     }
