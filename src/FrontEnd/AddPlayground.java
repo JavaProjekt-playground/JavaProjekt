@@ -1,8 +1,31 @@
 package FrontEnd;
 
+import Database.DatabaseManager;
+import Database.Regions;
+
 import javax.swing.*;
+import java.sql.SQLException;
+import java.util.Vector;
+
 
 public class AddPlayground {
+
+
+    public void createWindow() throws SQLException {
+        JFrame frame = new JFrame("AddPlayground");
+        frame.setContentPane(new AddPlayground().addplayground);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+        DatabaseManager db = new DatabaseManager();
+
+        Vector<Regions> region = db.getRegions();
+        for (Regions regions: region) {
+            System.out.println(regions.Name);
+            RegionComboBox.addItem(regions.Name);
+        }
+    }
+
     private JLabel AddLabel;
     private JLabel NameLabel;
     private JTextField AddNameTextField;

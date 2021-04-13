@@ -1,12 +1,9 @@
 package Database;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Dictionary;
 import java.util.Properties;
+import java.util.Vector;
 
 public class DatabaseManager {
 
@@ -174,6 +171,19 @@ public class DatabaseManager {
                 res.Thumbnail = new Picture(rs2);
             }
         }
+
+        return res;
+    }
+
+    public Vector<Regions> getRegions() throws  SQLException{
+        Vector<Regions> res = new Vector<Regions>(100);
+        String sql = String.format("SELECT * FROM regions;");
+
+        Statement stmnt = conn.createStatement();
+
+        ResultSet rs = stmnt.executeQuery(sql);
+
+        while(rs.next()) res.add(new Regions(rs));
 
         return res;
     }
