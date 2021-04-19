@@ -3,7 +3,7 @@ package FrontEnd;
 import javax.swing.*;
 
 public class Main {
-    private JPanel main;
+    public JPanel main;
     private JButton OrderButton;
     private JButton SearchButton;
     private JButton SettingsButton;
