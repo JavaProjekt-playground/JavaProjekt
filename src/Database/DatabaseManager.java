@@ -1,10 +1,6 @@
 package Database;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Dictionary;
 import java.util.Properties;
 import java.util.Vector;
@@ -191,5 +187,28 @@ public class DatabaseManager {
         while(rs.next()) res.add(new Playfield(rs));
 
         return res;
+    }
+
+    public Vector<Regions> getRegions() throws  SQLException{
+        Vector<Regions> res = new Vector<Regions>(100);
+        String sql = String.format("SELECT * FROM regions;");
+
+        Statement stmnt = conn.createStatement();
+
+        ResultSet rs = stmnt.executeQuery(sql);
+
+        while(rs.next()) res.add(new Regions(rs));
+
+        return res;
+    }
+
+    public Vector<Playfield_type> getPlayfield_types() throws SQLException{
+        Vector<Playfield_type> res = new Vector<>(100);
+        String sql = String.format("SELECT * FROM playfield_types;");
+
+        Statement stmnt = conn.createStatement();
+        ResultSet rs = stmnt.executeQuery(sql);
+        while(rs.next()) res.add(new Playfield_type(rs));
+        return  res;
     }
 }
