@@ -1,6 +1,7 @@
 package FrontEnd;
 
 import Database.DatabaseManager;
+import Database.Playfield_type;
 import Database.Regions;
 
 import javax.swing.*;
@@ -10,19 +11,19 @@ import java.util.Vector;
 
 public class AddPlayground {
 
-
-    public void createWindow() throws SQLException {
-        JFrame frame = new JFrame("AddPlayground");
-        frame.setContentPane(new AddPlayground().addplayground);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
+    public AddPlayground() throws SQLException {
         DatabaseManager db = new DatabaseManager();
-
         Vector<Regions> region = db.getRegions();
         for (Regions regions: region) {
             System.out.println(regions.Name);
-            RegionComboBox.addItem(regions.Name);
+            RegionComboBox.addItem(regions.Name.toString());
+        }
+
+        Vector<Playfield_type> playfield_type = db.getPlayfield_types();
+        for (Playfield_type playfield_types: playfield_type
+             ) {
+            System.out.println(playfield_types.Name);
+            TypeComboBox.addItem(playfield_types.Name);
         }
     }
 
@@ -43,4 +44,5 @@ public class AddPlayground {
     private JLabel PricePerHourLabel;
     private JTextField PricePerHourTextField;
     public JPanel addplayground;
+    private JButton button1;
 }

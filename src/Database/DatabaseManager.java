@@ -187,4 +187,14 @@ public class DatabaseManager {
 
         return res;
     }
+
+    public  Vector<Playfield_type> getPlayfield_types() throws SQLException{
+        Vector<Playfield_type> res = new Vector<>(100);
+        String sql = String.format("SELECT * FROM playfield_types;");
+
+        Statement stmnt = conn.createStatement();
+        ResultSet rs = stmnt.executeQuery(sql);
+        while(rs.next()) res.add(new Playfield_type(rs));
+        return  res;
+    }
 }
