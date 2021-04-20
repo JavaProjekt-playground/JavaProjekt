@@ -1,5 +1,6 @@
 package FrontEnd;
 
+import Database.Review;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,9 +16,9 @@ public class ReviewsForm {
         sendReviewButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame frame = new JFrame("LoginForm");
-                frame.setContentPane(new Dashboard().main);
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                JFrame frame = new JFrame("Main.form");
+                frame.setContentPane(new ReviewsForm().ReviewPanel);
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 frame.pack();
                 frame.setVisible(true);
             }
