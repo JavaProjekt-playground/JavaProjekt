@@ -1,8 +1,6 @@
 package Database;
 
 import java.sql.*;
-import java.util.Dictionary;
-import java.util.List;
 
 public class Playfield implements IUpdatableTable, IInsertableTable{
     // ID
@@ -41,10 +39,10 @@ public class Playfield implements IUpdatableTable, IInsertableTable{
             String email,
             String phone,
             String website,
-            double pricePerHour,
             int userID,
             int regionID,
-            int typeID
+            int typeID,
+            double pricePerHour
     ){
         Title = title;
         Description = description;
@@ -52,10 +50,10 @@ public class Playfield implements IUpdatableTable, IInsertableTable{
         Email = email;
         Phone = phone;
         Website = website;
-        PricePerHour = pricePerHour;
         UserID = userID;
         RegionID = regionID;
         TypeID = typeID;
+        PricePerHour = pricePerHour;
     }
 
     public Playfield(ResultSet rs) throws SQLException {
@@ -91,7 +89,7 @@ public class Playfield implements IUpdatableTable, IInsertableTable{
     @Override
     public boolean selfInsert(Connection conn, Object... extra) throws SQLException {
 
-        String sql = String.format("SELECT * FROM add_playfields('%s', '%s', '%s', '%s', '%s', '%s', %d, %d, %d, %d);",
+        String sql = String.format("SELECT * FROM add_playfieldstest('%s', '%s', '%s', '%s', '%s', '%s', %d, %d, %d, %f);",
             Title,
             Description,
             Phone,
@@ -101,7 +99,7 @@ public class Playfield implements IUpdatableTable, IInsertableTable{
             RegionID,
             UserID,
             TypeID,
-            PricePerHour
+            Double.valueOf(PricePerHour)
         );
 
         Statement st = conn.createStatement();
@@ -116,7 +114,7 @@ public class Playfield implements IUpdatableTable, IInsertableTable{
 
     @Override
     public boolean selfUpdate(Connection conn, Object... extra) throws SQLException {
-        String sql = String.format("SELECT * FROM update_playfields('%s', '%s', '%s', '%s', '%s', '%s', %d, %d, %d, %d, %d);",
+        String sql = String.format("SELECT * FROM update_playfields('%s', '%s', '%s', '%s', '%s', '%s', %d, %d, %d, %d, %f);",
             Title,
             Description,
             Phone,
