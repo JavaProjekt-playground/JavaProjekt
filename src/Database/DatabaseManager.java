@@ -129,6 +129,8 @@ public class DatabaseManager {
      * @return True on success, False on failure.
      * @throws SQLException SQL execution failure.
      */
+
+
     public boolean addPlayfield(Playfield playfield, Dictionary<String, String> pics, String thumbnail) throws SQLException {
         if(playfield.selfInsert(conn)){
             while(pics.keys().hasMoreElements()){
@@ -144,6 +146,10 @@ public class DatabaseManager {
             }
         }
         return true;
+    }
+
+    public boolean addPlayfieldTest(Playfield playfield) throws SQLException {
+        return playfield.selfInsert(conn, playfield);
     }
 
     /**
@@ -218,4 +224,6 @@ public class DatabaseManager {
         while(rs.next()) res.add(new Playfield_type(rs));
         return  res;
     }
+
+
 }
