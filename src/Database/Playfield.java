@@ -71,7 +71,7 @@ public class Playfield implements IUpdatableTable, IInsertableTable{
         Phone = rs.getString("phone");
         Website = rs.getString("website");
         PricePerHour = rs.getDouble("price_per_hour");
-        UserID = rs.getInt("user_id");
+        UserID = rs.getInt("owner_id");
         TypeID = rs.getInt("type_id");
         ThumbnailID = rs.getInt("title_image_id");
         RegionID = rs.getInt("region_id");

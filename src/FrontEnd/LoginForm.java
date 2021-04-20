@@ -18,17 +18,20 @@ public class LoginForm {
     public JPanel Prijava;
     private JButton Registracija;
 
+    public static DatabaseManager DB;
+
     public LoginForm() {
+
+        DB = new DatabaseManager();
 
         // Login button function
         PrijavaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DatabaseManager db = new DatabaseManager();
                 User user = null;
                 try {
 //                    System.out.println(EmailTextBox.getText() + "   " + String.valueOf(GesloPasswordField.getPassword()));
-                    user = db.userLogin(EmailTextBox.getText(), String.valueOf(GesloPasswordField.getPassword()));
+                    user = LoginForm.DB.userLogin(EmailTextBox.getText(), String.valueOf(GesloPasswordField.getPassword()));
                     System.out.println(user.Name);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
@@ -37,7 +40,16 @@ public class LoginForm {
                 if(user == null){
                     JOptionPane.showMessageDialog(null,
                             "Prijava ni uspela!\nPreverite prijavne podatke.", "Napaka", JOptionPane.INFORMATION_MESSAGE);
+                    return;
                 }
+
+                JFrame frame = new JFrame("Playfields");
+                frame.setContentPane(new Main(user).main);
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.pack();
+                frame.setVisible(true);
+
+                Prijava.setVisible(false);
             }
         });
 
@@ -55,6 +67,7 @@ public class LoginForm {
 
             }
         });
+
     }
 }
 

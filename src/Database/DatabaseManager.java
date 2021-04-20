@@ -177,10 +177,17 @@ public class DatabaseManager {
         return res;
     }
 
-    public Vector<Playfield> GetPlayfields() throws SQLException {
+    public Vector<Playfield> getPlayfields() throws SQLException {
+        return getPlayfields(-1);
+    }
+
+    public Vector<Playfield> getPlayfields(int limit) throws SQLException {
         Vector<Playfield> res = new Vector<Playfield>();
 
-        String sql = String.format("SELECT * FROM playfields;");
+
+        String sql = "SELECT * FROM playfields ORDER BY id DESC";
+        if(limit > 0) sql += " LIMIT " + limit;
+        sql += ";";
 
         ResultSet rs = conn.createStatement().executeQuery(sql);
 
