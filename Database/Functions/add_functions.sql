@@ -124,7 +124,7 @@ BEGIN
 END
 $$LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE FUNCTION add_playfieldsTest (
+CREATE OR REPLACE FUNCTION add_playfieldstest (
 	titleR VARCHAR(255),
 	descriptionR TEXT,
 	phoneR VARCHAR(20),

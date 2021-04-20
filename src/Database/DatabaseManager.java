@@ -149,7 +149,7 @@ public class DatabaseManager {
     }
 
     public boolean addPlayfieldTest(Playfield playfield) throws SQLException {
-        return playfield.selfInsert(conn, playfield);
+        return playfield.selfInsert(conn);
     }
 
     /**
