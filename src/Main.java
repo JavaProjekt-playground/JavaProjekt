@@ -1,16 +1,20 @@
-import FrontEnd.AddPlayground;
 import FrontEnd.LoginForm;
-import FrontEnd.Main;
 
 import javax.swing.*;
+import java.awt.*;
 import java.sql.SQLException;
 
-public class JavaProject {
+public class Main {
+
+    private static JFrame frame;
+    public static void SetContent(Container pane){
+        frame.setContentPane(pane);
+    }
 
     public static void main(String[] args) throws SQLException {
-        JFrame frame = new JFrame("AddPlayground");
-        frame.setContentPane(new LoginForm().Prijava);
+        frame = new JFrame("AddPlayground");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        SetContent(new LoginForm().Prijava);
         frame.pack();
         frame.setVisible(true);
     }

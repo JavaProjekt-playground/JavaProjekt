@@ -6,7 +6,7 @@ import FrontEnd.TableModels.PlayfieldTableModel;
 import javax.swing.*;
 import java.sql.SQLException;
 
-public class Main {
+public class Dashboard {
     public JPanel main;
     private JButton OrderButton;
     private JButton SearchButton;
@@ -17,7 +17,7 @@ public class Main {
 
     public User User;
 
-    public Main(User user){
+    public Dashboard(User user){
         super();
 
         User = user;

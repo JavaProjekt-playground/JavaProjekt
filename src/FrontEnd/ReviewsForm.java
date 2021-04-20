@@ -16,7 +16,7 @@ public class ReviewsForm {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFrame frame = new JFrame("LoginForm");
-                frame.setContentPane(new Main().main);
+                frame.setContentPane(new Dashboard().main);
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.pack();
                 frame.setVisible(true);

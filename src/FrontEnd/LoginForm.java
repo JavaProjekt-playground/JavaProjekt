@@ -44,7 +44,7 @@ public class LoginForm {
                 }
 
                 JFrame frame = new JFrame("Playfields");
-                frame.setContentPane(new Main(user).main);
+                frame.setContentPane(new Dashboard(user).main);
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 frame.pack();
                 frame.setVisible(true);
