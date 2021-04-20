@@ -1,78 +1,73 @@
 package Database;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import com.sun.xml.internal.ws.api.message.Message;
+
+import java.sql.*;
 
 public class Review implements IUpdatableTable, IInsertableTable {
-    private int id;
-    public int getID(){ return id; }
-    private int userID;
-    public int getUserID() { return userID; }
-    private int playfieldID;
-    public int getPlayfieldID() { return playfieldID; }
-    private int score;
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        if(score < 6 && score > 0) this.score = score;
-        else throw new IllegalArgumentException("Score value must be between must be at least 1 and at most 5");
-    }
-
-
-    private Timestamp createdAt;
-    public Timestamp getCreatedAt() { return createdAt; }
-    private Timestamp updatedAt;
-    public Timestamp getUpdatedAt() { return updatedAt; }
-
+    private int ID;
     public String Message;
+    public Double Score;
+    public int getID(){return ID;}
+    private int userID;
+    public int getUserID() {return userID;}
+    private  int playfieldID;
+    public int getPlayfieldID() {return playfieldID;}
+    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
-    public Review(int userId, int playfieldId, String message){
-        userID = userId;
-        playfieldID = playfieldId;
+    public Review(String message, double score, Timestamp created_at, Timestamp updated_at){
+        ID = 0;
         Message = message;
+        Score = score;
+        playfieldID = getPlayfieldID();
+        userID = getUserID();
+        timestamp = created_at;
+        timestamp = updated_at;
     }
 
     public Review(ResultSet rs) throws SQLException {
-        getValues(rs);
-    }
-
-    private void getValues(ResultSet rs) throws SQLException {
-        id = rs.getInt("id");
-        userID = rs.getInt("user_id");
-        playfieldID = rs.getInt("playfield_id");
-        Message = rs.getString("message");
-        createdAt = rs.getTimestamp("created_at");
-        updatedAt = rs.getTimestamp("updated_at");
-        score = rs.getInt("score");
+        getDataFromResultSet(rs);
     }
 
     @Override
     public boolean selfInsert(Connection conn, Object... extra) throws SQLException {
-        String sql = String.format("SELECT * FROM add_review('%s', %d, %d, %d);",
-                Message, score, playfieldID, userID);
+        String command = String.format("SELECT * FROM add_review('%s', '%s', '%s', '%s', '%s', '%s');",
+                Message, Score, playfieldID, userID,timestamp.toString(),timestamp.toString()
+        );
 
-        ResultSet rs = conn.createStatement().executeQuery(sql);
+        Statement st = conn.createStatement();
+        ResultSet rs = st.executeQuery(command);
+
         if(rs.next()){
-            getValues(rs);
+            getDataFromResultSet(rs);
             return true;
         }
+
         return false;
     }
 
     @Override
     public boolean selfUpdate(Connection conn, Object... extra) throws SQLException {
-        String sql = String.format("SELECT * FROM update_review(%d, '%s', %d);",
-                id, Message, score);
 
-        ResultSet rs = conn.createStatement().executeQuery(sql);
+        if (ID < 1) return false;
+
+        String command = String.format("SELECT * FROM update_review( %d, '%s', '%s', '%s', '%s', '%s', '%s');",
+                ID, Message, Score, playfieldID, userID,timestamp.toString(),timestamp.toString()
+        );
+
+        Statement st = conn.createStatement();
+        ResultSet rs = st.executeQuery(command);
+
         if(rs.next()){
-            getValues(rs);
+            getDataFromResultSet(rs);
             return true;
         }
+
         return false;
+    }
+
+    private void getDataFromResultSet(ResultSet rs) throws SQLException {
+        Message = rs.getString("textArea1");
+        Score = rs.getDouble("Rating");
     }
 }

@@ -1,17 +1,8 @@
 package FrontEnd;
 
-import Database.DatabaseManager;
-import Database.User;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class Register {
     private JButton register;
@@ -30,23 +21,7 @@ public class Register {
         register.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DatabaseManager db = new DatabaseManager();
-
-                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                // you can change format of date
-                Date date = null;
-                try {
-                    date = formatter.parse(bdate.getText());
-                } catch (ParseException parseException) {
-                    parseException.printStackTrace();
-                }
-                Timestamp timeStampDate = new Timestamp(date.getTime());
-                User user = new User(name.getText(), surname.getText(), email.getText(), phone.getText(), timeStampDate);
-                try {
-                    db.addUser(user, password1.toString());
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
+                 JOptionPane.showMessageDialog(null,"hello");
             }
         });
         Back.addActionListener(new ActionListener() {
