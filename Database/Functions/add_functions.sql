@@ -109,7 +109,6 @@ CREATE OR REPLACE FUNCTION add_playfields (
 	addressR VARCHAR(255),
 	region_idR INTEGER,
 	owner_idR INTEGER,
-	title_image_idR INTEGER,
 	type_idR INTEGER,
 	price_per_hourR REAL
 )
@@ -118,31 +117,10 @@ $$
 DECLARE
 	res playfields%ROWTYPE;
 BEGIN
-	INSERT INTO playfields (title, description, phone, email, website, address, region_id, owner_id, title_image_id, type_id, price_per_hour) VALUES (titleR, descriptionR, phoneR, emailR, websiteR, addressR, region_idR, owner_idR, title_image_idR, type_idR, price_per_hourR)
+	INSERT INTO playfields (title, description, phone, email, website, address, region_id, owner_id, type_id, price_per_hour) 
+	VALUES (titleR, descriptionR, phoneR, emailR, websiteR, addressR, region_idR, owner_idR, type_idR, price_per_hourR)
 	RETURNING * INTO res;
 	RETURN NEXT res;
 END
 $$LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE FUNCTION add_playfieldstest (
-	titleR VARCHAR(255),
-	descriptionR TEXT,
-	phoneR VARCHAR(20),
-	emailR VARCHAR(255),
-	websiteR VARCHAR(255),
-	addressR VARCHAR(255),
-	region_idR INTEGER,
-	owner_idR INTEGER,
-	type_idR INTEGER,
-	price_per_hourR REAL
-)
-RETURNS SETOF playfields AS
-$$
-DECLARE
-	res playfields%ROWTYPE;
-BEGIN
-	INSERT INTO playfields (title, description, phone, email, website, address, region_id, owner_id, type_id, price_per_hour) VALUES (titleR, descriptionR, phoneR, emailR, websiteR, addressR, region_idR, owner_idR, type_idR, price_per_hourR)
-	RETURNING * INTO res;
-	RETURN NEXT res;
-END
-$$LANGUAGE 'plpgsql';
