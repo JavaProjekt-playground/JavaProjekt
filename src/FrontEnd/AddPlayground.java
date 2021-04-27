@@ -20,4 +20,5 @@ public class AddPlayground {
     private JLabel PricePerHourLabel;
     private JTextField PricePerHourTextField;
     public JPanel addplayground;
+    private JButton AddPlaygroundButton;
 }
