@@ -28,6 +28,10 @@ public class Reservation implements IUpdatableTable, IInsertableTable {
         userID = userid;
     }
 
+    public Reservation(ResultSet rs) throws SQLException {
+        getValues(rs);
+    }
+
     private void getValues(ResultSet rs) throws SQLException {
         id = rs.getInt("id");
         FromDate = rs.getTimestamp("from_date");

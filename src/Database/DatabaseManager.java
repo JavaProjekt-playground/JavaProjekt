@@ -222,7 +222,35 @@ public class DatabaseManager {
         Statement stmnt = conn.createStatement();
         ResultSet rs = stmnt.executeQuery(sql);
         while(rs.next()) res.add(new Playfield_type(rs));
-        return  res;
+        return res;
+    }
+
+    public Vector<Reservation> getReservation(int user) throws SQLException{
+        Vector<Reservation> res = new Vector<>(10);
+        String sql = String.format("SELECT * FROM reservations WHERE user_id = %d", user);
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        while(rs.next()) res.add(new Reservation(rs));
+        return res;
+    }
+
+    public Vector<Reservation_status> getreservation_status() throws  SQLException{
+        Vector<Reservation_status> res = new Vector<>(5);
+        String sql = String.format("SELECT * FROM reservation_statuses");
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        while(rs.next()) res.add(new Reservation_status(rs));
+        return res;
+    }
+
+    public Reservation_status getreservation_status_Reservation_id(int reservation_id) throws  SQLException{
+        Reservation_status res = null;
+        String sql = String.format("SELECT * FROM reservation_statuses rs INNER JOIN reservations r ON " +
+                "rs.id = r.reservation_status_is WHERE reservation = %d ", reservation_id);
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        while(rs.next()) res = new Reservation_status(rs);
+        return res;
     }
 
 
