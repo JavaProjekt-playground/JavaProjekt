@@ -1,11 +1,11 @@
 package Database;
 
 import com.sun.istack.internal.NotNull;
-import sun.security.krb5.internal.crypto.Des;
 
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-public class Reservation_status
+public class Reservation_status implements IUpdatableTable, IInsertableTable
 {
     private int ID;
     public int getID(){return ID;}
@@ -24,6 +24,8 @@ public class Reservation_status
         Title = rs.getString("title");
         Description = rs.getString("description");
     }
+
+
 
 }
 
