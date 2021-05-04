@@ -28,28 +28,7 @@ public class LoginForm {
         PrijavaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                User user = null;
-                try {
-//                    System.out.println(EmailTextBox.getText() + "   " + String.valueOf(GesloPasswordField.getPassword()));
-                    user = LoginForm.DB.userLogin(EmailTextBox.getText(), String.valueOf(GesloPasswordField.getPassword()));
-                    System.out.println(user.Name);
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-
-                if(user == null){
-                    JOptionPane.showMessageDialog(null,
-                            "Prijava ni uspela!\nPreverite prijavne podatke.", "Napaka", JOptionPane.INFORMATION_MESSAGE);
-                    return;
-                }
-
-                JFrame frame = new JFrame("Playfields");
-                frame.setContentPane(new Dashboard(user).main);
-                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                frame.pack();
-                frame.setVisible(true);
-
-                Prijava.setVisible(false);
+                login();
             }
         });
 
@@ -57,17 +36,31 @@ public class LoginForm {
         Registracija.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                JFrame frame = new JFrame("Register");
-                frame.setContentPane(new Register().panel1);
-                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                frame.pack();
-                frame.setVisible(true);
-
-
+                goToRegister();
             }
         });
 
+    }
+
+    private void login(){
+        User user = null;
+        try {
+            user = LoginForm.DB.userLogin(EmailTextBox.getText(), String.valueOf(GesloPasswordField.getPassword()));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        if(user == null){
+            JOptionPane.showMessageDialog(null,
+                    "Prijava ni uspela!\nPreverite prijavne podatke.", "Napaka", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        Navigator.GoTo(new Dashboard(user).main,"Nadzorna plošča");
+    }
+
+    private void goToRegister(){
+        Navigator.GoTo(new Register().panel1, "Registracija");
     }
 }
 
