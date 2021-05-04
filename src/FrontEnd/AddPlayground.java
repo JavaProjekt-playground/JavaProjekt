@@ -1,16 +1,6 @@
 package FrontEnd;
 
-import Database.DatabaseManager;
-import Database.Playfield;
-import Database.Playfield_type;
-import Database.Regions;
-
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.util.Vector;
-
 
 public class AddPlayground {
 
@@ -57,5 +47,5 @@ public class AddPlayground {
     private JLabel PricePerHourLabel;
     private JTextField PricePerHourTextField;
     public JPanel addplayground;
-    private JButton button1;
+    private JButton AddPlaygroundButton;
 }
