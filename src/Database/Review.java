@@ -1,7 +1,5 @@
 package Database;
 
-import com.sun.xml.internal.ws.api.message.Message;
-
 import java.sql.*;
 
 public class Review implements IUpdatableTable, IInsertableTable {
@@ -32,7 +30,7 @@ public class Review implements IUpdatableTable, IInsertableTable {
     @Override
     public boolean selfInsert(Connection conn, Object... extra) throws SQLException {
         String command = String.format("SELECT * FROM add_review('%s', '%s', '%s', '%s', '%s', '%s');",
-                Message, Score, playfieldID, userID,timestamp.toString(),timestamp.toString()
+                Message, Score, playfieldID, userID, timestamp.toString(), timestamp.toString()
         );
 
         Statement st = conn.createStatement();
@@ -52,7 +50,7 @@ public class Review implements IUpdatableTable, IInsertableTable {
         if (ID < 1) return false;
 
         String command = String.format("SELECT * FROM update_review( %d, '%s', '%s', '%s', '%s', '%s', '%s');",
-                ID, Message, Score, playfieldID, userID,timestamp.toString(),timestamp.toString()
+                ID, Message, Score, playfieldID, userID, timestamp.toString(), timestamp.toString()
         );
 
         Statement st = conn.createStatement();

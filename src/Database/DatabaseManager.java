@@ -247,12 +247,6 @@ public class DatabaseManager {
 
 
 
-
-
-
-
-
-
     //PLAYFIELD TYPES
     public Vector<Playfield_type> getPlayfield_types() throws SQLException{
         Vector<Playfield_type> res = new Vector<>(100);
