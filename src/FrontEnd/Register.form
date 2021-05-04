@@ -10,7 +10,7 @@
     </properties>
     <border type="none"/>
     <children>
-      <component id="7771e" class="javax.swing.JTextField" binding="name">
+      <component id="7771e" class="javax.swing.JTextField" binding="nameTF">
         <constraints>
           <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -18,7 +18,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="2d4b8" class="javax.swing.JButton" binding="register">
+      <component id="2d4b8" class="javax.swing.JButton" binding="registerButton">
         <constraints>
           <grid row="15" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -34,7 +34,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="44e92" class="javax.swing.JPasswordField" binding="password1">
+      <component id="44e92" class="javax.swing.JPasswordField" binding="password1PF">
         <constraints>
           <grid row="12" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -42,7 +42,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="5e026" class="javax.swing.JPasswordField" binding="password2">
+      <component id="5e026" class="javax.swing.JPasswordField" binding="password2PF">
         <constraints>
           <grid row="14" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -50,7 +50,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="5491d" class="javax.swing.JTextField" binding="phone">
+      <component id="5491d" class="javax.swing.JTextField" binding="phoneTF">
         <constraints>
           <grid row="8" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -58,7 +58,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="75e48" class="javax.swing.JTextField" binding="email">
+      <component id="75e48" class="javax.swing.JTextField" binding="emailTF">
         <constraints>
           <grid row="6" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -66,7 +66,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="37a34" class="javax.swing.JTextField" binding="surname">
+      <component id="37a34" class="javax.swing.JTextField" binding="surnameTF">
         <constraints>
           <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -139,7 +139,7 @@
           <text value="Password"/>
         </properties>
       </component>
-      <component id="4291c" class="javax.swing.JButton" binding="Back">
+      <component id="4291c" class="javax.swing.JButton" binding="goBackButton">
         <constraints>
           <grid row="15" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>

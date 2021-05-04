@@ -22,4 +22,9 @@ public class Regions implements IUpdatableTable, IInsertableTable
         Name = rs.getString("name");
         Postcode = rs.getString("postcode");
     }
+
+    @Override
+    public String toString() {
+        return Name;
+    }
 }
