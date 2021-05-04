@@ -35,17 +35,17 @@ public class Register {
         Timestamp bDate = new Timestamp(0);
 
         if(!pass1.equals(pass2)){
-            //TODO Message
+            JOptionPane.showMessageDialog(panel1, "Passwords don't match.");
             return;
         }
 
         if(name.equals("") || surname.equals("")){
-            //TODO Message
+            JOptionPane.showMessageDialog(panel1, "Input name and surname.");
             return;
         }
 
         if(email.equals("")){
-            //TODO Message
+            JOptionPane.showMessageDialog(panel1, "Input email");
             return;
         }
 
@@ -57,11 +57,11 @@ public class Register {
             LoginForm.DB.addUser(newUser, pass1);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            //TODO Message
+            JOptionPane.showMessageDialog(panel1, "Service error.");
             return;
         }
 
-        Navigator.goTo(new Dashboard(newUser).main, "Nadzorna plošča");
+        Navigator.goTo(new Dashboard(newUser).main, "Dashboard");
     }
 
 }
