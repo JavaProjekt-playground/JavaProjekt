@@ -89,7 +89,13 @@ public class Playfield implements IUpdatableTable, IInsertableTable{
     @Override
     public boolean selfInsert(Connection conn, Object... extra) throws SQLException {
 
-        String sql = String.format("SELECT * FROM add_playfieldstest('%s', '%s', '%s', '%s', '%s', '%s', %d, %d, %d, %f);",
+        String sql = String.format("SELECT * FROM add_playfields('%s'::VARCHAR, " +
+                        "'%s'::TEXT, " +
+                        "'%s'::VARCHAR, " +
+                        "'%s'::VARCHAR, " +
+                        "'%s'::VARCHAR, " +
+                        "'%s'::VARCHAR, " +
+                        "%d::INT, %d::INT, %d::INT, %f::REAL);",
             Title,
             Description,
             Phone,
@@ -101,7 +107,7 @@ public class Playfield implements IUpdatableTable, IInsertableTable{
             TypeID,
             Double.valueOf(PricePerHour)
         );
-
+System.out.println(sql);
         Statement st = conn.createStatement();
         ResultSet rs = st.executeQuery(sql);
         if(rs.next()) {

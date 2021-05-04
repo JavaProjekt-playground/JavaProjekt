@@ -1,5 +1,7 @@
 package FrontEnd;
 
+import Database.User;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,7 +23,14 @@ public class Register {
         register.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                 JOptionPane.showMessageDialog(null,"hello");
+
+//                User u = new User(
+//                        name.getText(),
+//                        surname.getText(),
+//                        email.getText(),
+//                        phone.getText(),
+//                        bdate.getText()
+//                );
             }
         });
         Back.addActionListener(new ActionListener() {
