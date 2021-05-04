@@ -22,4 +22,9 @@ public class Regions
         Name = rs.getString("name");
         Postcode = rs.getString("postcode");
     }
+
+    @Override
+    public String toString() {
+        return Name;
+    }
 }
