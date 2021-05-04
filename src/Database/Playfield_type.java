@@ -24,4 +24,8 @@ public class Playfield_type implements IUpdatableTable, IInsertableTable{
             Description = rs.getString("description");
         }
 
+    @Override
+    public String toString() {
+        return Name;
+    }
 }
