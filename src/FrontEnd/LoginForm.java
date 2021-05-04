@@ -56,11 +56,11 @@ public class LoginForm {
             return;
         }
 
-        Navigator.GoTo(new Dashboard(user).main,"Nadzorna plošča");
+        Navigator.goTo(new Dashboard(user).main,"Nadzorna plošča");
     }
 
     private void goToRegister(){
-        Navigator.GoTo(new Register().panel1, "Registracija");
+        Navigator.goTo(new Register().panel1, "Registracija");
     }
 }
 
