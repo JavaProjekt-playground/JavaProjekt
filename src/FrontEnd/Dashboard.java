@@ -1,6 +1,9 @@
 package FrontEnd;
 
+import Database.Picture;
+import Database.Playfield;
 import Database.User;
+import FrontEnd.TableModels.CellRenderers.PictureCellRenderer;
 import FrontEnd.TableModels.PlayfieldTableModel;
 
 import javax.swing.*;
@@ -15,12 +18,19 @@ public class Dashboard {
     private JTextField SearchTextField;
     private JButton SelectButton;
 
-    public User User;
+    private static User user;
+    public static User getUser(){
+        return user;
+    }
+    public static void setUser(User value){
+        user = value;
+    }
 
-    public Dashboard(User user){
+
+    public Dashboard(User loggeduser){
         super();
 
-        User = user;
+        setUser(loggeduser);
 
         PlayfieldTableModel model;
         try {
@@ -31,5 +41,14 @@ public class Dashboard {
         }
 
         PlayfieldsTable.setModel(model);
+        PlayfieldsTable.setDefaultRenderer(Picture.class, new PictureCellRenderer());
+    }
+
+    private void goToPlayFieldEditor(){
+        goToPlayfieldEditor(null);
+    }
+
+    private void goToPlayfieldEditor(Playfield field){
+
     }
 }
