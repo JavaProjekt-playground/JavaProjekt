@@ -131,17 +131,13 @@ public class DatabaseManager {
      */
 
 
-    public boolean addPlayfield(Playfield playfield, Dictionary<String, String> pics, String thumbnail) throws SQLException {
+    public boolean addPlayfield(Playfield playfield, Vector<Picture> pictures, int thumbnail) throws SQLException {
         if(playfield.selfInsert(conn)){
-            while(pics.keys().hasMoreElements()){
-                String k = pics.keys().nextElement();
-                Picture p = new Picture(k, playfield.getID());
-                if(p.selfInsert(conn, pics.get(k))){
+            for (Picture pic: pictures) {
 
-                    if(p.Caption == thumbnail){
-                        playfield.ThumbnailID = p.getId();
-                        if(playfield.selfUpdate(conn)) playfield.Thumbnail = new Picture(p);
-                    }
+                if(pic.selfInsert(conn)){
+
+
                 }
             }
         }

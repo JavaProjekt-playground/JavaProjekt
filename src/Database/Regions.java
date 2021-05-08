@@ -19,6 +19,7 @@ public class Regions implements IUpdatableTable, IInsertableTable
     }
 
     public Regions(@NotNull ResultSet rs) throws SQLException {
+        ID = rs.getInt("id");
         Name = rs.getString("name");
         Postcode = rs.getString("postcode");
     }

@@ -22,7 +22,7 @@ public class Register {
 
     public Register() {
         registerButton.addActionListener(e -> registerUser());
-        goBackButton.addActionListener(e -> Navigator.goBack());
+        goBackButton.addActionListener(e -> App.goBack());
     }
 
     private void registerUser(){
@@ -54,14 +54,14 @@ public class Register {
         );
 
         try {
-            LoginForm.DB.addUser(newUser, pass1);
+            App.DB.addUser(newUser, pass1);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             JOptionPane.showMessageDialog(panel1, "Service error.");
             return;
         }
 
-        Navigator.goTo(new Dashboard(newUser).main, "Dashboard");
+        App.goTo(new Dashboard(newUser).main, "Dashboard");
     }
 
 }

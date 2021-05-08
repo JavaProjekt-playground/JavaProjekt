@@ -17,13 +17,16 @@ public class Picture implements IUpdatableTable, IInsertableTable{
     private int playfieldID;
     public int getPlayfieldID(){return playfieldID;}
 
+    private String filePath;
+
     public URL getURL(){
         return ImageLoader.getImageURL(fileName);
     }
 
-    public Picture(String caption, int playfieldId){
+    public Picture(String caption, int playfieldId, String path){
         Caption = caption;
         playfieldID = playfieldId;
+        filePath = path;
     }
 
     public Picture(ResultSet rs) throws SQLException {
@@ -45,12 +48,13 @@ public class Picture implements IUpdatableTable, IInsertableTable{
     @Override
     public boolean selfInsert(Connection conn, Object... extra) throws SQLException {
         String sql = String.format("SELECT * FROM add_image(%d, '%s');", playfieldID, Caption);
+        String suffix = filePath.substring(filePath.lastIndexOf(".") + 1);
 
         ResultSet rs = conn.createStatement().executeQuery(sql);
         if(rs.next()){
             getValues(rs);
 
-            if(ImageLoader.FTPLoader.uploadImage((String)extra[0], fileName)) return true;
+            if(ImageLoader.FTPLoader.uploadImage(filePath, fileName)) return true;
 
             sql = String.format("SELECT * FROM delete_images(%d);", id);
             conn.createStatement().executeQuery(sql);

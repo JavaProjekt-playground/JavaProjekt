@@ -20,6 +20,7 @@ public class Playfield_type implements IUpdatableTable, IInsertableTable{
         }
 
         public Playfield_type(@NotNull ResultSet rs) throws SQLException {
+            ID = rs.getInt("id");
             Name = rs.getString("name");
             Description = rs.getString("description");
         }
