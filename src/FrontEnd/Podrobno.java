@@ -2,8 +2,8 @@ package FrontEnd;
 
 import javax.swing.*;
 
-public class Podrobno {
-    private JPanel podrobno;
+public class Podrobno implements IFormWindow{
+    private JPanel mainPanel;
     private JTextField NameTextField;
     private JLabel NameLabel;
     private JLabel DescriptionLabel;
@@ -23,4 +23,16 @@ public class Podrobno {
     private JLabel PhoneLabel;
     private JLabel PictureLabel;
     private JButton AddButton;
+
+    public String title = "Details";
+
+    @Override
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
+
+    @Override
+    public String getTitle() {
+        return "";
+    }
 }

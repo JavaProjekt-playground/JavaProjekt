@@ -1,18 +1,29 @@
 package FrontEnd;
 
 import Database.*;
-import FrontEnd.TableModels.UserInformation;
 
 import javax.swing.*;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
-public class ReviewsForm {
+public class ReviewsForm implements IFormWindow{
     private JComboBox Rating;
     private JTextArea textArea1;
     private JButton sendReviewButton;
     private JLabel Message;
-    public JPanel reviewPanel;
+    public JPanel mainPanel;
+
+    public String title = "Reviews";
+
+    @Override
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
+
+    @Override
+    public String getTitle() {
+        return title;
+    }
 
     public ReviewsForm(Playfield playfield) {
 
@@ -20,7 +31,7 @@ public class ReviewsForm {
 
     private void Insert(Playfield playfield){
         DatabaseManager db = new DatabaseManager();
-        User user = UserInformation.getUserInformation();
+        User user = App.getCurrentUser();
         Review review = new Review(
                 Message.getText(),
                 Double.valueOf(Rating.getSelectedItem().toString()),

@@ -1,13 +1,12 @@
-package FrontEnd.Update;
+package FrontEnd;
 
 import Database.*;
-import FrontEnd.TableModels.UserInformation;
 
 import javax.swing.*;
 import java.sql.SQLException;
 import java.util.Vector;
 
-public class UpdatePlayground {
+public class PlayfieldEditor implements IFormWindow{
 
 
     private JLabel AddLabel;
@@ -26,18 +25,33 @@ public class UpdatePlayground {
     private JComboBox TypeComboBox;
     private JLabel PricePerHourLabel;
     private JTextField PricePerHourTextField;
-    public JPanel updatePlayground;
+    public JPanel mainPanel;
     private JButton AddPlaygroundButton;
+    private JPanel updatePlayground;
 
-    public UpdatePlayground(Playfield playfield) {
-        super();
-        addObjects(playfield);
-        AddPlaygroundButton.addActionListener(e -> Update());
+    private Playfield playfield;
+
+    @Override
+    public JPanel getMainPanel() {
+        return mainPanel;
     }
 
-    private void Update(){
-        DatabaseManager db = new DatabaseManager();
-        User user = UserInformation.getUserInformation();
+    private String title;
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
+    public PlayfieldEditor(Playfield playfield) {
+        super();
+        addObjects();
+
+        setPlayfield(playfield);
+        AddPlaygroundButton.addActionListener(e -> Insert());
+    }
+
+    private void Insert(){
+        User user = App.getCurrentUser();
         Regions regions = (Regions) RegionComboBox.getModel().getSelectedItem();
         Playfield_type playfield_type = (Playfield_type) TypeComboBox.getModel().getSelectedItem();
 
@@ -54,23 +68,16 @@ public class UpdatePlayground {
                 Integer.valueOf(PricePerHourTextField.getText())
         );
         try {
-            db.addPlayfieldTest(playfield);
+            App.DB.addPlayfieldTest(playfield);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 
-    private void addObjects(Playfield playfield) {
-        DatabaseManager db = new DatabaseManager();
-        NameTextField.setText(playfield.Title);
-        DescriptionTextArea.setText(playfield.Description);
-        AddressTextBox.setText(playfield.Address);
-        EmailTextField.setText(playfield.Email);
-        PhoneTextField.setText(playfield.Phone);
-        PricePerHourTextField.setText(String.valueOf(playfield.PricePerHour));
+    private void addObjects() {
         Vector<Regions> region = null;
         try {
-            region = db.getRegions();
+            region = App.DB.getRegions();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -78,16 +85,10 @@ public class UpdatePlayground {
             RegionComboBox.addItem(regions);
 
         }
-        try {
-            Regions getRegion = db.getRegions(playfield.RegionID);
-            RegionComboBox.setSelectedItem(getRegion);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
 
         Vector<Playfield_type> playfield_type = null;
         try {
-            playfield_type = db.getPlayfield_types();
+            playfield_type = App.DB.getPlayfield_types();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -95,14 +96,15 @@ public class UpdatePlayground {
         ) {
             TypeComboBox.addItem(playfield_types);
         }
+    }
 
-        try {
-            Playfield_type getPlayfieldType = db.getPlayfield_type(playfield.TypeID);
-            TypeComboBox.setSelectedItem(getPlayfieldType);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+    public Playfield getPlayfield() {
+        return playfield;
+    }
 
+    public void setPlayfield(Playfield playfield) {
+        this.playfield = playfield;
+        title = playfield == null ? "Add playfield" : "Edit playfield: " + playfield.Title;
     }
 }
 

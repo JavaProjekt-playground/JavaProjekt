@@ -1,4 +1,4 @@
-package FrontEnd.TableModels.CellRenderers;
+package FrontEnd.TableModels;
 
 import Database.Review;
 

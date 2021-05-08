@@ -6,9 +6,9 @@ import javax.swing.*;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
-public class Register {
+public class Register implements IFormWindow{
     private JButton registerButton;
-    public JPanel panel1;
+    public JPanel mainPanel;
     private JTextField nameTF;
     private JTextField bdate;
     private JPasswordField password1PF;
@@ -19,6 +19,17 @@ public class Register {
     private JLabel Registration;
     private JButton goBackButton;
 
+    public String title = "Registration";
+
+    @Override
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
+
+    @Override
+    public String getTitle() {
+        return "";
+    }
 
     public Register() {
         registerButton.addActionListener(e -> registerUser());
@@ -35,17 +46,17 @@ public class Register {
         Timestamp bDate = new Timestamp(0);
 
         if(!pass1.equals(pass2)){
-            JOptionPane.showMessageDialog(panel1, "Passwords don't match.");
+            JOptionPane.showMessageDialog(mainPanel, "Passwords don't match.");
             return;
         }
 
         if(name.equals("") || surname.equals("")){
-            JOptionPane.showMessageDialog(panel1, "Input name and surname.");
+            JOptionPane.showMessageDialog(mainPanel, "Input name and surname.");
             return;
         }
 
         if(email.equals("")){
-            JOptionPane.showMessageDialog(panel1, "Input email");
+            JOptionPane.showMessageDialog(mainPanel, "Input email");
             return;
         }
 
@@ -57,11 +68,11 @@ public class Register {
             App.DB.addUser(newUser, pass1);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            JOptionPane.showMessageDialog(panel1, "Service error.");
+            JOptionPane.showMessageDialog(mainPanel, "Service error.");
             return;
         }
 
-        App.goTo(new Dashboard(newUser).main, "Dashboard");
+        App.login(newUser);
     }
 
 }

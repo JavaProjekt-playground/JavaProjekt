@@ -64,5 +64,8 @@ public class PlayfieldTableModel extends DefaultTableModel {
         }
     }
 
+    public Playfield getPlayfield(int rowIndex){
+        return playfields[rowIndex];
+    }
 
 }
