@@ -1,11 +1,11 @@
 package FrontEnd;
 
+import Database.Picture;
 import Database.Playfield;
 import Database.User;
+import FrontEnd.TableModels.CellRenderers.PictureCellRenderer;
 import FrontEnd.TableModels.PlayfieldTableModel;
 import FrontEnd.TableModels.UserInformation;
-import FrontEnd.Update.UpdatePlayground;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,29 +31,24 @@ public class Dashboard {
 
         PlayfieldTableModel model;
         try {
-            model = new PlayfieldTableModel(LoginForm.DB.getPlayfields(10));
+            model = new PlayfieldTableModel(App.DB.getPlayfields(10));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             model = null;
         }
 
         PlayfieldsTable.setModel(model);
+        PlayfieldsTable.setDefaultRenderer(Picture.class, new PictureCellRenderer());
+    }
 
-        AddButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Navigator.goTo(new AddPlayground().addplayground,"addplayground");
-            }
-        });
-        UpdateButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int row = PlayfieldsTable.getSelectedRow();
-                Playfield playfield = (Playfield) PlayfieldsTable.getModel().getValueAt(row, 1);
-                System.out.println(playfield.Description);
-                Navigator.goTo(new UpdatePlayground(playfield).updatePlayground,
-                "updatePlayground");
-            }
-        });
+    private void goToPlayFieldEditor(){
+        goToPlayfieldEditor(null);
+    }
+
+    private void goToPlayfieldEditor(Playfield field){
+
+        String title = field == null ? "New playfield" : "Edit - " + field.Title;
+
+        App.goTo(new PlayfieldEditor(field).addplayground, title);
     }
 }

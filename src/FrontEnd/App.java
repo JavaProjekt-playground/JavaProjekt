@@ -29,7 +29,13 @@ public class App extends JFrame {
 
         GoTo(loginForm.Prijava);
     }
+    private static void setContent(Container form, String title){
+        _this.setTitle(title);
+        _this.setContentPane(form);
+        _this.pack();
+        _this.setVisible(true);
 
+    }
     public static void GoTo(Container form){
         goTo(form, "");
     }
@@ -47,11 +53,7 @@ public class App extends JFrame {
             _history.set(_historyIndex, form);
             _titleHistory.set(_historyIndex, title);
         }
-
-        _this.setTitle(title);
-        _this.setContentPane(form);
-        _this.pack();
-        _this.setVisible(true);
+        setContent(form, title);
     }
 
     public static boolean canGoBack(){
@@ -63,7 +65,7 @@ public class App extends JFrame {
 
         _historyIndex--;
 
-        goTo(_history.get(_historyIndex), _titleHistory.get(_historyIndex));
+        setContent(_history.get(_historyIndex), _titleHistory.get(_historyIndex));
     }
 
     public static boolean canGoForward(){
@@ -75,6 +77,6 @@ public class App extends JFrame {
 
         _historyIndex++;
 
-        goTo(_history.get(_historyIndex), _titleHistory.get(_historyIndex));
+        setContent(_history.get(_historyIndex), _titleHistory.get(_historyIndex));
     }
 }
