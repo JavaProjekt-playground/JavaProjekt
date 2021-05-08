@@ -1,12 +1,14 @@
 package FrontEnd;
 
-import Database.Picture;
 import Database.Playfield;
 import Database.User;
-import FrontEnd.TableModels.CellRenderers.PictureCellRenderer;
 import FrontEnd.TableModels.PlayfieldTableModel;
+import FrontEnd.TableModels.UserInformation;
+import FrontEnd.Update.UpdatePlayground;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 public class Dashboard {
@@ -17,20 +19,15 @@ public class Dashboard {
     private JTable PlayfieldsTable;
     private JTextField SearchTextField;
     private JButton SelectButton;
+    private JButton AddButton;
+    private JButton UpdateButton;
 
-    private static User user;
-    public static User getUser(){
-        return user;
-    }
-    public static void setUser(User value){
-        user = value;
-    }
+    public User User;
 
-
-    public Dashboard(User loggeduser){
+    public Dashboard(User user){
         super();
 
-        setUser(loggeduser);
+        UserInformation userInformation = new UserInformation(user);
 
         PlayfieldTableModel model;
         try {
@@ -41,14 +38,22 @@ public class Dashboard {
         }
 
         PlayfieldsTable.setModel(model);
-        PlayfieldsTable.setDefaultRenderer(Picture.class, new PictureCellRenderer());
-    }
 
-    private void goToPlayFieldEditor(){
-        goToPlayfieldEditor(null);
-    }
-
-    private void goToPlayfieldEditor(Playfield field){
-
+        AddButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Navigator.goTo(new AddPlayground().addplayground,"addplayground");
+            }
+        });
+        UpdateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int row = PlayfieldsTable.getSelectedRow();
+                Playfield playfield = (Playfield) PlayfieldsTable.getModel().getValueAt(row, 1);
+                System.out.println(playfield.Description);
+                Navigator.goTo(new UpdatePlayground(playfield).updatePlayground,
+                "updatePlayground");
+            }
+        });
     }
 }

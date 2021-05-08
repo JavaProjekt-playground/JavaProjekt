@@ -198,6 +198,12 @@ public class DatabaseManager {
         return res;
     }
 
+
+
+
+
+
+    //REGIONS
     public Vector<Regions> getRegions() throws  SQLException{
         Vector<Regions> res = new Vector<Regions>(100);
         String sql = String.format("SELECT * FROM regions;");
@@ -211,6 +217,33 @@ public class DatabaseManager {
         return res;
     }
 
+    public Regions getRegions(int regions_id) throws  SQLException{
+        Regions res = null;
+        String sql = String.format("SELECT * FROM regions WHERE id = %d ", regions_id);
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        while(rs.next()) res = new Regions(rs);
+        return res;
+    }
+
+    public boolean updateRegions(Regions regions) throws SQLException{
+        return regions.selfUpdate(conn);
+    }
+
+    public boolean deleteRegions(Regions regions) throws SQLException {
+        String sql = String.format("SELECT * FROM delete_regions(%d,);", regions.getID());
+
+        ResultSet rs = conn.createStatement().executeQuery(sql);
+        if(rs.next()) return rs.getBoolean(1);
+        return false;
+    }
+
+
+
+
+
+
+    //PLAYFIELD TYPES
     public Vector<Playfield_type> getPlayfield_types() throws SQLException{
         Vector<Playfield_type> res = new Vector<>(100);
         String sql = String.format("SELECT * FROM playfield_types;");
@@ -218,8 +251,202 @@ public class DatabaseManager {
         Statement stmnt = conn.createStatement();
         ResultSet rs = stmnt.executeQuery(sql);
         while(rs.next()) res.add(new Playfield_type(rs));
-        return  res;
+        return res;
+    }
+
+    public Playfield_type getPlayfield_type(int playfield_Type_id) throws  SQLException{
+        Playfield_type res = null;
+        String sql = String.format("SELECT * FROM playfield_types WHERE id = %d ", playfield_Type_id);
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        while(rs.next()) res = new Playfield_type(rs);
+        return res;
+    }
+
+    public boolean updatePlayfield_types(Playfield_type playfieldType) throws SQLException{
+        return playfieldType.selfUpdate(conn);
+    }
+
+    public boolean deletePlayfield_type(Playfield_type playfield_type) throws SQLException {
+        String sql = String.format("SELECT * FROM delete_playfield_type(%d,);", playfield_type.getID());
+
+        ResultSet rs = conn.createStatement().executeQuery(sql);
+        if(rs.next()) return rs.getBoolean(1);
+        return false;
     }
 
 
+
+
+
+
+
+
+
+
+
+    //RESERVATIONS
+
+    public Vector<Reservation> getReservation(int user) throws SQLException{
+        Vector<Reservation> res = new Vector<>(10);
+        String sql = String.format("SELECT * FROM reservations WHERE user_id = %d", user);
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        while(rs.next()) res.add(new Reservation(rs));
+        return res;
+    }
+
+    public Reservation getReservation_id(int reservation_id) throws  SQLException{
+        Reservation res = null;
+        String sql = String.format("SELECT * FROM reservations WHERE id = %d ", reservation_id);
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        while(rs.next()) res = new Reservation(rs);
+        return res;
+    }
+
+    public boolean updateReservation(Reservation reservation) throws SQLException{
+        return reservation.selfUpdate(conn);
+    }
+
+    public boolean deleteReservations(Reservation reservation) throws SQLException {
+        String sql = String.format("SELECT * FROM delete_reservations(%d,);", reservation.getID());
+
+        ResultSet rs = conn.createStatement().executeQuery(sql);
+        if(rs.next()) return rs.getBoolean(1);
+        return false;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //RESERVATION STATUSES
+    public Vector<Reservation_status> getreservation_status() throws  SQLException{
+        Vector<Reservation_status> res = new Vector<>(5);
+        String sql = String.format("SELECT * FROM reservation_statuses");
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        while(rs.next()) res.add(new Reservation_status(rs));
+        return res;
+    }
+
+    public Reservation_status getreservation_status_Reservation_id(int reservation_id) throws  SQLException{
+        Reservation_status res = null;
+        String sql = String.format("SELECT * FROM reservation_statuses rs INNER JOIN reservations r ON " +
+                "rs.id = r.reservation_status_is WHERE reservation = %d ", reservation_id);
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        while(rs.next()) res = new Reservation_status(rs);
+        return res;
+    }
+
+    public boolean updateReservation_status(Reservation_status reservation_status) throws SQLException{
+        return reservation_status.selfUpdate(conn);
+    }
+
+    public boolean deleteReservation_status(Reservation_status reservation_status) throws SQLException {
+        String sql = String.format("SELECT * FROM delete_reservation_status(%d,);", reservation_status.getID());
+
+        ResultSet rs = conn.createStatement().executeQuery(sql);
+        if(rs.next()) return rs.getBoolean(1);
+        return false;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    //REVIEWS
+    public Vector<Review> getReviews(int playfield_id) throws  SQLException{
+        Vector<Review> res = new Vector<Review>(100);
+        String sql = String.format("SELECT * FROM reviews r INNER JOIN playfields p ON " +
+                "p.id = r.playfield_id WHERE p.id = %d ;", playfield_id);
+        Statement stmnt = conn.createStatement();
+        ResultSet rs = stmnt.executeQuery(sql);
+        while(rs.next()) res.add(new Review(rs));
+        return res;
+    }
+
+    public boolean addReview(Review review) throws SQLException {
+        return review.selfInsert(conn);
+    }
+
+    public Review getReview(int review_id) throws  SQLException{
+        Review res = null;
+        String sql = String.format("SELECT * FROM reviews WHERE id = %d ", review_id);
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        while(rs.next()) res = new Review(rs);
+        return res;
+    }
+
+    public boolean updateReviews(Review review) throws SQLException{
+        return review.selfUpdate(conn);
+    }
+
+    public boolean deleteReviews(Review review) throws SQLException {
+        String sql = String.format("SELECT * FROM delete_reviews(%d,);", review.getID());
+        ResultSet rs = conn.createStatement().executeQuery(sql);
+        if(rs.next()) return rs.getBoolean(1);
+        return false;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //PICTURE
+    public Vector<Picture> getPictures(int playfield_id) throws  SQLException{
+        Vector<Picture> res = new Vector<Picture>(100);
+        String sql = String.format("SELECT * FROM pictures p INNER JOIN playfields pl ON " +
+                "pl.id=p.playfield_id WHERE pl.id = %d ;", playfield_id);
+        Statement stmnt = conn.createStatement();
+        ResultSet rs = stmnt.executeQuery(sql);
+        while(rs.next()) res.add(new Picture(rs));
+        return res;
+    }
+
+    public Picture getPicture(int picture_id) throws  SQLException{
+        Picture res = null;
+        String sql = String.format("SELECT * FROM pictures WHERE id = %d ", picture_id);
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        while(rs.next()) res = new Picture(rs);
+        return res;
+    }
+
+    public boolean updatePicture(Picture picture) throws SQLException{
+        return picture.selfUpdate(conn);
+    }
+
+    public boolean deletePicture(Picture picture) throws SQLException {
+        String sql = String.format("SELECT * FROM delete_pictur(%d,);", picture.getId());
+        ResultSet rs = conn.createStatement().executeQuery(sql);
+        if(rs.next()) return rs.getBoolean(1);
+        return false;
+    }
 }

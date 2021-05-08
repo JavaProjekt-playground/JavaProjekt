@@ -4,7 +4,7 @@ import com.sun.istack.internal.NotNull;
 
 import java.sql.*;
 
-public class Regions
+public class Regions implements IUpdatableTable, IInsertableTable
 {
     private int ID;
     public int getID(){return ID;}

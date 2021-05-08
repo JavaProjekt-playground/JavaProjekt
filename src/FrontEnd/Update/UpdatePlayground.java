@@ -1,4 +1,4 @@
-package FrontEnd;
+package FrontEnd.Update;
 
 import Database.*;
 import FrontEnd.TableModels.UserInformation;
@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.sql.SQLException;
 import java.util.Vector;
 
-public class AddPlayground {
+public class UpdatePlayground {
 
 
     private JLabel AddLabel;
@@ -26,17 +26,16 @@ public class AddPlayground {
     private JComboBox TypeComboBox;
     private JLabel PricePerHourLabel;
     private JTextField PricePerHourTextField;
-    public JPanel addplayground;
+    public JPanel updatePlayground;
     private JButton AddPlaygroundButton;
-    private JPanel updatePlayground;
 
-    public AddPlayground() {
+    public UpdatePlayground(Playfield playfield) {
         super();
-        addObjects();
-        AddPlaygroundButton.addActionListener(e -> Insert());
+        addObjects(playfield);
+        AddPlaygroundButton.addActionListener(e -> Update());
     }
 
-    private void Insert(){
+    private void Update(){
         DatabaseManager db = new DatabaseManager();
         User user = UserInformation.getUserInformation();
         Regions regions = (Regions) RegionComboBox.getModel().getSelectedItem();
@@ -61,8 +60,14 @@ public class AddPlayground {
         }
     }
 
-    private void addObjects() {
+    private void addObjects(Playfield playfield) {
         DatabaseManager db = new DatabaseManager();
+        NameTextField.setText(playfield.Title);
+        DescriptionTextArea.setText(playfield.Description);
+        AddressTextBox.setText(playfield.Address);
+        EmailTextField.setText(playfield.Email);
+        PhoneTextField.setText(playfield.Phone);
+        PricePerHourTextField.setText(String.valueOf(playfield.PricePerHour));
         Vector<Regions> region = null;
         try {
             region = db.getRegions();
@@ -72,6 +77,12 @@ public class AddPlayground {
         for (Regions regions: region) {
             RegionComboBox.addItem(regions);
 
+        }
+        try {
+            Regions getRegion = db.getRegions(playfield.RegionID);
+            RegionComboBox.setSelectedItem(getRegion);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
 
         Vector<Playfield_type> playfield_type = null;
@@ -84,6 +95,14 @@ public class AddPlayground {
         ) {
             TypeComboBox.addItem(playfield_types);
         }
+
+        try {
+            Playfield_type getPlayfieldType = db.getPlayfield_type(playfield.TypeID);
+            TypeComboBox.setSelectedItem(getPlayfieldType);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
     }
 }
 
