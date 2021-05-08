@@ -6,12 +6,14 @@ import javax.swing.*;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
-public class ReviewsForm {
+public class ReviewsForm implements IFormWindow{
     private JComboBox Rating;
     private JTextArea textArea1;
     private JButton sendReviewButton;
     private JLabel Message;
-    public JPanel reviewPanel;
+    public JPanel mainPanel;
+
+    public String title = "Reviews";
 
     public ReviewsForm(Playfield playfield) {
 

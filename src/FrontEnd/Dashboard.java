@@ -9,8 +9,8 @@ import FrontEnd.TableModels.PlayfieldTableModel;
 import javax.swing.*;
 import java.sql.SQLException;
 
-public class Dashboard {
-    public JPanel main;
+public class Dashboard implements IFormWindow{
+    public JPanel mainPanel;
     private JButton OrderButton;
     private JButton SearchButton;
     private JButton SettingsButton;
@@ -20,9 +20,9 @@ public class Dashboard {
     private JButton AddButton;
     private JButton UpdateButton;
 
-    public User User;
+    public String title;
 
-    public Dashboard(){
+    public Dashboard() {
         super();
 
         PlayfieldTableModel model;
@@ -35,6 +35,8 @@ public class Dashboard {
 
         PlayfieldsTable.setModel(model);
         PlayfieldsTable.setDefaultRenderer(Picture.class, new PictureCellRenderer());
+
+        title = String.format("Dashboard - %s %s", App.getCurrentUser().Name, App.getCurrentUser().Surname);
     }
 
     private void goToPlayFieldEditor(){
@@ -45,6 +47,6 @@ public class Dashboard {
 
         String title = field == null ? "New playfield" : "Edit - " + field.Title;
 
-        App.goTo(new PlayfieldEditor(field).addplayground, title);
+        App.goTo(new PlayfieldEditor(field));
     }
 }

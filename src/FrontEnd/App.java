@@ -2,10 +2,10 @@ package FrontEnd;
 
 import Database.DatabaseManager;
 import Database.User;
-import kotlin.reflect.jvm.internal.calls.CallerImpl;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
 import java.util.Vector;
 
 public class App extends JFrame {
@@ -14,7 +14,7 @@ public class App extends JFrame {
     private static App _this;
     public static DatabaseManager DB;
 
-    private static Vector<Container> _history;
+    private static Vector<IFormWindow> _history;
     private static Vector<String> _titleHistory;
     private static int _historyIndex;
     private static final int _historyLimit = 5;
@@ -22,7 +22,7 @@ public class App extends JFrame {
     private static User currentUser;
 
 
-    public App(){
+    public App() {
         loginForm = new LoginForm();
 
         _this = this;
@@ -32,76 +32,75 @@ public class App extends JFrame {
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        GoTo(loginForm.Prijava);
+        goTo(loginForm);
     }
-    private static void setContent(Container form, String title){
-        _this.setTitle(title);
-        _this.setContentPane(form);
+
+    private static void setContent(IFormWindow form) {
+        _this.setTitle(form.title);
+        _this.setContentPane(form.mainPanel);
         _this.pack();
         _this.setVisible(true);
 
     }
-    public static void GoTo(Container form){
-        goTo(form, "");
-    }
-    public static void goTo(Container form, String title){
+
+    public static void goTo(IFormWindow form) {
 
         _historyIndex++;
-        if(_historyIndex >= _historyLimit){
+        if (_historyIndex >= _historyLimit) {
             _history.remove(0);
-            _titleHistory.remove(0);
             _historyIndex--;
         }
 
-        if(_historyIndex < _history.size()){
-            _history.setSize(_historyIndex+1);
+        if (_historyIndex < _history.size()) {
+            _history.setSize(_historyIndex + 1);
             _history.set(_historyIndex, form);
-            _titleHistory.set(_historyIndex, title);
         }
-        setContent(form, title);
+        setContent(form);
     }
 
-    public static boolean canGoBack(){
+    public static boolean canGoBack() {
         return _historyIndex - 1 >= 0;
     }
 
-    public static void goBack(){
-        if(!canGoBack()) return;
+    public static void goBack() {
+        if (!canGoBack()) return;
 
         _historyIndex--;
 
-        setContent(_history.get(_historyIndex), _titleHistory.get(_historyIndex));
+        setContent(_history.get(_historyIndex));
     }
 
-    public static boolean canGoForward(){
+    public static boolean canGoForward() {
         return _historyIndex < _history.size() - 1;
     }
 
-    public static void goForward(){
-        if(!canGoForward()) return;
+    public static void goForward() {
+        if (!canGoForward()) return;
 
         _historyIndex++;
 
-        setContent(_history.get(_historyIndex), _titleHistory.get(_historyIndex));
+        setContent(_history.get(_historyIndex));
     }
 
-    public static void login(User user){
-        if(user == null) return;
 
-        setCurrentUser(user);
-        goTo(new Dashboard().main, "Dashborad");
+    public static void login(User user) {
+        if (user == null) throw new NullPointerException("user cannot be null");
+
+        currentUser = user;
+        goTo(new Dashboard());
+    }
+
+    public static void logout() {
+        currentUser = null;
+        _historyIndex = 0;
+        goTo(new LoginForm());
     }
 
     public static User getCurrentUser() {
         return currentUser;
     }
 
-    public static void setCurrentUser(User currentUser) {
-
-        if(currentUser == null){
-            _historyIndex = 0;
-            goTo(new LoginForm().Prijava, "Login");
-        }
-        App.currentUser = currentUser;
+    public static void exit(){
+        _this.dispatchEvent(new WindowEvent(_this, WindowEvent.WINDOW_CLOSING));
     }
 }

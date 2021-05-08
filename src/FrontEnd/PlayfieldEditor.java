@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.sql.SQLException;
 import java.util.Vector;
 
-public class PlayfieldEditor {
+public class PlayfieldEditor implements IFormWindow{
 
 
     private JLabel AddLabel;
@@ -25,7 +25,7 @@ public class PlayfieldEditor {
     private JComboBox TypeComboBox;
     private JLabel PricePerHourLabel;
     private JTextField PricePerHourTextField;
-    public JPanel addplayground;
+    public JPanel mainPanel;
     private JButton AddPlaygroundButton;
     private JPanel updatePlayground;
 

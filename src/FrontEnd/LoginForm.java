@@ -8,17 +8,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
-public class LoginForm {
+public class LoginForm implements IFormWindow{
     private JLabel PrijavaLabel;
     private JTextField EmailTextBox;
     private JPasswordField GesloPasswordField;
     private JLabel GesloLabel;
     private JButton PrijavaButton;
     private JLabel EmailLabel;
-    public JPanel Prijava;
+    public JPanel mainPanel;
     private JButton Registracija;
 
-//    public static DatabaseManager DB;
+    public String title = "Login";
+
+    //    public static DatabaseManager DB;
 
     public LoginForm() {
 
@@ -60,7 +62,7 @@ public class LoginForm {
     }
 
     private void goToRegister(){
-        App.goTo(new Register().panel1, "Registracija");
+        App.goTo(new Register());
     }
 }
 
