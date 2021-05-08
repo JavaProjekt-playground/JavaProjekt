@@ -67,6 +67,7 @@ public class Review implements IUpdatableTable, IInsertableTable {
     }
 
     private void getDataFromResultSet(ResultSet rs) throws SQLException {
+        ID = rs.getInt("id");
         Message = rs.getString("textArea1");
         Score = rs.getDouble("Rating");
     }
