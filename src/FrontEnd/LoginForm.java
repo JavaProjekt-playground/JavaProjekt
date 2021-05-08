@@ -32,30 +32,20 @@ public class LoginForm implements IFormWindow{
 
     public LoginForm() {
 
-//        DB = new DatabaseManager();
-
         // Login button function
-        PrijavaButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                login();
-            }
-        });
+        PrijavaButton.addActionListener(e -> login());
 
         // Registration button function
-        Registracija.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                goToRegister();
-            }
-        });
-
+        Registracija.addActionListener(e -> goToRegister());
     }
 
     private void login(){
         User user = null;
+
+        String email = EmailTextBox.getText();
+        String pass = String.valueOf(GesloPasswordField.getPassword());
         try {
-            user = App.DB.userLogin(EmailTextBox.getText(), String.valueOf(GesloPasswordField.getPassword()));
+            user = App.DB.userLogin(email, pass);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -65,6 +55,7 @@ public class LoginForm implements IFormWindow{
                     "Prijava ni uspela!\nPreverite prijavne podatke.", "Napaka", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
+        System.out.println(user.Name + "  " + user.Surname);
 
         App.login(user);
     }
