@@ -54,7 +54,7 @@ public class Register {
         );
 
         try {
-            LoginForm.DB.addUser(newUser, pass1);
+            App.DB.addUser(newUser, pass1);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             JOptionPane.showMessageDialog(panel1, "Service error.");

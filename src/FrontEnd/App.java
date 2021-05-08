@@ -1,5 +1,7 @@
 package FrontEnd;
 
+import Database.DatabaseManager;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Vector;
@@ -8,6 +10,7 @@ public class App extends JFrame {
 
     private LoginForm loginForm;
     private static App _this;
+    public static DatabaseManager DB;
 
     private static Vector<Container> _history;
     private static Vector<String> _titleHistory;
@@ -20,6 +23,7 @@ public class App extends JFrame {
         _this = this;
         _history = new Vector<>();
         _titleHistory = new Vector<>();
+        DB = new DatabaseManager();
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 

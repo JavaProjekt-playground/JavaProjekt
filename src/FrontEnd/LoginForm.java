@@ -18,11 +18,11 @@ public class LoginForm {
     public JPanel Prijava;
     private JButton Registracija;
 
-    public static DatabaseManager DB;
+//    public static DatabaseManager DB;
 
     public LoginForm() {
 
-        DB = new DatabaseManager();
+//        DB = new DatabaseManager();
 
         // Login button function
         PrijavaButton.addActionListener(new ActionListener() {
@@ -45,7 +45,7 @@ public class LoginForm {
     private void login(){
         User user = null;
         try {
-            user = LoginForm.DB.userLogin(EmailTextBox.getText(), String.valueOf(GesloPasswordField.getPassword()));
+            user = App.DB.userLogin(EmailTextBox.getText(), String.valueOf(GesloPasswordField.getPassword()));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
