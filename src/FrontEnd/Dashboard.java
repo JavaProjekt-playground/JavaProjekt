@@ -1,8 +1,10 @@
 package FrontEnd;
 
+import Database.Playfield;
 import Database.User;
 import FrontEnd.TableModels.PlayfieldTableModel;
 import FrontEnd.TableModels.UserInformation;
+import FrontEnd.Update.UpdatePlayground;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -18,6 +20,7 @@ public class Dashboard {
     private JTextField SearchTextField;
     private JButton SelectButton;
     private JButton AddButton;
+    private JButton UpdateButton;
 
     public User User;
 
@@ -40,6 +43,16 @@ public class Dashboard {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Navigator.goTo(new AddPlayground().addplayground,"addplayground");
+            }
+        });
+        UpdateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int row = PlayfieldsTable.getSelectedRow();
+                Playfield playfield = (Playfield) PlayfieldsTable.getModel().getValueAt(row, 1);
+                System.out.println(playfield.Description);
+                Navigator.goTo(new UpdatePlayground(playfield).updatePlayground,
+                "updatePlayground");
             }
         });
     }

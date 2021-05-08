@@ -1,36 +1,38 @@
 package FrontEnd;
 
-import Database.Review;
+import Database.*;
+import FrontEnd.TableModels.UserInformation;
+
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 
 public class ReviewsForm {
     private JComboBox Rating;
     private JTextArea textArea1;
     private JButton sendReviewButton;
     private JLabel Message;
-    private JPanel ReviewPanel;
+    public JPanel reviewPanel;
 
-    public ReviewsForm() {
-        sendReviewButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFrame frame = new JFrame("LoginForm");
-                frame.setContentPane(new Dashboard(null).main);
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.pack();
-                frame.setVisible(true);
-            }
+    public ReviewsForm(Playfield playfield) {
 
-        });
-    }
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("ReviewsForm");
-        frame.setContentPane(new ReviewsForm().ReviewPanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
     }
 
+    private void Insert(Playfield playfield){
+        DatabaseManager db = new DatabaseManager();
+        User user = UserInformation.getUserInformation();
+        Review review = new Review(
+                Message.getText(),
+                Double.valueOf(Rating.getSelectedItem().toString()),
+                playfield.getID(),
+                playfield.UserID,
+                new Timestamp(System.currentTimeMillis()),
+                new Timestamp(System.currentTimeMillis())
+        );
+        try {
+            db.addReview(review);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 }

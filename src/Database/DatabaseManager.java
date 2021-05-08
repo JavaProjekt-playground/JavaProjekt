@@ -387,6 +387,10 @@ public class DatabaseManager {
         return res;
     }
 
+    public boolean addReview(Review review) throws SQLException {
+        return review.selfInsert(conn);
+    }
+
     public Review getReview(int review_id) throws  SQLException{
         Review res = null;
         String sql = String.format("SELECT * FROM reviews WHERE id = %d ", review_id);

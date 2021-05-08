@@ -13,16 +13,15 @@ public class Review implements IUpdatableTable, IInsertableTable {
     public int getPlayfieldID() {return playfieldID;}
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
-    public Review(String message, double score, Timestamp created_at, Timestamp updated_at){
-        ID = 0;
+    public Review(String message, double score, int plafieldID, int UserID, Timestamp cretedAt, Timestamp updateAt) {
+        ID = getID();
         Message = message;
         Score = score;
         playfieldID = getPlayfieldID();
         userID = getUserID();
-        timestamp = created_at;
-        timestamp = updated_at;
+        Timestamp Created_At = cretedAt;
+        Timestamp Updated_At = updateAt;
     }
-
     public Review(ResultSet rs) throws SQLException {
         getDataFromResultSet(rs);
     }
