@@ -21,6 +21,15 @@ public class Register implements IFormWindow{
 
     public String title = "Registration";
 
+    @Override
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
+
+    @Override
+    public String getTitle() {
+        return "";
+    }
 
     public Register() {
         registerButton.addActionListener(e -> registerUser());

@@ -25,4 +25,14 @@ public class Podrobno implements IFormWindow{
     private JButton AddButton;
 
     public String title = "Details";
+
+    @Override
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
+
+    @Override
+    public String getTitle() {
+        return "";
+    }
 }

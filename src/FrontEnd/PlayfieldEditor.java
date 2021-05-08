@@ -31,12 +31,22 @@ public class PlayfieldEditor implements IFormWindow{
 
     private Playfield playfield;
 
+    @Override
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
+
+    private String title;
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
     public PlayfieldEditor(Playfield playfield) {
         super();
         addObjects();
 
         setPlayfield(playfield);
-
         AddPlaygroundButton.addActionListener(e -> Insert());
     }
 
@@ -94,6 +104,7 @@ public class PlayfieldEditor implements IFormWindow{
 
     public void setPlayfield(Playfield playfield) {
         this.playfield = playfield;
+        title = playfield == null ? "Add playfield" : "Edit playfield: " + playfield.Title;
     }
 }
 

@@ -36,8 +36,8 @@ public class App extends JFrame {
     }
 
     private static void setContent(IFormWindow form) {
-        _this.setTitle(form.title);
-        _this.setContentPane(form.mainPanel);
+        _this.setTitle(form.getTitle());
+        _this.setContentPane(form.getMainPanel());
         _this.pack();
         _this.setVisible(true);
 

@@ -21,6 +21,16 @@ public class Dashboard implements IFormWindow{
     private JButton AddButton;
     private JButton UpdateButton;
 
+    @Override
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
+
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
     public String title;
 
     public Dashboard() {

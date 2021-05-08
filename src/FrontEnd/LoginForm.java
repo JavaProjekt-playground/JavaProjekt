@@ -20,7 +20,15 @@ public class LoginForm implements IFormWindow{
 
     public String title = "Login";
 
-    //    public static DatabaseManager DB;
+    @Override
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
+
+    @Override
+    public String getTitle() {
+        return "Login";
+    }
 
     public LoginForm() {
 

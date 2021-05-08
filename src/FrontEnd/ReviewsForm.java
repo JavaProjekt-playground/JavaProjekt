@@ -15,6 +15,16 @@ public class ReviewsForm implements IFormWindow{
 
     public String title = "Reviews";
 
+    @Override
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
+
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
     public ReviewsForm(Playfield playfield) {
 
     }
