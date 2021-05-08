@@ -5,10 +5,8 @@ import Database.Playfield;
 import Database.User;
 import FrontEnd.TableModels.CellRenderers.PictureCellRenderer;
 import FrontEnd.TableModels.PlayfieldTableModel;
-import FrontEnd.TableModels.UserInformation;
+
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 public class Dashboard {
@@ -24,10 +22,8 @@ public class Dashboard {
 
     public User User;
 
-    public Dashboard(User user){
+    public Dashboard(){
         super();
-
-        UserInformation userInformation = new UserInformation(user);
 
         PlayfieldTableModel model;
         try {

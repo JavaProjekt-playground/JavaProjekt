@@ -1,6 +1,8 @@
 package FrontEnd;
 
 import Database.DatabaseManager;
+import Database.User;
+import kotlin.reflect.jvm.internal.calls.CallerImpl;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +18,9 @@ public class App extends JFrame {
     private static Vector<String> _titleHistory;
     private static int _historyIndex;
     private static final int _historyLimit = 5;
+
+    private static User currentUser;
+
 
     public App(){
         loginForm = new LoginForm();
@@ -78,5 +83,25 @@ public class App extends JFrame {
         _historyIndex++;
 
         setContent(_history.get(_historyIndex), _titleHistory.get(_historyIndex));
+    }
+
+    public static void login(User user){
+        if(user == null) return;
+
+        setCurrentUser(user);
+        goTo(new Dashboard().main, "Dashborad");
+    }
+
+    public static User getCurrentUser() {
+        return currentUser;
+    }
+
+    public static void setCurrentUser(User currentUser) {
+
+        if(currentUser == null){
+            _historyIndex = 0;
+            goTo(new LoginForm().Prijava, "Login");
+        }
+        App.currentUser = currentUser;
     }
 }

@@ -1,7 +1,6 @@
 package FrontEnd;
 
 import Database.*;
-import FrontEnd.TableModels.UserInformation;
 
 import javax.swing.*;
 import java.sql.SQLException;
@@ -42,7 +41,7 @@ public class PlayfieldEditor {
     }
 
     private void Insert(){
-        User user = UserInformation.getUserInformation();
+        User user = App.getCurrentUser();
         Regions regions = (Regions) RegionComboBox.getModel().getSelectedItem();
         Playfield_type playfield_type = (Playfield_type) TypeComboBox.getModel().getSelectedItem();
 

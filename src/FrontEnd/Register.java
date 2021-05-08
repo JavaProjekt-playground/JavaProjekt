@@ -61,7 +61,7 @@ public class Register {
             return;
         }
 
-        App.goTo(new Dashboard(newUser).main, "Dashboard");
+        App.login(newUser);
     }
 
 }

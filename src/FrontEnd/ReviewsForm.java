@@ -1,7 +1,6 @@
 package FrontEnd;
 
 import Database.*;
-import FrontEnd.TableModels.UserInformation;
 
 import javax.swing.*;
 import java.sql.SQLException;
@@ -20,7 +19,7 @@ public class ReviewsForm {
 
     private void Insert(Playfield playfield){
         DatabaseManager db = new DatabaseManager();
-        User user = UserInformation.getUserInformation();
+        User user = App.getCurrentUser();
         Review review = new Review(
                 Message.getText(),
                 Double.valueOf(Rating.getSelectedItem().toString()),

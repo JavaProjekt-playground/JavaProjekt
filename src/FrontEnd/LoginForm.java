@@ -56,7 +56,7 @@ public class LoginForm {
             return;
         }
 
-        App.goTo(new Dashboard(user).main,"Nadzorna plošča");
+        App.login(user);
     }
 
     private void goToRegister(){
