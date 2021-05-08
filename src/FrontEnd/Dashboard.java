@@ -2,13 +2,10 @@ package FrontEnd;
 
 import Database.Picture;
 import Database.Playfield;
-import Database.User;
 import FrontEnd.TableModels.CellRenderers.PictureCellRenderer;
 import FrontEnd.TableModels.PlayfieldTableModel;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 public class Dashboard implements IFormWindow{
@@ -50,6 +47,8 @@ public class Dashboard implements IFormWindow{
         title = String.format("Dashboard - %s %s", App.getCurrentUser().Name, App.getCurrentUser().Surname);
 
         UpdateButton.addActionListener(e -> updatePlayfield());
+        AddButton.addActionListener(e -> insertPlayfield());
+        SettingsButton.addActionListener(e -> settings());
     }
 
     private void updatePlayfield(){
@@ -73,5 +72,13 @@ public class Dashboard implements IFormWindow{
 
     private void goToPlayfieldEditor(Playfield field){
         App.goTo(new PlayfieldEditor(field));
+    }
+
+    private void insertPlayfield(){
+        App.goTo(new PlayfieldEditor(null));
+    }
+
+    private void settings(){
+        App.goTo(new SettingsEditor());
     }
 }

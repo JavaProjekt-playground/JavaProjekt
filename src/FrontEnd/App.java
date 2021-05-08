@@ -4,7 +4,6 @@ import Database.DatabaseManager;
 import Database.User;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.util.Vector;
 
@@ -103,4 +102,9 @@ public class App extends JFrame {
     public static void exit(){
         _this.dispatchEvent(new WindowEvent(_this, WindowEvent.WINDOW_CLOSING));
     }
+
+    public static void EditUser(User user) {
+        if (user == null) throw new NullPointerException("user cannot be null");
+
+        currentUser = user;}
 }

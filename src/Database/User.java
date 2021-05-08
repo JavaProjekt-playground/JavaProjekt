@@ -1,5 +1,7 @@
 package Database;
 
+import FrontEnd.App;
+
 import java.sql.*;
 
 /**
@@ -46,8 +48,8 @@ public class User implements IUpdatableTable, IInsertableTable
      */
     @Override
     public boolean selfInsert(Connection conn, Object... extra) throws SQLException {
-        String command = String.format("SELECT * FROM add_user('%s', '%s', '%s', '%s', %s, '%s');",
-            Name, Surname, BDate.toString(), Email,
+        String command = String.format("SELECT * FROM add_user('%s','%s', '%s', '%s', '%s', %s, '%s');",
+                App.getCurrentUser().getID(),Name, Surname, BDate.toString(), Email,
             Phone != "" ? "'" + Phone + "'" : "NULL",
             extra[0]
         );
