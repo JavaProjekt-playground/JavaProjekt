@@ -28,10 +28,10 @@ public class Dashboard {
         super();
 
         UserInformation userInformation = new UserInformation(user);
-
+        System.out.println(user.getID());
         PlayfieldTableModel model;
         try {
-            model = new PlayfieldTableModel(LoginForm.DB.getPlayfields(10));
+            model = new PlayfieldTableModel(App.DB.getPlayfields(10));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             model = null;
@@ -42,7 +42,7 @@ public class Dashboard {
         AddButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Navigator.goTo(new AddPlayground().addplayground,"addplayground");
+                App.goTo(new AddPlayground().addplayground,"addplayground");
             }
         });
         UpdateButton.addActionListener(new ActionListener() {
@@ -51,7 +51,7 @@ public class Dashboard {
                 int row = PlayfieldsTable.getSelectedRow();
                 Playfield playfield = (Playfield) PlayfieldsTable.getModel().getValueAt(row, 1);
                 System.out.println(playfield.Description);
-                Navigator.goTo(new UpdatePlayground(playfield).updatePlayground,
+                App.goTo(new UpdatePlayground(playfield).updatePlayground,
                 "updatePlayground");
             }
         });
