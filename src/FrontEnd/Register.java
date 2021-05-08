@@ -22,7 +22,7 @@ public class Register {
 
     public Register() {
         registerButton.addActionListener(e -> registerUser());
-        goBackButton.addActionListener(e -> Navigator.goBack());
+        goBackButton.addActionListener(e -> App.goBack());
     }
 
     private void registerUser(){
@@ -61,7 +61,7 @@ public class Register {
             return;
         }
 
-        Navigator.goTo(new Dashboard(newUser).main, "Dashboard");
+        App.goTo(new Dashboard(newUser).main, "Dashboard");
     }
 
 }

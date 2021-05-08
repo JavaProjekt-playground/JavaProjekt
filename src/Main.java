@@ -1,15 +1,12 @@
-import FrontEnd.LoginForm;
-import FrontEnd.Navigator;
+import FrontEnd.App;
 
-import javax.swing.*;
-import java.awt.*;
 import java.sql.SQLException;
 
 public class Main {
 
-    private static Navigator nav;
+    private static App nav;
     public static void main(String[] args) throws SQLException {
 
-        nav = new Navigator();
+        nav = new App();
     }
 }

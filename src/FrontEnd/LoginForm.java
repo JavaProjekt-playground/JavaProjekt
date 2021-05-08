@@ -56,11 +56,11 @@ public class LoginForm {
             return;
         }
 
-        Navigator.goTo(new Dashboard(user).main,"Nadzorna plošča");
+        App.goTo(new Dashboard(user).main,"Nadzorna plošča");
     }
 
     private void goToRegister(){
-        Navigator.goTo(new Register().panel1, "Registracija");
+        App.goTo(new Register().panel1, "Registracija");
     }
 }
 

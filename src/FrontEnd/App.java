@@ -4,17 +4,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Vector;
 
-public class Navigator extends JFrame {
+public class App extends JFrame {
 
     private LoginForm loginForm;
-    private static Navigator _this;
+    private static App _this;
 
     private static Vector<Container> _history;
     private static Vector<String> _titleHistory;
     private static int _historyIndex;
     private static final int _historyLimit = 5;
 
-    public Navigator(){
+    public App(){
         loginForm = new LoginForm();
 
         _this = this;
