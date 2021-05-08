@@ -20,9 +20,6 @@ public class PlayfieldTableModel extends DefaultTableModel {
 
         playfields = new Playfield[pf.size()];
         playfields = pf.toArray(playfields);
-
-        System.out.println("Data count" + playfields.length);
-
     }
 
     @Override
