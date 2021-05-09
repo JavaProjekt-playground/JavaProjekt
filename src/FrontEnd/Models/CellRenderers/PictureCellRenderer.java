@@ -17,12 +17,16 @@ public class PictureCellRenderer extends JLabel implements TableCellRenderer {
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         if(value == null) return this;
         try {
+            Picture val = (Picture)value;
+            System.out.println(val);
+            System.out.println(val.getFilePath());
+
             BufferedImage im;
 
-            URL url = ((Picture)value).getURL();
+            URL url = val.getURL();
             if(url != null) im = ImageIO.read(url);
-            else im = ImageIO.read(new File(((Picture)value).getFilePath()));
-
+            else im = ImageIO.read(new File(val.getFilePath()));
+            setToolTipText(val.Caption);
             setIcon(new ImageIcon(im.getScaledInstance(-1, 100, BufferedImage.SCALE_DEFAULT)));
         } catch (IOException e) {
             e.printStackTrace();

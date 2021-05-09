@@ -16,6 +16,10 @@ public class PicturesTableModel extends DefaultTableModel {
     private int thumbRow;
     private Picture thumbnail;
 
+    public Picture getPictureAt(int row){
+        return pictures.get(row);
+    }
+
     public PicturesTableModel(){this(new Vector<>(), -1);}
     public PicturesTableModel(Vector<Picture> data, int thumbID){
 
@@ -25,6 +29,7 @@ public class PicturesTableModel extends DefaultTableModel {
         for(int i = 0; i < data.size(); i++){
             if(data.get(i).getId() == thumbID){
                 thumbRow = i;
+                thumbnail = data.get(i);
                 break;
             }
         }
@@ -44,7 +49,7 @@ public class PicturesTableModel extends DefaultTableModel {
             case 1:
                 return p.Caption;
             case 2:
-                return p == thumbnail;
+                return row == thumbRow;
         }
 
         throw new IllegalArgumentException("Parameter 'column' cannot exceed 2.");
@@ -71,24 +76,29 @@ public class PicturesTableModel extends DefaultTableModel {
         return columnNames[column];
     }
 
-    public void switchThumbnail(int newRow){
-        thumbRow = newRow;
+    public void switchThumbnail(Picture pic){
+        if(pic == null){
+            setValueAt(false, thumbRow, 2);
+            thumbRow = -1;
+            return;
+        }
+        thumbRow = pictures.indexOf(pic);
+        setValueAt(true, thumbRow, 2);
     }
 
-    public Picture getThumbnail(){return pictures.get(thumbRow);}
+    public Picture getThumbnail(){return thumbRow > -1 ? pictures.get(thumbRow) : null;}
 
-    public void addPicture(Picture pic){
+    public void addPicture(Picture pic, boolean isThumbnail){
         System.out.println(getRowCount());
-        Vector<Object> row = new Vector<Object>();
+        Vector<Object> row = new Vector<>();
         row.add(pic);
         row.add(pic.Caption);
         row.add(pic == thumbnail);
         addRow(row);
         pictures.add(pic);
+        if(isThumbnail) thumbRow = getRowCount() - 1;
 
     }
-
-
 
     public void removePicture(Picture pic){
         int i = pictures.indexOf(pic);
