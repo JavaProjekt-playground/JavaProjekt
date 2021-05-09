@@ -1,9 +1,13 @@
 package FrontEnd;
 
-import Database.*;
+import Database.Playfield;
+import Database.Playfield_type;
+import Database.Regions;
 
 import javax.swing.*;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.Vector;
 
 public class PlayfieldEditor implements IFormWindow{
@@ -51,21 +55,19 @@ public class PlayfieldEditor implements IFormWindow{
     }
 
     private void Insert(){
-        User user = App.getCurrentUser();
         Regions regions = (Regions) RegionComboBox.getModel().getSelectedItem();
         Playfield_type playfield_type = (Playfield_type) TypeComboBox.getModel().getSelectedItem();
-
         Playfield playfield = new Playfield(
                 NameTextField.getText(),
                 DescriptionTextArea.getText(),
                 AddressTextBox.getText(),
                 EmailTextField.getText(),
                 PhoneTextField.getText(),
-                "",
-                user.getID(),
+                " ",
+                App.getCurrentUser().getID(),
                 regions.getID(),
                 playfield_type.getID(),
-                Integer.valueOf(PricePerHourTextField.getText())
+                setPoint()
         );
         try {
             App.DB.addPlayfieldTest(playfield);
@@ -105,6 +107,16 @@ public class PlayfieldEditor implements IFormWindow{
     public void setPlayfield(Playfield playfield) {
         this.playfield = playfield;
         title = playfield == null ? "Add playfield" : "Edit playfield: " + playfield.Title;
+    }
+
+    public Double setPoint(){
+        double d = Double.valueOf(PricePerHourTextField.getText());
+        DecimalFormat df = new DecimalFormat("###.##");
+        DecimalFormatSymbols dfs = df.getDecimalFormatSymbols();
+
+        dfs.setDecimalSeparator('.');
+        df.setDecimalFormatSymbols(dfs);
+        return d;
     }
 }
 
