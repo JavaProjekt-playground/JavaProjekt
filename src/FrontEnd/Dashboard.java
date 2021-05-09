@@ -46,12 +46,13 @@ public class Dashboard implements IFormWindow{
 
         title = String.format("Dashboard - %s %s", App.getCurrentUser().Name, App.getCurrentUser().Surname);
 
-        UpdateButton.addActionListener(e -> updatePlayfield());
+        UpdateButton.addActionListener(e -> onUpdateButton_click());
+        AddButton.addActionListener(e -> onAddButton_click());
         AddButton.addActionListener(e -> insertPlayfield());
         SettingsButton.addActionListener(e -> settings());
     }
 
-    private void updatePlayfield(){
+    private void onUpdateButton_click(){
         Playfield pf = getSelectedPlayfield();
 
         if(pf == null) return;
@@ -62,6 +63,10 @@ public class Dashboard implements IFormWindow{
         }
 
         goToPlayfieldEditor(pf);
+    }
+
+    private void onAddButton_click(){
+        goToPlayfieldEditor(null);
     }
 
     private Playfield getSelectedPlayfield(){

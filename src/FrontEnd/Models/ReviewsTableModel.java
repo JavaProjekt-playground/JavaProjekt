@@ -1,4 +1,4 @@
-package FrontEnd.TableModels;
+package FrontEnd.Models;
 
 import Database.Review;
 

@@ -148,13 +148,15 @@ public class DatabaseManager {
      */
 
 
-    public boolean addPlayfield(Playfield playfield, Vector<Picture> pictures, int thumbnail) throws SQLException {
+    public boolean addPlayfield(Playfield playfield, Vector<Picture> pictures, Picture thumbnail) throws SQLException {
         if(playfield.selfInsert(conn)){
-            for (Picture pic: pictures) {
-
+            for (Picture pic : pictures) {
+                pic.setPlayfieldID(playfield.getID());
                 if(pic.selfInsert(conn)){
-
-
+                    if(pic == thumbnail){
+                        playfield.ThumbnailID = pic.getId();
+                        playfield.selfUpdate(conn);
+                    }
                 }
             }
         }
@@ -171,7 +173,17 @@ public class DatabaseManager {
      * @return True on success, False on failure.
      * @throws SQLException SQL execution failure.
      */
-    public boolean updatePlayfield(Playfield playfield) throws SQLException{
+    public boolean updatePlayfield(Playfield playfield, Vector<Picture> picsToAdd, Vector<Picture> picsToRemove) throws SQLException{
+        for(Picture p : picsToAdd){
+            if(p.selfInsert(conn)){
+                if(p == playfield.Thumbnail) playfield.ThumbnailID = p.getId();
+            }
+        }
+
+        for(Picture p : picsToRemove){
+            deletePicture(p);
+        }
+
         return playfield.selfUpdate(conn);
     }
 

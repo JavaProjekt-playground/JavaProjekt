@@ -27,6 +27,8 @@ public class App extends JFrame {
         _this = this;
         _history = new Vector<>();
         _titleHistory = new Vector<>();
+        _historyIndex = -1;
+
         DB = new DatabaseManager();
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -39,7 +41,6 @@ public class App extends JFrame {
         _this.setContentPane(form.getMainPanel());
         _this.pack();
         _this.setVisible(true);
-
     }
 
     public static void goTo(IFormWindow form) {
@@ -50,10 +51,8 @@ public class App extends JFrame {
             _historyIndex--;
         }
 
-        if (_historyIndex < _history.size()) {
-            _history.setSize(_historyIndex + 1);
-            _history.set(_historyIndex, form);
-        }
+        _history.setSize(_historyIndex + 1);
+        _history.set(_historyIndex, form);
         setContent(form);
     }
 
