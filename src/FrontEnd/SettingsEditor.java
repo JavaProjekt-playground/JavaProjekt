@@ -6,7 +6,6 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 
 public class SettingsEditor implements IFormWindow{
     private JPanel mainPanel;
@@ -38,6 +37,7 @@ public class SettingsEditor implements IFormWindow{
     public String getTitle() { return title; }
 
     public SettingsEditor(){
+        App.canGoBack();
         addObjects();
         setPlayfield(Mode);
         EditButton.addActionListener(new ActionListener() {
@@ -63,6 +63,7 @@ public class SettingsEditor implements IFormWindow{
                 }
                 else{
                     Mode = true;
+
                     App.goBack();
                 }
             }
@@ -84,12 +85,12 @@ public class SettingsEditor implements IFormWindow{
                 surnameTF.getText(),
                 emailTF.getText(),
                 phoneTF.getText(),
-                Timestamp.valueOf(bdate.getText())
+                UtilsH.convertStringToTimestamp(bdate.getText())
         );
         if(Pass){
             try {
                 if(String.valueOf(NewPassword.getPassword()) == String.valueOf(CheckPassword.getPassword())){
-                App.DB.updateUser(NewUser, String.valueOf(OldPassword.getPassword()), String.valueOf(OldPassword.getPassword()));}
+                App.DB.updateUser1(user.getID(),NewUser, String.valueOf(OldPassword.getPassword()), String.valueOf(OldPassword.getPassword()));}
                 else {}
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -97,7 +98,7 @@ public class SettingsEditor implements IFormWindow{
         }
         else {
             try {
-                App.DB.updateUser(NewUser, String.valueOf(OldPassword.getPassword()),"");
+                App.DB.updateUser1(user.getID(),NewUser, String.valueOf(OldPassword.getPassword()),"test");
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }

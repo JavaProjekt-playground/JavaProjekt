@@ -1,7 +1,8 @@
 package Database;
 
+import FrontEnd.App;
+
 import java.sql.*;
-import java.util.Dictionary;
 import java.util.Properties;
 import java.util.Vector;
 
@@ -81,6 +82,22 @@ public class DatabaseManager {
      */
     public boolean updateUser(User user, String passChk, String newPass) throws SQLException {
         return user.selfUpdate(conn, passChk, newPass);
+    }
+
+    public boolean updateUser1(int ID, User user, String newPass, String passChk) throws SQLException{
+        String command = String.format("SELECT * FROM update_user(%d::INTEGER, '%s'::VARCHAR, '%s'::VARCHAR, '%s'::TIMESTAMP, '%s'::VARCHAR, '%s'::VARCHAR, %s::VARCHAR, '%s'::VARCHAR);",
+                App.getCurrentUser().getID(),user.Name, user.Surname, user.BDate.toString(), user.Email,passChk,
+                user.Phone != "" ? "'" + user.Phone + "'" : "NULL",  newPass
+        );
+        Statement st = conn.createStatement();
+        ResultSet rs = st.executeQuery(command);
+
+        if(rs.next()){
+            //getDataFromResultSet(rs);
+            return true;
+        }
+
+        return false;
     }
 
     /**
