@@ -3,13 +3,11 @@ package Database;
 import org.apache.commons.net.ftp.FTPClient;
 
 import javax.imageio.ImageIO;
-import javax.imageio.stream.ImageInputStream;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.Buffer;
 
 public class ImageLoader {
     private static final String password = "E*PZH)dF{j?a";
@@ -78,12 +76,9 @@ public class ImageLoader {
                     w = (int)Math.floor(r*(double)w);
                 }
 
-
                 Image scaledImg = im.getScaledInstance(w, h, BufferedImage.SCALE_DEFAULT);
                 BufferedImage resizedImage = new BufferedImage(w, h, im.getType());
-                Graphics2D g2 = resizedImage.createGraphics();
-                g2.drawImage(scaledImg, 0, 0, null);
-
+                resizedImage.createGraphics().drawImage(scaledImg, 0, 0, null);
 
                 ByteArrayOutputStream bs = new ByteArrayOutputStream();
                 ImageIO.write(resizedImage, suffix, bs);
