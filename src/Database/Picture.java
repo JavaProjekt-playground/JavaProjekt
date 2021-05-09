@@ -12,20 +12,25 @@ public class Picture implements IUpdatableTable, IInsertableTable{
     private int id;
     public int getId(){return id;}
 
+
     public String Caption;
     private String fileName;
+    public String getFileName(){return fileName;}
     private int playfieldID;
     public int getPlayfieldID(){return playfieldID;}
-
-    private String filePath;
+    public void setPlayfieldID(int i){
+        if(i > 0) playfieldID = i;
+    }
+    public String filePath;
+    public String getFilePath(){return filePath;}
 
     public URL getURL(){
-        return ImageLoader.getImageURL(fileName);
+        if(id > 0) return ImageLoader.getImageURL(fileName);
+        return null;
     }
 
-    public Picture(String caption, int playfieldId, String path){
+    public Picture(String caption, String path){
         Caption = caption;
-        playfieldID = playfieldId;
         filePath = path;
     }
 
@@ -47,8 +52,9 @@ public class Picture implements IUpdatableTable, IInsertableTable{
 
     @Override
     public boolean selfInsert(Connection conn, Object... extra) throws SQLException {
-        String sql = String.format("SELECT * FROM add_image(%d, '%s');", playfieldID, Caption);
-        String suffix = filePath.substring(filePath.lastIndexOf(".") + 1);
+        String suffix = filePath.toLowerCase().substring(filePath.lastIndexOf(".") + 1);
+
+        String sql = String.format("SELECT * FROM add_image(%d, '%s', '%s);", playfieldID, Caption, suffix);
 
         ResultSet rs = conn.createStatement().executeQuery(sql);
         if(rs.next()){

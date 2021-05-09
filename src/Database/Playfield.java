@@ -6,6 +6,7 @@ public class Playfield implements IUpdatableTable, IInsertableTable{
     // ID
     private int ID;
     public int getID(){return ID;}
+    public void setID(int value){ID = value;}
     // Info
     public String Address;
     public String Title;

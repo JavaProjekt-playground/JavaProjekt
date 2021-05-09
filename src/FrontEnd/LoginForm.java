@@ -51,7 +51,7 @@ public class LoginForm implements IFormWindow{
         }
 
         if(user == null){
-            JOptionPane.showMessageDialog(null,
+            JOptionPane.showMessageDialog(mainPanel,
                     "Prijava ni uspela!\nPreverite prijavne podatke.", "Napaka", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
