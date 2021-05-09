@@ -89,16 +89,24 @@ public class SettingsEditor implements IFormWindow{
         );
         if(Pass){
             try {
-                if(String.valueOf(NewPassword.getPassword()) == String.valueOf(CheckPassword.getPassword())){
-                App.DB.updateUser1(user.getID(),NewUser, String.valueOf(OldPassword.getPassword()), String.valueOf(OldPassword.getPassword()));}
-                else {}
+                if(String.valueOf(NewPassword.getPassword()).equals(String.valueOf(CheckPassword.getPassword()))){
+                    {App.DB.updateUser1(user.getID(),NewUser, String.valueOf(OldPassword.getPassword()), String.valueOf(NewPassword.getPassword()));
+                    App.EditUser(NewUser);}
+                }
+                else {
+                    JOptionPane.showMessageDialog(mainPanel,
+                            "Gesli se ne ujemata!\nPreverite podatke.", "Napaka", JOptionPane.INFORMATION_MESSAGE);
+                }
             } catch (SQLException throwables) {
+                JOptionPane.showMessageDialog(mainPanel,
+                        "Prijava ni uspela!\nPreverite prijavne podatke.", "Napaka", JOptionPane.INFORMATION_MESSAGE);
                 throwables.printStackTrace();
             }
         }
         else {
             try {
-                App.DB.updateUser1(user.getID(),NewUser, String.valueOf(OldPassword.getPassword()),"test");
+                App.DB.updateUser1(user.getID(),NewUser, String.valueOf(OldPassword.getPassword()), "test");
+                App.EditUser(NewUser);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }

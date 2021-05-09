@@ -84,9 +84,9 @@ public class DatabaseManager {
         return user.selfUpdate(conn, passChk, newPass);
     }
 
-    public boolean updateUser1(int ID, User user, String newPass, String passChk) throws SQLException{
+    public boolean updateUser1(int ID, User user, String passChk, String newPass) throws SQLException{
         String command = String.format("SELECT * FROM update_user(%d::INTEGER, '%s'::VARCHAR, '%s'::VARCHAR, '%s'::TIMESTAMP, '%s'::VARCHAR, '%s'::VARCHAR, %s::VARCHAR, '%s'::VARCHAR);",
-                App.getCurrentUser().getID(),user.Name, user.Surname, user.BDate.toString(), user.Email,passChk,
+                App.getCurrentUser().getID(),user.Name, user.Surname, user.BDate.toString(), user.Email, passChk,
                 user.Phone != "" ? "'" + user.Phone + "'" : "NULL",  newPass
         );
         Statement st = conn.createStatement();
