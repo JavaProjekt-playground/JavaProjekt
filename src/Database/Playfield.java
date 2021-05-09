@@ -96,7 +96,7 @@ public class Playfield implements IUpdatableTable, IInsertableTable{
                         "'%s'::VARCHAR, " +
                         "'%s'::VARCHAR, " +
                         "'%s'::VARCHAR, " +
-                        "%d::INT, %d::INT, %d::INT, %f::REAL);",
+                        "%d::INT, %d::INT, %d::INT, %s::REAL);",
             Title,
             Description,
             Phone,
@@ -106,7 +106,7 @@ public class Playfield implements IUpdatableTable, IInsertableTable{
             RegionID,
             UserID,
             TypeID,
-            Double.valueOf(PricePerHour)
+            Double.valueOf(PricePerHour).toString().replace(',', '.')
         );
 System.out.println(sql);
         Statement st = conn.createStatement();
@@ -121,7 +121,13 @@ System.out.println(sql);
 
     @Override
     public boolean selfUpdate(Connection conn, Object... extra) throws SQLException {
-        String sql = String.format("SELECT * FROM update_playfields('%s', '%s', '%s', '%s', '%s', '%s', %d, %d, %d, %d, %f);",
+        String sql = String.format("SELECT * FROM update_playfields('%s'::VARCHAR, " +
+                        "'%s'::TEXT, " +
+                        "'%s'::VARCHAR, " +
+                        "'%s'::VARCHAR, " +
+                        "'%s'::VARCHAR, " +
+                        "'%s'::VARCHAR, " +
+                        "%d::INT, %d::INT, %d::INT, %d::INT, %s::REAL);",
             Title,
             Description,
             Phone,
@@ -132,7 +138,7 @@ System.out.println(sql);
             UserID,
             ThumbnailID,
             TypeID,
-            PricePerHour
+            Double.valueOf(PricePerHour).toString().replace(',', '.')
         );
 
         Statement st = conn.createStatement();

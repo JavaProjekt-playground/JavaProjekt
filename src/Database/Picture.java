@@ -21,7 +21,7 @@ public class Picture implements IUpdatableTable, IInsertableTable{
     public void setPlayfieldID(int i){
         if(i > 0) playfieldID = i;
     }
-    public String filePath;
+    private String filePath;
     public String getFilePath(){return filePath;}
 
     public URL getURL(){
@@ -30,6 +30,7 @@ public class Picture implements IUpdatableTable, IInsertableTable{
     }
 
     public Picture(String caption, String path){
+        if(caption == null || path == null) throw new NullPointerException("Parameters cannot be null");
         Caption = caption;
         filePath = path;
     }
@@ -45,6 +46,7 @@ public class Picture implements IUpdatableTable, IInsertableTable{
     }
 
     private void getValues(ResultSet rs) throws SQLException{
+        id = rs.getInt("id");
         Caption = rs.getString("caption");
         fileName = rs.getString("url");
         playfieldID = rs.getInt("playfield_id");
@@ -54,7 +56,7 @@ public class Picture implements IUpdatableTable, IInsertableTable{
     public boolean selfInsert(Connection conn, Object... extra) throws SQLException {
         String suffix = filePath.toLowerCase().substring(filePath.lastIndexOf(".") + 1);
 
-        String sql = String.format("SELECT * FROM add_image(%d, '%s', '%s);", playfieldID, Caption, suffix);
+        String sql = String.format("SELECT * FROM add_image(%d, '%s', '%s');", playfieldID, Caption, suffix);
 
         ResultSet rs = conn.createStatement().executeQuery(sql);
         if(rs.next()){

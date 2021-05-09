@@ -207,6 +207,10 @@ public class DatabaseManager {
 
         while(rs.next()) res.add(new Playfield(rs));
 
+        for(Playfield pf : res){
+            pf.Thumbnail = getPicture(pf.ThumbnailID);
+        }
+
         return res;
     }
 
@@ -433,8 +437,8 @@ public class DatabaseManager {
 
     //PICTURE
     public Vector<Picture> getPictures(int playfield_id) throws  SQLException{
-        Vector<Picture> res = new Vector<Picture>(100);
-        String sql = String.format("SELECT * FROM pictures p INNER JOIN playfields pl ON " +
+        Vector<Picture> res = new Vector<Picture>();
+        String sql = String.format("SELECT * FROM images p INNER JOIN playfields pl ON " +
                 "pl.id=p.playfield_id WHERE pl.id = %d ;", playfield_id);
         Statement stmnt = conn.createStatement();
         ResultSet rs = stmnt.executeQuery(sql);
@@ -444,7 +448,7 @@ public class DatabaseManager {
 
     public Picture getPicture(int picture_id) throws  SQLException{
         Picture res = null;
-        String sql = String.format("SELECT * FROM pictures WHERE id = %d ", picture_id);
+        String sql = String.format("SELECT * FROM images WHERE id = %d ", picture_id);
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(sql);
         while(rs.next()) res = new Picture(rs);
@@ -456,7 +460,7 @@ public class DatabaseManager {
     }
 
     public boolean deletePicture(Picture picture) throws SQLException {
-        String sql = String.format("SELECT * FROM delete_pictur(%d,);", picture.getId());
+        String sql = String.format("SELECT * FROM delete_images(%d);", picture.getId());
         ResultSet rs = conn.createStatement().executeQuery(sql);
         if(rs.next()) return rs.getBoolean(1);
         return false;
