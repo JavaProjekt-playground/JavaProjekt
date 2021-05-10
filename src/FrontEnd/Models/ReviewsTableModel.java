@@ -5,8 +5,7 @@ import Database.Review;
 import javax.swing.table.DefaultTableModel;
 import java.util.Vector;
 
-public class ReviewsTableModel {
-    public class reviewsTableModel extends DefaultTableModel {
+    public class ReviewsTableModel extends DefaultTableModel {
         private String[] columnNames = new String[]{
                 "Message", "Score"
         };
@@ -15,7 +14,7 @@ public class ReviewsTableModel {
         };
         private Review[] reviews;
 
-        public reviewsTableModel(Vector<Review> r) {
+        public ReviewsTableModel(Vector<Review> r) {
             super();
 
             reviews = new Review[r.size()];
@@ -48,6 +47,5 @@ public class ReviewsTableModel {
                     return null;
             }
         }
-
+    //public Review getReview(int rowIndex){ return review[rowIndex];
     }
-}
