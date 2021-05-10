@@ -1,11 +1,15 @@
 package FrontEnd;
 
+import Database.Picture;
 import Database.Playfield;
 import Database.Playfield_type;
 import Database.Regions;
+import FrontEnd.Models.CellRenderers.PictureListCellRenderer;
+import FrontEnd.Models.GalleryListModel;
 
 import javax.swing.*;
 import java.sql.SQLException;
+import java.util.Vector;
 
 public class ViewPlayfieldForm implements IFormWindow{
     private JPanel mainPanel;
@@ -29,7 +33,7 @@ public class ViewPlayfieldForm implements IFormWindow{
 
     @Override
     public String getTitle() {
-        return "";
+        return title;
     }
 
     private Playfield selectedPlayfield;
@@ -56,6 +60,32 @@ public class ViewPlayfieldForm implements IFormWindow{
         emailLabel.setText(value.Email);
         regionLabel.setText(region.Name);
         typeLabel.setText(pt.Name);
+        addressLabel.setText(value.Address);
         pricePerHourLabel.setText(String.format("%d €", value.PricePerHour));
+
+        Vector<Picture> pictures = new Vector<>();
+
+        try {
+            pictures = App.DB.getPictures(value.getID());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        galleryList.setModel(new GalleryListModel(pictures));
     }
+
+    public ViewPlayfieldForm(Playfield field){
+
+        setListeners();
+        galleryList.setCellRenderer(new PictureListCellRenderer());
+
+        setSelectedPlayfield(field);
+
+    }
+
+    private void setListeners(){
+
+    }
+
+
 }

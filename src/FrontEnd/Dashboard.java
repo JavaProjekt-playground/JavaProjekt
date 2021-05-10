@@ -18,7 +18,7 @@ public class Dashboard implements IFormWindow{
     private JTextField SearchTextField;
     private JButton AddButton;
     private JButton UpdateButton;
-    private JButton AddReview;
+    private JButton inspectButton;
 
     @Override
     public JPanel getMainPanel() {
@@ -55,9 +55,9 @@ public class Dashboard implements IFormWindow{
         AddButton.addActionListener(e -> onAddButton_click());
         AddButton.addActionListener(e -> insertPlayfield());
         SettingsButton.addActionListener(e -> settings());
-        AddReview.addActionListener(e -> addReview_click());
         UpdateButton.addActionListener(e -> onUpdateButton_click());
         AddButton.addActionListener(e -> onAddButton_click());
+        inspectButton.addActionListener(e -> onInspectButton_click());
 
         PlayfieldsTable.getSelectionModel().addListSelectionListener(e -> onPlayfieldsTable_selectionChanged());
 
@@ -92,16 +92,13 @@ public class Dashboard implements IFormWindow{
         goToPlayfieldEditor(pf);
     }
 
-    private void addReview_click(){
-        Playfield pf = getSelectedPlayfield();
-
-        if(pf == null) return;
-
-        insertReview(pf);
-    }
-
     private void onAddButton_click(){
         goToPlayfieldEditor(null);
+    }
+
+    private void onInspectButton_click(){
+        Playfield pf = getSelectedPlayfield();
+        if(pf != null) App.goTo(new ViewPlayfieldForm(pf));
     }
 
     private Playfield getSelectedPlayfield(){
@@ -120,8 +117,6 @@ public class Dashboard implements IFormWindow{
     private void settings(){
         App.goTo(new SettingsEditor());
     }
-
-    private void insertReview(Playfield field){App.goTo(new ReviewsForm(field));}
 
     //utils
     private PlayfieldTableModel getTableModel(){return (PlayfieldTableModel) PlayfieldsTable.getModel();}
