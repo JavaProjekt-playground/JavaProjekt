@@ -230,6 +230,18 @@ public class DatabaseManager {
 
 
     //REGIONS
+
+    public Regions getRegion(int id) throws SQLException {
+        String sql = String.format("SELECT * FROM regions WHERE id = %d;", id);
+
+        ResultSet rs = conn.createStatement().executeQuery(sql);
+
+        Regions res = null;
+        if(rs.next()) res = new Regions(rs);
+
+        return res;
+    }
+
     public Vector<Regions> getRegions() throws  SQLException{
         Vector<Regions> res = new Vector<Regions>(100);
         String sql = String.format("SELECT * FROM regions;");

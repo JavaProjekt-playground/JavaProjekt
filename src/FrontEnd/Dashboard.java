@@ -61,7 +61,7 @@ public class Dashboard implements IFormWindow{
 
         PlayfieldsTable.getSelectionModel().addListSelectionListener(e -> onPlayfieldsTable_selectionChanged());
 
-        PlayfieldsTable.getSelectionModel().setLeadSelectionIndex(-1);
+        onPlayfieldsTable_selectionChanged();
     }
 
     private void onPlayfieldsTable_selectionChanged(){
