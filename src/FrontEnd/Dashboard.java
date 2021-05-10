@@ -6,9 +6,8 @@ import FrontEnd.Models.CellRenderers.PictureCellRenderer;
 import FrontEnd.Models.PlayfieldTableModel;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.Vector;
 
 public class Dashboard implements IFormWindow{
     public JPanel mainPanel;
@@ -41,26 +40,43 @@ public class Dashboard implements IFormWindow{
             model = new PlayfieldTableModel(App.DB.getPlayfields(10));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            model = null;
+            model = new PlayfieldTableModel(new Vector<>());
         }
-
+        int h = 100;
+        int w = 150;
         PlayfieldsTable.setModel(model);
-        PlayfieldsTable.setDefaultRenderer(Picture.class, new PictureCellRenderer());
+        PlayfieldsTable.setRowHeight(h);
+        PlayfieldsTable.setDefaultRenderer(Picture.class, new PictureCellRenderer(w, h));
 
         title = String.format("Dashboard - %s %s", App.getCurrentUser().Name, App.getCurrentUser().Surname);
 
+        // setting listeners
         UpdateButton.addActionListener(e -> onUpdateButton_click());
         AddButton.addActionListener(e -> onAddButton_click());
         AddButton.addActionListener(e -> insertPlayfield());
         SettingsButton.addActionListener(e -> settings());
-        AddReview.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
+        AddReview.addActionListener(e -> addReview_click());
         UpdateButton.addActionListener(e -> onUpdateButton_click());
         AddButton.addActionListener(e -> onAddButton_click());
+
+        PlayfieldsTable.getSelectionModel().addListSelectionListener(e -> onPlayfieldsTable_selectionChanged());
+
+        PlayfieldsTable.getSelectionModel().setLeadSelectionIndex(-1);
+    }
+
+    private void onPlayfieldsTable_selectionChanged(){
+        Playfield pf = getSelectedPlayfield();
+        if(pf == null){
+            UpdateButton.setEnabled(false);
+            return;
+        }
+
+        if(pf.UserID == App.getCurrentUser().getID()){
+            UpdateButton.setEnabled(true);
+        }
+        else{
+            UpdateButton.setEnabled(false);
+        }
     }
 
     private void onUpdateButton_click(){
@@ -90,8 +106,7 @@ public class Dashboard implements IFormWindow{
 
     private Playfield getSelectedPlayfield(){
         int i = PlayfieldsTable.getSelectedRow();
-        Playfield pf = i > -1 ? ((PlayfieldTableModel)PlayfieldsTable.getModel()).getPlayfield(i) : null;
-        return pf;
+        return i > -1 ? ((PlayfieldTableModel)PlayfieldsTable.getModel()).getPlayfield(i) : null;
     }
 
     private void goToPlayfieldEditor(Playfield field){
@@ -107,4 +122,7 @@ public class Dashboard implements IFormWindow{
     }
 
     private void insertReview(Playfield field){App.goTo(new ReviewsForm(field));}
+
+    //utils
+    private PlayfieldTableModel getTableModel(){return (PlayfieldTableModel) PlayfieldsTable.getModel();}
 }

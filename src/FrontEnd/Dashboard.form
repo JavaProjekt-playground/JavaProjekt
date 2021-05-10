@@ -43,6 +43,7 @@
         <properties>
           <enabled value="true"/>
           <fillsViewportHeight value="false"/>
+          <rowHeight value="100"/>
           <showHorizontalLines value="true"/>
         </properties>
       </component>

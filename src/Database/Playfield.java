@@ -121,13 +121,14 @@ System.out.println(sql);
 
     @Override
     public boolean selfUpdate(Connection conn, Object... extra) throws SQLException {
-        String sql = String.format("SELECT * FROM update_playfields('%s'::VARCHAR, " +
+        String sql = String.format("SELECT * FROM update_playfields(%d, '%s'::VARCHAR, " +
                         "'%s'::TEXT, " +
                         "'%s'::VARCHAR, " +
                         "'%s'::VARCHAR, " +
                         "'%s'::VARCHAR, " +
                         "'%s'::VARCHAR, " +
                         "%d::INT, %d::INT, %d::INT, %d::INT, %s::REAL);",
+            getID(),
             Title,
             Description,
             Phone,

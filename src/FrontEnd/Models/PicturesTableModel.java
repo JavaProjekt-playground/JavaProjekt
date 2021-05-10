@@ -24,14 +24,12 @@ public class PicturesTableModel extends DefaultTableModel {
     public PicturesTableModel(Vector<Picture> data, int thumbID){
 
         if(data == null) throw new NullPointerException("data cannot be null");
-        pictures = data;
+        pictures = new Vector<>();
         thumbRow = -1;
+
         for(int i = 0; i < data.size(); i++){
-            if(data.get(i).getId() == thumbID){
-                thumbRow = i;
-                thumbnail = data.get(i);
-                break;
-            }
+            Picture p = data.get(i);
+            addPicture(p, p.getId() == thumbID);
         }
     }
 
@@ -97,7 +95,6 @@ public class PicturesTableModel extends DefaultTableModel {
         addRow(row);
         pictures.add(pic);
         if(isThumbnail) thumbRow = getRowCount() - 1;
-
     }
 
     public void removePicture(Picture pic){
@@ -108,5 +105,4 @@ public class PicturesTableModel extends DefaultTableModel {
             pictures.removeElementAt(i);
         }
     }
-
 }

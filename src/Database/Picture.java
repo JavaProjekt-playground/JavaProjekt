@@ -54,9 +54,15 @@ public class Picture implements IUpdatableTable, IInsertableTable{
 
     @Override
     public boolean selfInsert(Connection conn, Object... extra) throws SQLException {
+        if(extra[0] == null){
+            throw new NullPointerException("First extra argument must be boolean.");
+        }
+
+        boolean isThumb = (boolean)extra[0];
+
         String suffix = filePath.toLowerCase().substring(filePath.lastIndexOf(".") + 1);
 
-        String sql = String.format("SELECT * FROM add_image(%d, '%s', '%s');", playfieldID, Caption, suffix);
+        String sql = String.format("SELECT * FROM add_image(%d, '%s', '%s', %b);", playfieldID, Caption, suffix, isThumb);
 
         ResultSet rs = conn.createStatement().executeQuery(sql);
         if(rs.next()){

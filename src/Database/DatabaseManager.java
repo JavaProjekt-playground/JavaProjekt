@@ -141,8 +141,8 @@ public class DatabaseManager {
     /**
      * Inserts a new playfield into the database.
      * @param playfield Playfield to insert.
-     * @param pics Pictures to insert. Dictionary key is picture caption, value is path to file.
-     * @param thumbnail Thumbnail picture caption.
+     * @param pics Pictures to insert.
+     * @param thumbnail Thumbnail picture.
      * @return True on success, False on failure.
      * @throws SQLException SQL execution failure.
      */
@@ -152,12 +152,7 @@ public class DatabaseManager {
         if(playfield.selfInsert(conn)){
             for (Picture pic : pictures) {
                 pic.setPlayfieldID(playfield.getID());
-                if(pic.selfInsert(conn)){
-                    if(pic == thumbnail){
-                        playfield.ThumbnailID = pic.getId();
-                        playfield.selfUpdate(conn);
-                    }
-                }
+                pic.selfInsert(conn,pic == thumbnail);
             }
         }
         return true;
@@ -175,9 +170,7 @@ public class DatabaseManager {
      */
     public boolean updatePlayfield(Playfield playfield, Vector<Picture> picsToAdd, Vector<Picture> picsToRemove) throws SQLException{
         for(Picture p : picsToAdd){
-            if(p.selfInsert(conn)){
-                if(p == playfield.Thumbnail) playfield.ThumbnailID = p.getId();
-            }
+            p.selfInsert(conn, p == playfield.Thumbnail);
         }
 
         for(Picture p : picsToRemove){

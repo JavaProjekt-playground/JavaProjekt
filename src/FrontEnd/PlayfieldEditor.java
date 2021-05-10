@@ -97,7 +97,7 @@ public class PlayfieldEditor implements IFormWindow{
                 pics = new Vector<>();
             }
             if(pics.size() > 0)setPicturesModel(pics, playfield.ThumbnailID);
-            else setPicturesModel(new Vector<>(), -1);
+            else setPicturesModel(pics, -1);
 
         }
     }
@@ -379,7 +379,10 @@ public class PlayfieldEditor implements IFormWindow{
                     typeID,
                     price
             );
-        if(selectedPlayfield != null) res.setID(selectedPlayfield.getID());
+        if(selectedPlayfield != null) {
+            res.setID(selectedPlayfield.getID());
+            res.ThumbnailID = selectedPlayfield.ThumbnailID;
+        }
         return res;
     }
 
