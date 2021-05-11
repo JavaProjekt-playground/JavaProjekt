@@ -22,7 +22,12 @@ public class ViewPlayfieldForm implements IFormWindow{
     private JLabel typeLabel;
     private JLabel pricePerHourLabel;
     private JButton reserveButton;
+    private JTabbedPane galleryReviewTabbedPane;
     private JList galleryList;
+    private JList reviewList;
+    private JSlider reviewScoreSlider;
+    private JTextArea reviewMessageTA;
+    private JButton postReviewButton;
 
     public String title = "Details";
 
@@ -39,6 +44,8 @@ public class ViewPlayfieldForm implements IFormWindow{
     private Playfield selectedPlayfield;
     public void setSelectedPlayfield(Playfield value){
         if(value == null) throw new NullPointerException("Playfield cannot be null.");
+
+        selectedPlayfield =value;
 
         Regions region = null;
         try {
