@@ -3,24 +3,23 @@ package Database;
 import java.sql.*;
 
 public class Review implements IUpdatableTable, IInsertableTable {
-    private int ID;
-    public String Message;
-    public Double Score;
-    public int getID(){return ID;}
+    private int id;
+    public String message;
+    public Double score;
+    public int getId(){return id;}
     private int userID;
     public int getUserID() {return userID;}
     private  int playfieldID;
     public int getPlayfieldID() {return playfieldID;}
-    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 
-    public Review(String message, double score, int plafieldID, int UserID, Timestamp cretedAt, Timestamp updateAt) {
-        ID = getID();
-        Message = message;
-        Score = score;
-        playfieldID = getPlayfieldID();
-        userID = getUserID();
-        Timestamp Created_At = cretedAt;
-        Timestamp Updated_At = updateAt;
+    public Review(String message, double score, int plafieldid, int userid) {
+        this.message = message;
+        this.score = score;
+        playfieldID = plafieldid;
+        userID = userid;
+
     }
     public Review(ResultSet rs) throws SQLException {
         getDataFromResultSet(rs);
@@ -28,8 +27,8 @@ public class Review implements IUpdatableTable, IInsertableTable {
 
     @Override
     public boolean selfInsert(Connection conn, Object... extra) throws SQLException {
-        String command = String.format("SELECT * FROM add_review('%s', '%s', '%s', '%s', '%s', '%s');",
-                Message, Score, playfieldID, userID, timestamp.toString(), timestamp.toString()
+        String command = String.format("SELECT * FROM add_review('%s', %d, %d %d);",
+                message, score, playfieldID, userID
         );
 
         Statement st = conn.createStatement();
@@ -46,10 +45,10 @@ public class Review implements IUpdatableTable, IInsertableTable {
     @Override
     public boolean selfUpdate(Connection conn, Object... extra) throws SQLException {
 
-        if (ID < 1) return false;
+        if (id < 1) return false;
 
-        String command = String.format("SELECT * FROM update_review( %d, '%s', '%s', '%s', '%s', '%s', '%s');",
-                ID, Message, Score, playfieldID, userID, timestamp.toString(), timestamp.toString()
+        String command = String.format("SELECT * FROM update_review( %d, '%s', %d);",
+                id, message, score
         );
 
         Statement st = conn.createStatement();
@@ -64,8 +63,19 @@ public class Review implements IUpdatableTable, IInsertableTable {
     }
 
     private void getDataFromResultSet(ResultSet rs) throws SQLException {
-        ID = rs.getInt("id");
-        Message = rs.getString("textArea1");
-        Score = rs.getDouble("Rating");
+        id = rs.getInt("id");
+        message = rs.getString("message");
+        score = rs.getDouble("score");
+        playfieldID = rs.getInt("playfield_id");
+        createdAt = rs.getTimestamp("created_at");
+        updatedAt = rs.getTimestamp("updated_at");
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
     }
 }
