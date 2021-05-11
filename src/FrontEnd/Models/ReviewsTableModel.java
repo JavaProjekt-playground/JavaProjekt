@@ -40,9 +40,9 @@ import java.util.Vector;
         public Object getValueAt(int row, int column) {
             switch (column) {
                 case 0:
-                    return reviews[row].Message;
+                    return reviews[row].message;
                 case 1:
-                    return reviews[row].Score;
+                    return reviews[row].score;
                 default:
                     return null;
             }
