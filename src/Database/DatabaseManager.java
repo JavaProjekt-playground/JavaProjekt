@@ -501,4 +501,13 @@ public class DatabaseManager {
 
         return res;
     }
+
+
+    public int CheckDateReservation(Timestamp from, Timestamp to) throws SQLException {
+        String sql = String.format("SELECT * FROM check_date_reservation('%s', '%s')", from, to);
+        ResultSet rs = conn.createStatement().executeQuery(sql);
+        Integer res = null;
+        if(rs.next()) res = rs.getInt(1);
+        return res;
+    }
 }

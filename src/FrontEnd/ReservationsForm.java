@@ -24,6 +24,7 @@ public class ReservationsForm implements IFormWindow {
     private boolean mode;
     private String title;
     private Playfield play = null;
+    private int check;
 
     @Override
     public JPanel getMainPanel() {
@@ -83,9 +84,19 @@ public class ReservationsForm implements IFormWindow {
                     playfield.getID()
                 );
             try {
-                App.DB.addReservation(res);
+                check = App.DB.CheckDateReservation(res.FromDate, res.ToDate);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
+            }
+            if(check == 0){
+                try {
+                    App.DB.addReservation(res);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+            else{
+                System.out.println("Napaka");
             }
         }
     }
