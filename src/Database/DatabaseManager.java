@@ -439,7 +439,7 @@ public class DatabaseManager {
     }
 
     public boolean deleteReviews(Review review) throws SQLException {
-        String sql = String.format("SELECT * FROM delete_reviews(%d,);", review.getID());
+        String sql = String.format("SELECT * FROM delete_reviews(%d,);", review.getId());
         ResultSet rs = conn.createStatement().executeQuery(sql);
         if(rs.next()) return rs.getBoolean(1);
         return false;
@@ -486,5 +486,15 @@ public class DatabaseManager {
         ResultSet rs = conn.createStatement().executeQuery(sql);
         if(rs.next()) return rs.getBoolean(1);
         return false;
+    }
+
+    public User getUser(int userID) throws SQLException {
+        String sql = String.format("SELECT * FROM users WHERE id = %d;", userID);
+
+        ResultSet rs = conn.createStatement().executeQuery(sql);
+        User res = null;
+        if(rs.next()) res = new User(rs);
+
+        return res;
     }
 }
