@@ -61,7 +61,7 @@ public class ViewPlayfieldForm implements IFormWindow{
         regionLabel.setText(region.Name);
         typeLabel.setText(pt.Name);
         addressLabel.setText(value.Address);
-        pricePerHourLabel.setText(String.format("%d €", value.PricePerHour));
+        pricePerHourLabel.setText(String.format("%f €", value.PricePerHour));
 
         Vector<Picture> pictures = new Vector<>();
 
@@ -74,6 +74,7 @@ public class ViewPlayfieldForm implements IFormWindow{
         galleryList.setModel(new GalleryListModel(pictures));
     }
 
+// constructor
     public ViewPlayfieldForm(Playfield field){
 
         setListeners();
@@ -84,7 +85,7 @@ public class ViewPlayfieldForm implements IFormWindow{
     }
 
     private void setListeners(){
-
+        reserveButton.addActionListener(e -> App.goTo(new ReservationsForm(selectedPlayfield)));
     }
 
 
