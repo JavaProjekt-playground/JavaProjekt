@@ -73,7 +73,7 @@ public class PlayfieldEditor implements IFormWindow{
             phoneTextField.setText(playfield.Phone);
             emailTextField.setText(playfield.Email);
             addressTextBox.setText(playfield.Address);
-            pricePerHourSpinner.getModel().setValue(playfield.PricePerHour);
+            pricePerHourSpinner.setValue(Double.valueOf(playfield.PricePerHour));
             //set selected region
             for(int i = 0; i < regionComboBox.getItemCount(); i++){
                 if((regionComboBox.getItemAt(i)).getID() == playfield.RegionID) {
@@ -145,12 +145,11 @@ public class PlayfieldEditor implements IFormWindow{
         picturesTable.setAlignmentX(0.5f);
         picturesTable.setDefaultRenderer(boolean.class, new DefaultTableCellRenderer());
 
-        setSelectedPlayfield(playfield);
-
         pricePerHourSpinner.setModel(new SpinnerNumberModel(0, -100000, 100000, 0.01));
         JSpinner.NumberEditor editor = (JSpinner.NumberEditor)pricePerHourSpinner.getEditor();
         DecimalFormat format = editor.getFormat();
         format.setMinimumFractionDigits(2);
+        setSelectedPlayfield(playfield);
 
         editPlayfieldButton.addActionListener(e -> onEditPlayfieldButton_click());
         selectPictureButton.addActionListener(e -> onSelectPictureButton_click());
