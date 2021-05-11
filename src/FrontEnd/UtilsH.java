@@ -20,4 +20,18 @@ public class UtilsH {
                 return null;
             }
         }
+
+    public static Timestamp convertStringToTimestampWithTime(String strDate) {
+        try {
+            DateFormat formatter;
+            formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm");
+            Date date = (Date) formatter.parse(strDate);
+            java.sql.Timestamp timeStampDate = new Timestamp(date.getTime());
+
+            return timeStampDate;
+        } catch (ParseException e) {
+            System.out.println("Exception :" + e);
+            return null;
+        }
+    }
 }

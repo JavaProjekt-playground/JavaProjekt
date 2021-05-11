@@ -40,7 +40,7 @@ public class Reservation implements IUpdatableTable, IInsertableTable {
         IsPaid = rs.getBoolean("paid");
         PlayfieldID = rs.getInt("playfield_id");
         userID = rs.getInt("user_id");
-        StatusID = rs.getInt("StatusID");
+        StatusID = rs.getInt("status_id");
     }
 
     @Override

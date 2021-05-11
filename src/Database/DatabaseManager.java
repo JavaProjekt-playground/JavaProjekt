@@ -343,6 +343,10 @@ public class DatabaseManager {
         return res;
     }
 
+    public boolean addReservation(Reservation reservation) throws SQLException{
+        return reservation.selfInsert(conn);
+    }
+
     public boolean updateReservation(Reservation reservation) throws SQLException{
         return reservation.selfUpdate(conn);
     }

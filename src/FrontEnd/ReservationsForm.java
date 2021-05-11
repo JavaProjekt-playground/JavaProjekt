@@ -4,6 +4,7 @@ import Database.Playfield;
 import Database.Reservation;
 
 import javax.swing.*;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
@@ -73,15 +74,19 @@ public class ReservationsForm implements IFormWindow {
         if(mode){}
         else {
                 Reservation res = new Reservation(
-                    UtilsH.convertStringToTimestamp(new SimpleDateFormat("yyyy-MM-dd").format(DateFromT.getValue())),
-                    UtilsH.convertStringToTimestamp(new SimpleDateFormat("yyyy-MM-dd").format(DateToT.getValue())),
+                    UtilsH.convertStringToTimestampWithTime(new SimpleDateFormat("yyyy-MM-dd-HH-mm").format(DateFromT.getValue())),
+                    UtilsH.convertStringToTimestampWithTime(new SimpleDateFormat("yyyy-MM-dd-HH-mm").format(DateToT.getValue())),
                     new Timestamp(System.currentTimeMillis()),
                     false,
                     1,
                     App.getCurrentUser().getID(),
                     playfield.getID()
                 );
-                res.toString();
+            try {
+                App.DB.addReservation(res);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
     }
 

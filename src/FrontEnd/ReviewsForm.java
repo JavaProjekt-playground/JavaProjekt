@@ -5,7 +5,6 @@ import Database.Review;
 
 import javax.swing.*;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 
 public class ReviewsForm implements IFormWindow{
     private JComboBox Rating;
@@ -31,34 +30,19 @@ public class ReviewsForm implements IFormWindow{
     public ReviewsForm(Playfield playfield) {
         addObjects(review);
         getReview();
-        sendReviewButton.addActionListener(e -> Insert(playfield));
     }
 
 
 
-    private void Insert(Playfield playfield){
-            Review review = new Review(
-                Message.getText(),
-                Double.valueOf(Rating.getSelectedItem().toString()),
-                playfield.getID(),
-                App.getCurrentUser().getID(),
-                new Timestamp(System.currentTimeMillis()),
-                new Timestamp(System.currentTimeMillis())
-        );
-        try {
-            App.DB.addReview(review);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
+
     private void addObjects(Review review) {
         try {
-            Review r = App.DB.getReview(review.getID());
+            Review r = App.DB.getReview(review.getId());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         //Rating.setSelectedItem(review.Score);
-        Text.setText(review.Message);
+        Text.setText(review.message);
     }
 
     public Review getReview() {
@@ -66,6 +50,6 @@ public class ReviewsForm implements IFormWindow{
     }
     public void setReview(Review review) {
         this.review = review;
-        title = review == null ? "Add Review" : "Edit Review: " + review.Message;
+        title = review == null ? "Add Review" : "Edit Review: " + review.message;
     }
 }
