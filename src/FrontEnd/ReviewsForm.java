@@ -30,11 +30,26 @@ public class ReviewsForm implements IFormWindow{
     public ReviewsForm(Playfield playfield) {
         addObjects(review);
         getReview();
+//        sendReviewButton.addActionListener(e -> Insert(playfield));
     }
 
 
 
-
+//    private void Insert(Playfield playfield){
+//            Review review = new Review(
+//                Message.getText(),
+//                Double.valueOf(Rating.getSelectedItem().toString()),
+//                playfield.getID(),
+//                App.getCurrentUser().getID(),
+//                new Timestamp(System.currentTimeMillis()),
+//                new Timestamp(System.currentTimeMillis())
+//        );
+//        try {
+//            App.DB.addReview(review);
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        }
+//    }
     private void addObjects(Review review) {
         try {
             Review r = App.DB.getReview(review.getId());

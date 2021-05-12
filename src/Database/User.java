@@ -48,7 +48,7 @@ public class User implements IUpdatableTable, IInsertableTable
     public boolean selfInsert(Connection conn, Object... extra) throws SQLException {
         String command = String.format("SELECT * FROM add_user('%s', '%s', '%s', '%s', %s, '%s');",
             Name, Surname, BDate.toString(), Email,
-            Phone != "" ? "'" + Phone + "'" : "NULL",
+            Phone.equals("")  ? "'" + Phone + "'" : "NULL",
             extra[0]
         );
 
@@ -78,7 +78,7 @@ public class User implements IUpdatableTable, IInsertableTable
 
         String command = String.format("SELECT * FROM update_user( %d, '%s', '%s', '%s', '%s', '%s', %s, '%s' );",
                 ID, Name, Surname, Email, BDate.toString(), extra[0],
-                Phone != "" ? "'" + Phone + "'" : "NULL",
+                Phone.equals("") ? "'" + Phone + "'" : "NULL",
                 extra.length > 1 && extra[1] != "" ? "'" + extra[1] + "'" : "NULL"
         );
 
@@ -98,9 +98,11 @@ public class User implements IUpdatableTable, IInsertableTable
         Name = rs.getString("name");
         Surname = rs.getString("surname");
         Email = rs.getString("email");
-        Object p = rs.getString("phone");
-        Phone = p != null && (String)p != "" ? (String)p : "";
+        String p = rs.getString("phone");
+        Phone = p != null && p.equals("") ? p : "";
         BDate = rs.getTimestamp("bdate");
+        _createdAt = rs.getTimestamp("created_at");
+        _updatedAt = rs.getTimestamp("updated_at");
     }
 
 }
