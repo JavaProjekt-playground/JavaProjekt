@@ -8,9 +8,9 @@
     <properties/>
     <border type="none"/>
     <children>
-      <component id="ccda" class="javax.swing.JLabel">
+      <component id="ccda" class="javax.swing.JLabel" binding="Title">
         <constraints>
-          <grid row="0" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Title"/>
@@ -42,21 +42,25 @@
           <text value="Label"/>
         </properties>
       </component>
-      <component id="90385" class="javax.swing.JTextField" binding="SurnameT">
+      <component id="e48a5" class="javax.swing.JLabel" binding="SurnameT">
         <constraints>
           <grid row="2" column="2" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <text value="Label"/>
+        </properties>
       </component>
-      <component id="3d48b" class="javax.swing.JTextField" binding="EmailT">
+      <component id="93a32" class="javax.swing.JLabel" binding="EmailT">
         <constraints>
           <grid row="3" column="2" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <text value="Label"/>
+        </properties>
       </component>
       <component id="b6fd3" class="javax.swing.JLabel">
         <constraints>
@@ -90,7 +94,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="8aa28" class="javax.swing.JTextField" binding="DateToT">
+      <component id="b4cca" class="javax.swing.JSpinner" binding="DateToT">
         <constraints>
           <grid row="4" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
