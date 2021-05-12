@@ -84,7 +84,7 @@ public class ReservationsForm implements IFormWindow {
                     playfield.getID()
                 );
             try {
-                check = App.DB.CheckDateReservation(res.FromDate, res.ToDate);
+                check = App.DB.CheckDateReservation(res.FromDate, res.ToDate, res.PlayfieldID);
                 //System.out.println(check);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
