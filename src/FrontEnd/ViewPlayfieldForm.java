@@ -22,8 +22,8 @@ public class ViewPlayfieldForm implements IFormWindow{
     private JLabel pricePerHourLabel;
     private JButton reserveButton;
     private JTabbedPane galleryReviewTabbedPane;
-    private JList galleryList;
-    private JList reviewList;
+    private JList<Picture> galleryList;
+    private JList<Review> reviewList;
     private JSlider reviewScoreSlider;
     private JTextArea reviewMessageTA;
     private JButton postReviewButton;
@@ -67,8 +67,8 @@ public class ViewPlayfieldForm implements IFormWindow{
         descriptionLabel.setText(value.Description);
         phoneLabel.setText(value.Phone);
         emailLabel.setText(value.Email);
-        regionLabel.setText(region.Name);
-        typeLabel.setText(pt.Name);
+        regionLabel.setText(region != null ? region.Name : "null");
+        typeLabel.setText(pt != null ? pt.Name : "null");
         addressLabel.setText(value.Address);
         pricePerHourLabel.setText(String.format("%f €", value.PricePerHour));
         playfieldScoreLabel.setText(Double.toString(value.getAvgScore()));
@@ -83,7 +83,7 @@ public class ViewPlayfieldForm implements IFormWindow{
 
         galleryList.setModel(new GalleryListModel(pictures));
 
-        Vector<Review> reviews = new Vector();
+        Vector<Review> reviews = new Vector<>();
         try {
             reviews = App.DB.getReviews(value.getID());
         } catch (SQLException throwables) {
@@ -123,7 +123,7 @@ public class ViewPlayfieldForm implements IFormWindow{
         setup();
         setListeners();
         galleryList.setCellRenderer(new PictureListCellRenderer());
-
+        setSelectedReview(null);
         setSelectedPlayfield(field);
 
     }
@@ -158,6 +158,7 @@ public class ViewPlayfieldForm implements IFormWindow{
             JOptionPane.showMessageDialog(mainPanel, "Ocena uspešno izbrisana");
             setSelectedReview(null);
             updatePlayfieldScore();
+            return;
         }
 
         JOptionPane.showMessageDialog(mainPanel, "Napaka pri brisanju ocene");
@@ -190,7 +191,7 @@ public class ViewPlayfieldForm implements IFormWindow{
 
         boolean success = false;
         try {
-            success = App.DB.updateReviews(res);
+            success = App.DB.addReview(res);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

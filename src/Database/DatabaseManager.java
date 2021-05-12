@@ -450,7 +450,7 @@ public class DatabaseManager {
     }
 
     public boolean deleteReviews(Review review) throws SQLException {
-        String sql = String.format("SELECT * FROM delete_reviews(%d,);", review.getId());
+        String sql = String.format("SELECT * FROM delete_reviews(%d);", review.getId());
         ResultSet rs = conn.createStatement().executeQuery(sql);
         if(rs.next()) return rs.getBoolean(1);
         return false;

@@ -28,7 +28,7 @@ public class Review implements IUpdatableTable, IInsertableTable {
 
     @Override
     public boolean selfInsert(Connection conn, Object... extra) throws SQLException {
-        String command = String.format("SELECT * FROM add_review('%s', %d, %d %d);",
+        String command = String.format("SELECT * FROM add_review('%s', %d, %d, %d);",
                 message, score, playfieldID, userID
         );
 
@@ -66,6 +66,7 @@ public class Review implements IUpdatableTable, IInsertableTable {
     private void getDataFromResultSet(ResultSet rs) throws SQLException {
         id = rs.getInt("id");
         message = rs.getString("message");
+        userID = rs.getInt("user_id");
         score = rs.getInt("score");
         playfieldID = rs.getInt("playfield_id");
         createdAt = rs.getTimestamp("created_at");

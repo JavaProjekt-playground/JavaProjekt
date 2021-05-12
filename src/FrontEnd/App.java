@@ -9,12 +9,10 @@ import java.util.Vector;
 
 public class App extends JFrame {
 
-    private LoginForm loginForm;
     private static App _this;
     public static DatabaseManager DB;
 
     private static Vector<IFormWindow> _history;
-    private static Vector<String> _titleHistory;
     private static int _historyIndex;
     private static final int _historyLimit = 5;
 
@@ -22,18 +20,16 @@ public class App extends JFrame {
 
 
     public App() {
-        loginForm = new LoginForm();
 
         _this = this;
         _history = new Vector<>();
-        _titleHistory = new Vector<>();
         _historyIndex = -1;
 
         DB = new DatabaseManager();
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        goTo(loginForm);
+        goTo(new LoginForm());
     }
 
     private static void setContent(IFormWindow form) {
@@ -83,6 +79,7 @@ public class App extends JFrame {
 
     public static void login(User user) {
         if (user == null) throw new NullPointerException("user cannot be null");
+        System.out.println(user.getID() +"  "+ user.Name + "  " + user.Surname);
 
         currentUser = user;
         goTo(new Dashboard());

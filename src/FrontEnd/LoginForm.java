@@ -55,7 +55,6 @@ public class LoginForm implements IFormWindow{
                     "Prijava ni uspela!\nPreverite prijavne podatke.", "Napaka", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        System.out.println(user.Name + "  " + user.Surname);
 
         App.login(user);
     }
