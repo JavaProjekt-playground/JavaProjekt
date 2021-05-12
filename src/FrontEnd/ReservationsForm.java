@@ -85,19 +85,24 @@ public class ReservationsForm implements IFormWindow {
                 );
             try {
                 check = App.DB.CheckDateReservation(res.FromDate, res.ToDate);
+                //System.out.println(check);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
             if(check == 0){
                 try {
                     App.DB.addReservation(res);
+                    JOptionPane.showMessageDialog(mainPanel, "Uspešno ste rezervirali to igrišče, počakajte na odziv od lastnika");
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
             }
-            else{
-                System.out.println("Napaka");
+            else if (check == 1){
+                    JOptionPane.showMessageDialog(mainPanel, "Datum od ne more biti večji od datuma do, " +
+                            "ali pa je datum za ta termin že rezerviran");
             }
+            else
+                JOptionPane.showMessageDialog(mainPanel, "Ta datum je že rezerviran");
         }
     }
 

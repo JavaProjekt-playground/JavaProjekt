@@ -5,6 +5,9 @@ DECLARE
 BEGIN
 	SELECT INTO check count(*) FROM reservations WHERE (from_d BETWEEN from_date AND to_date) OR
 	(to_d BETWEEN from_date AND to_date);
+	IF from_d > to_d THEN
+	check := 1;
+	END IF;
 	RETURN check;
 END;
 $$ LANGUAGE 'plpgsql';
