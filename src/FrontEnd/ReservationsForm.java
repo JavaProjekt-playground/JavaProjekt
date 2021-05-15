@@ -56,7 +56,7 @@ public class ReservationsForm implements IFormWindow {
 
         play = playfield;
         mode = Mode(reservation);
-        addObject(playfield, reservation);
+        addObject(reservation);
         DateFromT.setModel(new SpinnerDateModel());
         DateToT.setModel(new SpinnerDateModel());
         BackButton.addActionListener(e -> Back());
@@ -74,19 +74,24 @@ public class ReservationsForm implements IFormWindow {
         }
     }
 
-    private void addObject(Playfield playfield, Reservation reservation){
+    private void addObject(Reservation reservation){
         NameT.setText(App.getCurrentUser().Name);
         SurnameT.setText(App.getCurrentUser().Surname);
         EmailT.setText(App.getCurrentUser().Email);
         if(mode){
-            //SET VALUE TO DATE SPINNER
-            //DateFromT.setText(String.valueOf(reservation.FromDate));
-            //DateToT.setText(String.valueOf(reservation.ToDate));
+            DateToT.setValue(reservation.ToDate);
+            DateFromT.setValue(reservation.FromDate);
         }
     }
 
     private void Insert(){
         if(mode){
+            try {
+                App.DB.updateReservation(res);
+                JOptionPane.showMessageDialog(mainPanel, "Uspešno ste spremenili spremembe naročila");
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
         else{
             try {
@@ -105,7 +110,37 @@ public class ReservationsForm implements IFormWindow {
 
 
     private void insertList(Playfield playfield, Reservation reservation) {
-        if(mode){}
+        if(mode){
+            res = new Reservation(
+                    UtilsH.convertStringToTimestampWithTime(new SimpleDateFormat("yyyy-MM-dd-HH-mm").format(DateFromT.getValue())),
+                    UtilsH.convertStringToTimestampWithTime(new SimpleDateFormat("yyyy-MM-dd-HH-mm").format(DateToT.getValue())),
+                    new Timestamp(System.currentTimeMillis()),
+                    false,
+                    1,
+                    App.getCurrentUser().getID(),
+                    playfield.getID()
+            );
+            try {
+                check = App.DB.CheckDateReservation(res.FromDate, res.ToDate, res.PlayfieldID);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+            if (check == 1) {
+                JOptionPane.showMessageDialog(mainPanel, "Datum od ne more biti večji od datuma do, " +
+                        "ali pa je datum za ta termin že rezerviran");
+            } else if (check > 1) {
+                JOptionPane.showMessageDialog(mainPanel, "Ta datum je že rezerviran");
+            } else {
+                Vector<Reservation> reservations = new Vector<>();
+                reservations.add(res);
+                System.out.println(reservations);
+                /*ReservationsTableModel model;
+                model = new ReservationsTableModel(reservations);
+                ReservationT.setModel(model);
+                ReservationT.setVisible(true);*/
+            }
+        }
         else {
             res = new Reservation(
                     UtilsH.convertStringToTimestampWithTime(new SimpleDateFormat("yyyy-MM-dd-HH-mm").format(DateFromT.getValue())),
