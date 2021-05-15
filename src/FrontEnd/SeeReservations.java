@@ -1,6 +1,7 @@
 package FrontEnd;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class SeeReservations {
     private JTable ReservationsT;
@@ -9,4 +10,5 @@ public class SeeReservations {
     private JButton EditButton;
     private JButton SeeReservationsButton;
     private JButton DeleteButton;
+
 }

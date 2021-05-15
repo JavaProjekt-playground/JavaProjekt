@@ -6,10 +6,11 @@ import FrontEnd.Models.CellRenderers.PictureCellRenderer;
 import FrontEnd.Models.PlayfieldTableModel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.sql.SQLException;
 import java.util.Vector;
 
-public class Dashboard implements IFormWindow{
+public class Dashboard implements IFormWindow {
     public JPanel mainPanel;
     private JButton OrderButton;
     private JButton SearchButton;
@@ -64,27 +65,26 @@ public class Dashboard implements IFormWindow{
         onPlayfieldsTable_selectionChanged();
     }
 
-    private void onPlayfieldsTable_selectionChanged(){
+    private void onPlayfieldsTable_selectionChanged() {
         Playfield pf = getSelectedPlayfield();
-        if(pf == null){
+        if (pf == null) {
             UpdateButton.setEnabled(false);
             return;
         }
 
-        if(pf.UserID == App.getCurrentUser().getID()){
+        if (pf.UserID == App.getCurrentUser().getID()) {
             UpdateButton.setEnabled(true);
-        }
-        else{
+        } else {
             UpdateButton.setEnabled(false);
         }
     }
 
-    private void onUpdateButton_click(){
+    private void onUpdateButton_click() {
         Playfield pf = getSelectedPlayfield();
 
-        if(pf == null) return;
+        if (pf == null) return;
 
-        if(pf.UserID != App.getCurrentUser().getID()){
+        if (pf.UserID != App.getCurrentUser().getID()) {
             JOptionPane.showMessageDialog(mainPanel, "User does not own this playfield.");
             return;
         }
@@ -92,32 +92,35 @@ public class Dashboard implements IFormWindow{
         goToPlayfieldEditor(pf);
     }
 
-    private void onAddButton_click(){
+    private void onAddButton_click() {
         goToPlayfieldEditor(null);
     }
 
-    private void onInspectButton_click(){
+    private void onInspectButton_click() {
         Playfield pf = getSelectedPlayfield();
-        if(pf != null) App.goTo(new ViewPlayfieldForm(pf));
+        if (pf != null) App.goTo(new ViewPlayfieldForm(pf));
     }
 
-    private Playfield getSelectedPlayfield(){
+    private Playfield getSelectedPlayfield() {
         int i = PlayfieldsTable.getSelectedRow();
-        return i > -1 ? ((PlayfieldTableModel)PlayfieldsTable.getModel()).getPlayfield(i) : null;
+        return i > -1 ? ((PlayfieldTableModel) PlayfieldsTable.getModel()).getPlayfield(i) : null;
     }
 
-    private void goToPlayfieldEditor(Playfield field){
+    private void goToPlayfieldEditor(Playfield field) {
         App.goTo(new PlayfieldEditor(field));
     }
 
-    private void insertPlayfield(){
+    private void insertPlayfield() {
         App.goTo(new PlayfieldEditor(null));
     }
 
-    private void settings(){
+    private void settings() {
         App.goTo(new SettingsEditor());
     }
 
     //utils
-    private PlayfieldTableModel getTableModel(){return (PlayfieldTableModel) PlayfieldsTable.getModel();}
+    private PlayfieldTableModel getTableModel() {
+        return (PlayfieldTableModel) PlayfieldsTable.getModel();
+    }
+
 }

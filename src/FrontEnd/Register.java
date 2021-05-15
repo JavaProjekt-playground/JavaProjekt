@@ -3,10 +3,11 @@ package FrontEnd;
 import Database.User;
 
 import javax.swing.*;
+import java.awt.*;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
-public class Register implements IFormWindow{
+public class Register implements IFormWindow {
     private JButton registerButton;
     public JPanel mainPanel;
     private JTextField nameTF;
@@ -36,7 +37,7 @@ public class Register implements IFormWindow{
         goBackButton.addActionListener(e -> App.goBack());
     }
 
-    private void registerUser(){
+    private void registerUser() {
         String pass1 = String.valueOf(password1PF.getPassword());
         String pass2 = String.valueOf(password2PF.getPassword());
         String name = nameTF.getText();
@@ -45,17 +46,17 @@ public class Register implements IFormWindow{
         String phone = phoneTF.getText();
         Timestamp bDate = new Timestamp(0);
 
-        if(!pass1.equals(pass2)){
+        if (!pass1.equals(pass2)) {
             JOptionPane.showMessageDialog(mainPanel, "Passwords don't match.");
             return;
         }
 
-        if(name.equals("") || surname.equals("")){
+        if (name.equals("") || surname.equals("")) {
             JOptionPane.showMessageDialog(mainPanel, "Input name and surname.");
             return;
         }
 
-        if(email.equals("")){
+        if (email.equals("")) {
             JOptionPane.showMessageDialog(mainPanel, "Input email");
             return;
         }
