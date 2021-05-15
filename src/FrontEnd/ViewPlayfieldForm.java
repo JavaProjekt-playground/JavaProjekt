@@ -99,7 +99,7 @@ public class ViewPlayfieldForm implements IFormWindow {
                 break;
             }
         }
-
+        System.out.println(reviews);
         reviewList.setModel(new ReviewListModel(reviews));
     }
 

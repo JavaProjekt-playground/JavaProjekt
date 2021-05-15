@@ -514,8 +514,8 @@ public class DatabaseManager {
     }
 
 
-    public int CheckDateReservation(Timestamp from, Timestamp to) throws SQLException {
-        String sql = String.format("SELECT * FROM check_date_reservation('%s', '%s')", from, to);
+    public int CheckDateReservation(Timestamp from, Timestamp to, Integer p_id) throws SQLException {
+        String sql = String.format("SELECT * FROM check_date_reservation('%s', '%s', %d)", from, to, p_id);
         ResultSet rs = conn.createStatement().executeQuery(sql);
         Integer res = null;
         if(rs.next()) res = rs.getInt(1);
