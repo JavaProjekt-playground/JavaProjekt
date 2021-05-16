@@ -32,6 +32,9 @@ public class ReservationsForm implements IFormWindow {
     private int check;
     private Reservation res = null;
 
+    private ReservationsTableModel model;
+
+
     @Override
     public JPanel getMainPanel() {
         return mainPanel;
@@ -51,9 +54,6 @@ public class ReservationsForm implements IFormWindow {
 
 
     public ReservationsForm(Playfield playfield, Reservation reservation){
-        ReservationT.setEnabled(false);
-        ReservationT.setVisible(false);
-
         play = playfield;
         mode = Mode(reservation);
         addObject(reservation);
@@ -166,7 +166,7 @@ public class ReservationsForm implements IFormWindow {
                 Vector<Reservation> reservations = new Vector<>();
                 reservations.add(res);
                 System.out.println(reservations);
-                ReservationsTableModel model;
+                //ReservationsTableModel model;
                 model = new ReservationsTableModel(reservations);
                 ReservationT.setModel(model);
                 ReservationT.setVisible(true);
@@ -175,9 +175,28 @@ public class ReservationsForm implements IFormWindow {
     }
 
     public void DeleteT(){
-        res = null;
-        ReservationT.remove(0);
-        ReservationT.setVisible(false);
+
+        if(ReservationT.getSelectedRow() != -1) {
+            // remove selected row from the model
+            //model.removeRow(ReservationT.getSelectedRow());
+            //ReservationT.remove(ReservationT.getSelectedRow());
+
+            //getReservationModel().removeRow(ReservationT.getSelectedRow());
+            int rowCount= model.getRowCount();
+
+            System.out.println(rowCount);
+
+            for(int i=0;i<rowCount;i++ ){
+                model.removeRow(i);
+                //System.out.println(i);
+            }
+            JOptionPane.showMessageDialog(null, "Selected row deleted successfully");
+            res = null;
+        }
+    }
+
+    private ReservationsTableModel getReservationModel(){
+        return (ReservationsTableModel)ReservationT.getModel();
     }
 }
 
