@@ -4,6 +4,7 @@ import Database.DatabaseManager;
 import Database.User;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.util.Vector;
 
@@ -36,7 +37,7 @@ public class App extends JFrame{
             _history.setSize(0);
             setContent(new LoginForm());
         } else {
-            _this.userLabel.setText(value.Name + "" + value.Surname);
+            _this.userLabel.setText(value.Name + " " + value.Surname);
         }
     }
 
@@ -145,5 +146,7 @@ public class App extends JFrame{
 
         setCurrentUser(user);
     }
+
+    public static Container getWindow(){return _this.basePanel;}
 
 }

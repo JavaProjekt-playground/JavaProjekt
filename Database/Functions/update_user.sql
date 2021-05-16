@@ -16,9 +16,9 @@ DECLARE
 BEGIN
 
 	IF a_password IS NOT NULL THEN 
-		newpass = MD5(a_password);
+		newpass := MD5(a_password);
 	ELSE
-		SELECT INTO newpass password FROM users WHERE id = a_id AND password = SHA1(a_passchk);
+		SELECT INTO newpass password FROM users WHERE id = a_id AND password = MD5(a_passchk);
 	END IF;
 	
 	UPDATE users
@@ -32,8 +32,10 @@ BEGIN
 	AND password = MD5(a_passchk)
 	RETURNING * INTO res;
 	
-	res.password := NULL;
+	IF res.id IS NOT NULL THEN RETURN NEXT res; 
+	ELSE 
+		RETURN QUERY SELECT * FROM USERS WHERE id = -1;
+	END IF; 
 	
-	RETURN NEXT res;
 END;
 $$ LANGUAGE 'plpgsql';
