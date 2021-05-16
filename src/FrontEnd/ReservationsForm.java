@@ -55,7 +55,6 @@ public class ReservationsForm implements IFormWindow {
         addObject(reservation);
         DateFromT.setModel(new SpinnerDateModel());
         DateToT.setModel(new SpinnerDateModel());
-        BackButton.addActionListener(e -> Back());
         AddButton.addActionListener(e -> insertList(playfield));
         //Add.addActionListener(e -> insertList(playfield, reservation));
     }
@@ -81,9 +80,15 @@ public class ReservationsForm implements IFormWindow {
     }
 
     private void Insert(){
+
+        double x = GetPrice();
+        if(x < 1){
+            JOptionPane.showMessageDialog(mainPanel, "Naročiti morate igrišče vsaj za 1 uro!");
+            return;
+        }
         if(!mode){
             int a = JOptionPane.showConfirmDialog(mainPanel, "Ste prepričani, da želite oddati prijavo za "+ play.Title+"" +
-                    " igrišče ob terminu "+res.FromDate+" do termina "+res.ToDate+" ?", "Odjava", JOptionPane.OK_CANCEL_OPTION);
+                    " igrišče ob terminu "+res.FromDate+" do termina "+res.ToDate+" ? Plačali boste: "+x+"€", "Odjava", JOptionPane.OK_CANCEL_OPTION);
 
             if(a == JOptionPane.OK_OPTION){
                 InsertEnd();
@@ -91,7 +96,8 @@ public class ReservationsForm implements IFormWindow {
             }
         else{
             int a = JOptionPane.showConfirmDialog(mainPanel, "Ste prepričani, da želite spremeniti podatke za prijavo za "+ play.Title+"" +
-                    " igrišče ob terminu "+res.FromDate+" do termina "+res.ToDate+" ? Pomembno je da se bo status igrišča ponastavil na oddano", "Odjava", JOptionPane.OK_CANCEL_OPTION);
+                    " igrišče ob terminu "+res.FromDate+" do termina "+res.ToDate+" ? Pomembno je da se bo status igrišča ponastavil na oddano. Plačali boste:" +
+                    ""+x+"€", "Odjava", JOptionPane.OK_CANCEL_OPTION);
 
             if(a == JOptionPane.OK_OPTION) {
                 InsertEnd();
@@ -194,6 +200,14 @@ public class ReservationsForm implements IFormWindow {
                 //ReservationT.setVisible(true);
             }
         }
+    }
+
+    private double GetPrice(){
+        final int MILLI_TO_HOUR = 1000 * 60 * 60;
+        double a =  (res.ToDate.getTime() - res.FromDate.getTime()) / MILLI_TO_HOUR;
+        double b = (res.ToDate.getTime() - res.FromDate.getTime()) % MILLI_TO_HOUR;
+        if(b != 0){a++;}
+        return a * play.PricePerHour;
     }
 
     /*public void DeleteT(){
