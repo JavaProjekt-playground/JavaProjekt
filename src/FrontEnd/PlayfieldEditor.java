@@ -6,16 +6,20 @@ import FrontEnd.Models.PicturesTableModel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.text.StyleContext;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.util.Locale;
 import java.util.Vector;
 
-public class PlayfieldEditor implements IFormWindow{
+public class PlayfieldEditor implements IFormWindow {
 
 
     private JTextField nameTextField;
@@ -45,6 +49,7 @@ public class PlayfieldEditor implements IFormWindow{
 
     //properties
     private Playfield selectedPlayfield;
+
     public Playfield getSelectedPlayfield() {
         return selectedPlayfield;
     }
@@ -54,7 +59,7 @@ public class PlayfieldEditor implements IFormWindow{
         title = playfield == null ? "Dodajanje igrišča" : "Urejanje igrišča";
         titleLabel.setText(playfield == null ? "Novo igrišče" : playfield.Title);
         editPlayfieldButton.setText(playfield == null ? "Dodaj" : "Uredi");
-        if(playfield == null){
+        if (playfield == null) {
             nameTextField.setText("");
             descriptionTextArea.setText("");
             phoneTextField.setText("");
@@ -66,8 +71,7 @@ public class PlayfieldEditor implements IFormWindow{
             typeComboBox.setSelectedIndex(0);
 
             setPicturesModel(new Vector<>(), -1);
-        }
-        else{
+        } else {
             nameTextField.setText(playfield.Title);
             descriptionTextArea.setText(playfield.Description);
             phoneTextField.setText(playfield.Phone);
@@ -75,47 +79,47 @@ public class PlayfieldEditor implements IFormWindow{
             addressTextBox.setText(playfield.Address);
             pricePerHourSpinner.setValue(Double.valueOf(playfield.PricePerHour));
             //set selected region
-            for(int i = 0; i < regionComboBox.getItemCount(); i++){
-                if((regionComboBox.getItemAt(i)).getID() == playfield.RegionID) {
+            for (int i = 0; i < regionComboBox.getItemCount(); i++) {
+                if ((regionComboBox.getItemAt(i)).getID() == playfield.RegionID) {
                     regionComboBox.setSelectedIndex(i);
                     break;
                 }
             }
             // set selected type
-            for(int i = 0; i < typeComboBox.getItemCount(); i++){
-                if((typeComboBox.getItemAt(i)).getID() == playfield.TypeID) {
+            for (int i = 0; i < typeComboBox.getItemCount(); i++) {
+                if ((typeComboBox.getItemAt(i)).getID() == playfield.TypeID) {
                     typeComboBox.setSelectedIndex(i);
                     break;
                 }
             }
 
             Vector<Picture> pics;
-            try{
+            try {
                 pics = App.DB.getPictures(playfield.getID());
-            }catch(SQLException sqlex){
+            } catch (SQLException sqlex) {
                 sqlex.printStackTrace();
                 pics = new Vector<>();
             }
-            if(pics.size() > 0)setPicturesModel(pics, playfield.ThumbnailID);
+            if (pics.size() > 0) setPicturesModel(pics, playfield.ThumbnailID);
             else setPicturesModel(pics, -1);
 
         }
     }
 
     private Picture selectedPicture;
-    private void setSelectedPicture(Picture pic){
+
+    private void setSelectedPicture(Picture pic) {
         selectedPicture = pic;
         selectedPath = null;
-        if(pic!=null){
-            if(pic.getId() > 0) setPictureImage(pic.getURL());
+        if (pic != null) {
+            if (pic.getId() > 0) setPictureImage(pic.getURL());
             else setPictureImage(new File(pic.getFilePath()));
             captionTF.setText(pic.Caption);
             confirmPictureEditButton.setText("Odstrani");
             captionTF.setEnabled(false);
             selectPictureButton.setEnabled(false);
             thumbnailCB.getModel().setPressed(pic == getPicturesModel().getThumbnail());
-        }
-        else{
+        } else {
             clearPictureImage();
             captionTF.setText("");
             confirmPictureEditButton.setText("Dodaj");
@@ -130,6 +134,7 @@ public class PlayfieldEditor implements IFormWindow{
     }
 
     private String title;
+
     @Override
     public String getTitle() {
         return title;
@@ -146,7 +151,7 @@ public class PlayfieldEditor implements IFormWindow{
         picturesTable.setDefaultRenderer(boolean.class, new DefaultTableCellRenderer());
 
         pricePerHourSpinner.setModel(new SpinnerNumberModel(0, -100000, 100000, 0.01));
-        JSpinner.NumberEditor editor = (JSpinner.NumberEditor)pricePerHourSpinner.getEditor();
+        JSpinner.NumberEditor editor = (JSpinner.NumberEditor) pricePerHourSpinner.getEditor();
         DecimalFormat format = editor.getFormat();
         format.setMinimumFractionDigits(2);
         setSelectedPlayfield(playfield);
@@ -158,25 +163,25 @@ public class PlayfieldEditor implements IFormWindow{
         thumbnailCB.addActionListener(e -> onThumbnailCb_clicked());
         picturesTable.getSelectionModel().addListSelectionListener(e -> onPicturesTable_selectionChanged());
     }
-// action functions
-    private void onEditPlayfieldButton_click(){
-        if(selectedPlayfield == null){
+
+    // action functions
+    private void onEditPlayfieldButton_click() {
+        if (selectedPlayfield == null) {
             insert();
-        }
-        else{
+        } else {
             update();
         }
     }
 
-    private void onSelectPictureButton_click(){
+    private void onSelectPictureButton_click() {
         JFileChooser f = new JFileChooser();
         int returnVal = f.showOpenDialog(mainPanel);
 
-        if(returnVal == JFileChooser.APPROVE_OPTION){
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = f.getSelectedFile();
             String path = file.getAbsolutePath();
             String suffix = path.toLowerCase().substring(path.lastIndexOf(".") + 1);
-            if(!suffix.equals("jpg") && !suffix.equals("png")){
+            if (!suffix.equals("jpg") && !suffix.equals("png")) {
                 System.out.println("Invalid file: " + path + "\nSuffix: " + suffix);
                 return;
             }
@@ -185,24 +190,24 @@ public class PlayfieldEditor implements IFormWindow{
         }
     }
 
-    private void onConfirmPictureEditButton_click(){
-        if(selectedPicture == null){
+    private void onConfirmPictureEditButton_click() {
+        if (selectedPicture == null) {
             addPicture();
             return;
         }
         removePicture(selectedPicture);
     }
 
-    private void onThumbnailCb_clicked(){
+    private void onThumbnailCb_clicked() {
         System.out.println("Action");
 
-        if(selectedPicture == null) return;
+        if (selectedPicture == null) return;
         getPicturesModel().switchThumbnail(selectedPicture);
     }
 
-    private void onPicturesTable_selectionChanged(){
+    private void onPicturesTable_selectionChanged() {
         int i = picturesTable.getSelectedRow();
-        if(i < 0 || i >= getPicturesModel().getRowCount()) {
+        if (i < 0 || i >= getPicturesModel().getRowCount()) {
             setSelectedPicture(null);
             return;
         }
@@ -211,11 +216,12 @@ public class PlayfieldEditor implements IFormWindow{
 
 
     }
-//
-    private void insert(){
+
+    //
+    private void insert() {
         Playfield pf = getPlayfield();
 
-        if(pf == null) return;
+        if (pf == null) return;
 
         boolean res = false;
         try {
@@ -223,7 +229,7 @@ public class PlayfieldEditor implements IFormWindow{
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        if(res) {
+        if (res) {
             JOptionPane.showMessageDialog(mainPanel, "Vstavljanje uspešno.");
             setSelectedPlayfield(pf);
             return;
@@ -232,18 +238,18 @@ public class PlayfieldEditor implements IFormWindow{
         JOptionPane.showMessageDialog(mainPanel, "Napaka pri vstavljanju.");
     }
 
-    private void update(){
+    private void update() {
         Playfield pf = getPlayfield();
-        if(pf == null) return;
+        if (pf == null) return;
         pf.Thumbnail = getPicturesModel().getThumbnail();
 
         boolean res = false;
-        try{
+        try {
             res = App.DB.updatePlayfield(pf, picturesToAdd, picturesToRemove);
-        }catch(SQLException sqlex){
+        } catch (SQLException sqlex) {
             sqlex.printStackTrace();
         }
-        if(res) {
+        if (res) {
             JOptionPane.showMessageDialog(mainPanel, "Spremembe uspešno shranjene.");
             setSelectedPlayfield(pf);
             return;
@@ -252,7 +258,7 @@ public class PlayfieldEditor implements IFormWindow{
         JOptionPane.showMessageDialog(mainPanel, "Napaka.");
     }
 
-    private void addPicture(){
+    private void addPicture() {
         if (selectedPath == null || selectedPath.isEmpty()) {
             JOptionPane.showMessageDialog(mainPanel, "Izberite sliko.");
             return;
@@ -265,33 +271,32 @@ public class PlayfieldEditor implements IFormWindow{
 //        System.out.println(selectedPath);
         Picture p = new Picture(caption, selectedPath);
 
-        if(selectedPlayfield != null) p.setPlayfieldID(selectedPlayfield.getID());
+        if (selectedPlayfield != null) p.setPlayfieldID(selectedPlayfield.getID());
         picturesToAdd.add(p);
         getPicturesModel().addPicture(p, thumbnailCB.getModel().isSelected());
     }
 
-    private void removePicture(Picture p){
-        if(selectedPicture == getPicturesModel().getThumbnail()) getPicturesModel().switchThumbnail(null);
-        if(selectedPlayfield == null){
+    private void removePicture(Picture p) {
+        if (selectedPicture == getPicturesModel().getThumbnail()) getPicturesModel().switchThumbnail(null);
+        if (selectedPlayfield == null) {
             picturesToAdd.remove(p);
-        }
-        else{
+        } else {
             picturesToRemove.add(p);
         }
         getPicturesModel().removePicture(p);
         setSelectedPicture(null);
     }
 
-// utils
-    private void setPicturesModel(Vector<Picture> pics, int thumbID){
+    // utils
+    private void setPicturesModel(Vector<Picture> pics, int thumbID) {
         picturesTable.setModel(new PicturesTableModel(pics, thumbID));
     }
 
-    private PicturesTableModel getPicturesModel(){
-        return (PicturesTableModel)picturesTable.getModel();
+    private PicturesTableModel getPicturesModel() {
+        return (PicturesTableModel) picturesTable.getModel();
     }
 
-    private void setPictureImage(URL path){
+    private void setPictureImage(URL path) {
         BufferedImage bi = null;
         try {
             bi = ImageIO.read(path);
@@ -299,12 +304,12 @@ public class PlayfieldEditor implements IFormWindow{
             e.printStackTrace();
         }
         ImageIcon im = null;
-        if(bi != null)
+        if (bi != null)
             im = new ImageIcon(bi.getScaledInstance(100, 100, BufferedImage.SCALE_DEFAULT));
         pathLabel.setIcon(im);
     }
 
-    private void setPictureImage(File file){
+    private void setPictureImage(File file) {
         BufferedImage bi = null;
         try {
             bi = ImageIO.read(file);
@@ -312,12 +317,12 @@ public class PlayfieldEditor implements IFormWindow{
             e.printStackTrace();
         }
         ImageIcon im = null;
-        if(bi != null)
-        im = new ImageIcon(bi.getScaledInstance(100, 100, BufferedImage.SCALE_DEFAULT));
+        if (bi != null)
+            im = new ImageIcon(bi.getScaledInstance(100, 100, BufferedImage.SCALE_DEFAULT));
         pathLabel.setIcon(im);
     }
 
-    private void clearPictureImage(){
+    private void clearPictureImage() {
         pathLabel.setIcon(null);
     }
 
@@ -328,7 +333,7 @@ public class PlayfieldEditor implements IFormWindow{
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        for (Regions regions: region) {
+        for (Regions regions : region) {
             regionComboBox.addItem(regions);
 
         }
@@ -339,13 +344,13 @@ public class PlayfieldEditor implements IFormWindow{
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        for (Playfield_type playfield_types: playfield_type
+        for (Playfield_type playfield_types : playfield_type
         ) {
             typeComboBox.addItem(playfield_types);
         }
     }
 
-    private Playfield getPlayfield(){
+    private Playfield getPlayfield() {
         //getting values
         int userID = App.getCurrentUser().getID();
         int regionID = ((Regions) regionComboBox.getModel().getSelectedItem()).getID();
@@ -355,30 +360,30 @@ public class PlayfieldEditor implements IFormWindow{
         String address = addressTextBox.getText();
         String email = emailTextField.getText();
         String phone = phoneTextField.getText();
-        double price = (double)pricePerHourSpinner.getValue();
+        double price = (double) pricePerHourSpinner.getValue();
 
         // validation
-        if(title.isEmpty() ||
-            description.isEmpty() ||
-            address.isEmpty() ||
-            (phone.isEmpty() && email.isEmpty())){
+        if (title.isEmpty() ||
+                description.isEmpty() ||
+                address.isEmpty() ||
+                (phone.isEmpty() && email.isEmpty())) {
             JOptionPane.showMessageDialog(mainPanel, "Izpolnite vsa potrebna polja.");
             return null;
         }
 
         Playfield res = new Playfield(
-                    title,
-                    description,
-                    address,
-                    email,
-                    phone,
-                    "",
-                    userID,
-                    regionID,
-                    typeID,
-                    price
-            );
-        if(selectedPlayfield != null) {
+                title,
+                description,
+                address,
+                email,
+                phone,
+                "",
+                userID,
+                regionID,
+                typeID,
+                price
+        );
+        if (selectedPlayfield != null) {
             res.setID(selectedPlayfield.getID());
             res.ThumbnailID = selectedPlayfield.ThumbnailID;
         }

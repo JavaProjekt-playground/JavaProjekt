@@ -4,11 +4,15 @@ import Database.DatabaseManager;
 import Database.User;
 
 import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
+import javax.swing.text.StyleContext;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.Locale;
 
-public class LoginForm implements IFormWindow{
+public class LoginForm implements IFormWindow {
     private JLabel PrijavaLabel;
     private JTextField EmailTextBox;
     private JPasswordField GesloPasswordField;
@@ -22,6 +26,7 @@ public class LoginForm implements IFormWindow{
 
     @Override
     public JPanel getMainPanel() {
+
         return mainPanel;
     }
 
@@ -39,7 +44,7 @@ public class LoginForm implements IFormWindow{
         Registracija.addActionListener(e -> goToRegister());
     }
 
-    private void login(){
+    private void login() {
         User user = null;
 
         String email = EmailTextBox.getText();
@@ -50,7 +55,7 @@ public class LoginForm implements IFormWindow{
             throwables.printStackTrace();
         }
 
-        if(user == null){
+        if (user == null) {
             JOptionPane.showMessageDialog(mainPanel,
                     "Prijava ni uspela!\nPreverite prijavne podatke.", "Napaka", JOptionPane.INFORMATION_MESSAGE);
             return;
@@ -59,9 +64,10 @@ public class LoginForm implements IFormWindow{
         App.login(user);
     }
 
-    private void goToRegister(){
+    private void goToRegister() {
         App.goTo(new Register());
     }
+
 }
 
 

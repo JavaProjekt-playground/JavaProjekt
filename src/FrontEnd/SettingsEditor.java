@@ -3,24 +3,25 @@ package FrontEnd;
 import Database.User;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
-public class SettingsEditor implements IFormWindow{
+public class SettingsEditor implements IFormWindow {
     private JPanel mainPanel;
     private JTextField nameTF;
     private JButton EditButton;
-    private JTextField bdate;
+    private JSpinner bdateSpinner;
     private JTextField phoneTF;
     private JTextField emailTF;
     private JTextField surnameTF;
     private JLabel Registration;
     private JButton goBackButton;
     private JPanel Settings;
-    private JPasswordField CheckPassword;
-    private JPasswordField OldPassword;
-    private JPasswordField NewPassword;
+    private JPasswordField checkPasswordPF;
+    private JPasswordField oldPasswordPF;
+    private JPasswordField newPasswordPF;
     private JButton ChangePassword;
     private JLabel newpassword;
     private JLabel checknewpassword;
@@ -29,26 +30,31 @@ public class SettingsEditor implements IFormWindow{
     private boolean Mode = false;
     private boolean Pass = false;
     private User user = App.getCurrentUser();
+
     @Override
-    public JPanel getMainPanel() { return mainPanel; }
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
 
     private String title;
-    @Override
-    public String getTitle() { return title; }
 
-    public SettingsEditor(){
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
+    public SettingsEditor() {
         App.canGoBack();
-        addObjects();
+//        addObjects();
         setPlayfield(Mode);
         EditButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(Mode == false){
+                if (Mode == false) {
                     Mode = true;
                     setPlayfield(Mode);
-                }
-                else{
-                    Insert();
+                } else {
+//                    Insert();
                     Mode = false;
                     setPlayfield(Mode);
                 }
@@ -57,11 +63,10 @@ public class SettingsEditor implements IFormWindow{
         goBackButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(Mode){
+                if (Mode) {
                     Mode = false;
                     setPlayfield(Mode);
-                }
-                else{
+                } else {
                     Mode = true;
 
                     App.goBack();
@@ -72,92 +77,92 @@ public class SettingsEditor implements IFormWindow{
             @Override
             public void actionPerformed(ActionEvent e) {
                 Pass = true;
-                NewPassword.setEnabled(true);
-                CheckPassword.setEnabled(true);
-                OldPassword.setEnabled(true);
+                newPasswordPF.setEnabled(true);
+                checkPasswordPF.setEnabled(true);
+                oldPasswordPF.setEnabled(true);
             }
         });
     }
 
-    private void Insert(){
-        User NewUser = new User(
-                nameTF.getText(),
-                surnameTF.getText(),
-                emailTF.getText(),
-                phoneTF.getText(),
-                UtilsH.convertStringToTimestamp(bdate.getText())
-        );
-        if(Pass){
-            try {
-                if(String.valueOf(NewPassword.getPassword()).equals(String.valueOf(CheckPassword.getPassword()))){
-                    {App.DB.updateUser1(user.getID(),NewUser, String.valueOf(OldPassword.getPassword()), String.valueOf(NewPassword.getPassword()));
-                    App.EditUser(NewUser);}
-                }
-                else {
-                    JOptionPane.showMessageDialog(mainPanel,
-                            "Gesli se ne ujemata!\nPreverite podatke.", "Napaka", JOptionPane.INFORMATION_MESSAGE);
-                }
-            } catch (SQLException throwables) {
-                JOptionPane.showMessageDialog(mainPanel,
-                        "Prijava ni uspela!\nPreverite prijavne podatke.", "Napaka", JOptionPane.INFORMATION_MESSAGE);
-                throwables.printStackTrace();
-            }
-        }
-        else {
-            try {
-                App.DB.updateUser1(user.getID(),NewUser, String.valueOf(OldPassword.getPassword()), "test");
-                App.EditUser(NewUser);
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-        }
-    }
+//    private void Insert(){
+//        User NewUser = new User(
+//                nameTF.getText(),
+//                surnameTF.getText(),
+//                emailTF.getText(),
+//                phoneTF.getText(),
+//                UtilsH.convertStringToTimestamp(bdateSpinner.getText())
+//        );
+//        if(Pass){
+//            try {
+//                if(String.valueOf(newPasswordPF.getPassword()).equals(String.valueOf(checkPasswordPF.getPassword()))){
+//                    {App.DB.updateUser1(user.getID(),NewUser, String.valueOf(oldPasswordPF.getPassword()), String.valueOf(newPasswordPF.getPassword()));
+//                    App.EditUser(NewUser);}
+//                }
+//                else {
+//                    JOptionPane.showMessageDialog(mainPanel,
+//                            "Gesli se ne ujemata!\nPreverite podatke.", "Napaka", JOptionPane.INFORMATION_MESSAGE);
+//                }
+//            } catch (SQLException throwables) {
+//                JOptionPane.showMessageDialog(mainPanel,
+//                        "Prijava ni uspela!\nPreverite prijavne podatke.", "Napaka", JOptionPane.INFORMATION_MESSAGE);
+//                throwables.printStackTrace();
+//            }
+//        }
+//        else {
+//            try {
+//                App.DB.updateUser1(user.getID(),NewUser, String.valueOf(oldPasswordPF.getPassword()), "test");
+//                App.EditUser(NewUser);
+//            } catch (SQLException throwables) {
+//                throwables.printStackTrace();
+//            }
+//        }
+//    }
 
-    private void addObjects() {
-
-        nameTF.setText(user.Name);
-        surnameTF.setText(user.Surname);
-        bdate.setText(user.BDate.toString());
-        emailTF.setText(user.Email);
-        phoneTF.setText(user.Phone);
-    }
+//    private void addObjects() {
+//
+//        nameTF.setText(user.Name);
+//        surnameTF.setText(user.Surname);
+//        bdateSpinner.setText(user.BDate.toString());
+//        emailTF.setText(user.Email);
+//        phoneTF.setText(user.Phone);
+//    }
 
 
     public void setPlayfield(boolean EditMode) {
-        if(EditMode) {
+        if (EditMode) {
             nameTF.setEnabled(true);
             surnameTF.setEnabled(true);
-            bdate.setEnabled(true);
+            bdateSpinner.setEnabled(true);
             emailTF.setEnabled(true);
             phoneTF.setEnabled(true);
             ChangePassword.setVisible(true);
-            NewPassword.setVisible(true);
-            CheckPassword.setVisible(true);
-            OldPassword.setVisible(true);
+            newPasswordPF.setVisible(true);
+            checkPasswordPF.setVisible(true);
+            oldPasswordPF.setVisible(true);
             newpassword.setVisible(true);
             checknewpassword.setVisible(true);
             oldpassword.setVisible(true);
-            OldPassword.setEnabled(true);
+            oldPasswordPF.setEnabled(true);
             EditButton.setText("Potrdi");
             goBackButton.setText("Prekliči");
-        }
-        else {
+        } else {
             nameTF.setEnabled(false);
             surnameTF.setEnabled(false);
-            bdate.setEnabled(false);
+            bdateSpinner.setEnabled(false);
             emailTF.setEnabled(false);
             phoneTF.setEnabled(false);
             ChangePassword.setVisible(false);
-            NewPassword.setVisible(false);
-            CheckPassword.setVisible(false);
-            OldPassword.setVisible(false);
+            newPasswordPF.setVisible(false);
+            checkPasswordPF.setVisible(false);
+            oldPasswordPF.setVisible(false);
             newpassword.setVisible(false);
             checknewpassword.setVisible(false);
             oldpassword.setVisible(false);
-            CheckPassword.setEnabled(false);
-            OldPassword.setEnabled(false);
-            NewPassword.setEnabled(false);
+            checkPasswordPF.setEnabled(false);
+            oldPasswordPF.setEnabled(false);
+            newPasswordPF.setEnabled(false);
         }
         //title = playfield == null ? "Add playfield" : "Edit playfield: " + playfield.Title;
     }
+
 }
