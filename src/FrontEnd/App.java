@@ -16,6 +16,7 @@ public class App extends JFrame{
     private JButton logoutButton;
     private JLabel userLabel;
     private JPanel basePanel;
+    private JButton Naročila;
 
     private static App _this;
 //    private static JFrame frame;
@@ -58,6 +59,7 @@ public class App extends JFrame{
         goBackButton.addActionListener(e -> goBack());
         logoutButton.addActionListener(e -> logout());
         profileButton.addActionListener(e -> goTo(new SettingsEditor()));
+        Naročila.addActionListener(e -> goTo(new SeeReservations(false)));
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         add(basePanel);
@@ -66,6 +68,7 @@ public class App extends JFrame{
         setVisible(true);
 
         setCurrentUser(null);
+
     }
 
     private static void setContent(IFormWindow form) {
