@@ -16,15 +16,11 @@ public class ReservationsForm implements IFormWindow {
     private JLabel EmailT;
     private JSpinner DateFromT;
     private JSpinner DateToT;
-    private JLabel AddL;
     private JButton AddButton;
     private JButton BackButton;
     private JPanel mainPanel;
     private JLabel Title;
     private JList ReservationsL;
-    private JButton Add;
-    private JTable ReservationT;
-    private JButton DeleteB;
 
     private boolean mode;
     private String title;
@@ -49,7 +45,7 @@ public class ReservationsForm implements IFormWindow {
     public ReservationsForm(Playfield playfield){
         this(playfield, null);
 
-        DeleteB.addActionListener(e -> DeleteT());
+        //DeleteB.addActionListener(e -> DeleteT());
     }
 
 
@@ -60,8 +56,8 @@ public class ReservationsForm implements IFormWindow {
         DateFromT.setModel(new SpinnerDateModel());
         DateToT.setModel(new SpinnerDateModel());
         BackButton.addActionListener(e -> Back());
-        AddButton.addActionListener(e -> Insert());
-        Add.addActionListener(e -> insertList(playfield, reservation));
+        AddButton.addActionListener(e -> insertList(playfield));
+        //Add.addActionListener(e -> insertList(playfield, reservation));
     }
 
     public boolean Mode(Reservation reservation) {
@@ -85,22 +81,42 @@ public class ReservationsForm implements IFormWindow {
     }
 
     private void Insert(){
-        if(mode){
-            try {
-                App.DB.updateReservation(res);
-                JOptionPane.showMessageDialog(mainPanel, "Uspešno ste spremenili spremembe naročila");
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+        if(!mode){
+            int a = JOptionPane.showConfirmDialog(mainPanel, "Ste prepričani, da želite oddati prijavo za "+ play.Title+"" +
+                    " igrišče ob terminu "+res.FromDate+" do termina "+res.ToDate+" ?", "Odjava", JOptionPane.OK_CANCEL_OPTION);
+
+            if(a == JOptionPane.OK_OPTION){
+                InsertEnd();
+                }
             }
-        }
         else{
-            try {
-                App.DB.addReservation(res);
-                JOptionPane.showMessageDialog(mainPanel, "Uspešno ste rezervirali to igrišče, sedaj morate le še počakati na potrditev lastnika");
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            int a = JOptionPane.showConfirmDialog(mainPanel, "Ste prepričani, da želite spremeniti podatke za prijavo za "+ play.Title+"" +
+                    " igrišče ob terminu "+res.FromDate+" do termina "+res.ToDate+" ? Pomembno je da se bo status igrišča ponastavil na oddano", "Odjava", JOptionPane.OK_CANCEL_OPTION);
+
+            if(a == JOptionPane.OK_OPTION) {
+                InsertEnd();
             }
         }
+    }
+
+    private void InsertEnd(){
+
+            if(mode){
+                try {
+                    App.DB.updateReservation(res);
+                    JOptionPane.showMessageDialog(mainPanel, "Uspešno ste spremenili spremembe naročila");
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+            else{
+                try {
+                    App.DB.addReservation(res);
+                    JOptionPane.showMessageDialog(mainPanel, "Uspešno ste rezervirali to igrišče, sedaj morate le še počakati na potrditev lastnika");
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
     }
 
     private void Back(){
@@ -109,7 +125,7 @@ public class ReservationsForm implements IFormWindow {
     }
 
 
-    private void insertList(Playfield playfield, Reservation reservation) {
+    private void insertList(Playfield playfield) {
         if(mode){
             res = new Reservation(
                     UtilsH.convertStringToTimestampWithTime(new SimpleDateFormat("yyyy-MM-dd-HH-mm").format(DateFromT.getValue())),
@@ -135,6 +151,9 @@ public class ReservationsForm implements IFormWindow {
                 Vector<Reservation> reservations = new Vector<>();
                 reservations.add(res);
                 System.out.println(reservations);
+
+                Insert();
+
                 /*ReservationsTableModel model;
                 model = new ReservationsTableModel(reservations);
                 ReservationT.setModel(model);
@@ -166,15 +185,18 @@ public class ReservationsForm implements IFormWindow {
                 Vector<Reservation> reservations = new Vector<>();
                 reservations.add(res);
                 System.out.println(reservations);
+
+                Insert();
+
                 //ReservationsTableModel model;
-                model = new ReservationsTableModel(reservations);
-                ReservationT.setModel(model);
-                ReservationT.setVisible(true);
+                //model = new ReservationsTableModel(reservations);
+                //ReservationT.setModel(model);
+                //ReservationT.setVisible(true);
             }
         }
     }
 
-    public void DeleteT(){
+    /*public void DeleteT(){
 
         if(ReservationT.getSelectedRow() != -1) {
             // remove selected row from the model
@@ -197,7 +219,7 @@ public class ReservationsForm implements IFormWindow {
 
     private ReservationsTableModel getReservationModel(){
         return (ReservationsTableModel)ReservationT.getModel();
-    }
+    }*/
 }
 
 
