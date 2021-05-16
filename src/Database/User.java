@@ -11,6 +11,7 @@ public class User implements IUpdatableTable, IInsertableTable
     private int ID;
 
     public int getID(){return ID;}
+    public void setID(int value) {ID = value;}
 
     public String Name;
     public String Surname;
@@ -76,10 +77,13 @@ public class User implements IUpdatableTable, IInsertableTable
 
         if (ID < 1) return false;
 
-        String command = String.format("SELECT * FROM update_user( %d, '%s', '%s', '%s', '%s', '%s', %s, '%s' );",
-                ID, Name, Surname, Email, BDate.toString(), extra[0],
-                Phone.equals("") ? "'" + Phone + "'" : "NULL",
-                extra.length > 1 && extra[1] != "" ? "'" + extra[1] + "'" : "NULL"
+        String passChk = String.valueOf(extra[0]);
+        String newPass = String.valueOf(extra[1]);
+
+        String command = String.format("SELECT * FROM update_user( %d, '%s', '%s', '%s', '%s', '%s', %s, %s);",
+                ID, Name, Surname, Email, BDate.toString(), passChk,
+                !Phone.isEmpty() ? "'" + Phone + "'" : "NULL",
+                !newPass.isEmpty() ? "'" + newPass + "'" : "NULL"
         );
 
         Statement st = conn.createStatement();
@@ -87,6 +91,7 @@ public class User implements IUpdatableTable, IInsertableTable
 
         if(rs.next()){
             getDataFromResultSet(rs);
+            System.out.println("New id: " + getID());
             return true;
         }
 
@@ -99,7 +104,7 @@ public class User implements IUpdatableTable, IInsertableTable
         Surname = rs.getString("surname");
         Email = rs.getString("email");
         String p = rs.getString("phone");
-        Phone = p != null && p.equals("") ? p : "";
+        Phone = p != null ? p : "";
         BDate = rs.getTimestamp("bdate");
         _createdAt = rs.getTimestamp("created_at");
         _updatedAt = rs.getTimestamp("updated_at");
