@@ -1,10 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "EyKOglUOxek1qcCaPgH9woSA+oKCQ7d2L+9ZkiQKnpY51NfSgLStORdQj7GKHw/Ku5NnjzFVGzhmpLBAxqUSew==",
+  "dgSpecHash": "R0kRVKtpN6i6A9pX1zGDEmpLqBn7Zox3aNc+YRh9bTGgAKgjQpbn0Qkcei1Qsq4CgE17GUqTfHPeyPVPSKABrg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Poti\\Documents\\School\\UPB\\Projekt2\\Project2MobileApp\\Project2MobileApp.Android\\Project2MobileApp.Android.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Poti\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.0.0\\microsoft.bcl.asyncinterfaces.1.0.0.nupkg.sha512",
+    "C:\\Users\\Poti\\.nuget\\packages\\npgsql\\5.0.5\\npgsql.5.0.5.nupkg.sha512",
+    "C:\\Users\\Poti\\.nuget\\packages\\system.buffers\\4.5.0\\system.buffers.4.5.0.nupkg.sha512",
     "C:\\Users\\Poti\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
+    "C:\\Users\\Poti\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.6.0\\system.runtime.compilerservices.unsafe.4.6.0.nupkg.sha512",
+    "C:\\Users\\Poti\\.nuget\\packages\\system.text.encodings.web\\4.6.0\\system.text.encodings.web.4.6.0.nupkg.sha512",
+    "C:\\Users\\Poti\\.nuget\\packages\\system.text.json\\4.6.0\\system.text.json.4.6.0.nupkg.sha512",
+    "C:\\Users\\Poti\\.nuget\\packages\\system.threading.channels\\4.7.0\\system.threading.channels.4.7.0.nupkg.sha512",
     "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\xamarin.androidx.activity\\1.1.0.5\\xamarin.androidx.activity.1.1.0.5.nupkg.sha512",
     "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\xamarin.androidx.annotation\\1.1.0.8\\xamarin.androidx.annotation.1.1.0.8.nupkg.sha512",
     "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\xamarin.androidx.annotation.experimental\\1.0.0.8\\xamarin.androidx.annotation.experimental.1.0.0.8.nupkg.sha512",

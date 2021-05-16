@@ -1,10 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "jjIiEJkkox1l1Saf3OR6Q0IgSgZ2sEpRiBF7YgC7Uplyo0Wzo7Bgfc9qTEB991/FlL1MhcXVnAEahroq3DXNXg==",
+  "dgSpecHash": "pKnBUcC+vKJ3cECnYgVmNty0D4hixL/k7f1Zg+RN8gWiVNQdx5TTtILF3LZ5FTS9metOgLSB4TT09NsVlkoLbA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Poti\\Documents\\School\\UPB\\Projekt2\\Project2MobileApp\\Project2MobileApp.iOS\\Project2MobileApp.iOS.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Poti\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.0.0\\microsoft.bcl.asyncinterfaces.1.0.0.nupkg.sha512",
+    "C:\\Users\\Poti\\.nuget\\packages\\npgsql\\5.0.5\\npgsql.5.0.5.nupkg.sha512",
+    "C:\\Users\\Poti\\.nuget\\packages\\system.buffers\\4.5.0\\system.buffers.4.5.0.nupkg.sha512",
     "C:\\Users\\Poti\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
+    "C:\\Users\\Poti\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.6.0\\system.runtime.compilerservices.unsafe.4.6.0.nupkg.sha512",
+    "C:\\Users\\Poti\\.nuget\\packages\\system.text.encodings.web\\4.6.0\\system.text.encodings.web.4.6.0.nupkg.sha512",
+    "C:\\Users\\Poti\\.nuget\\packages\\system.text.json\\4.6.0\\system.text.json.4.6.0.nupkg.sha512",
+    "C:\\Users\\Poti\\.nuget\\packages\\system.threading.channels\\4.7.0\\system.threading.channels.4.7.0.nupkg.sha512",
     "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\xamarin.essentials\\1.6.1\\xamarin.essentials.1.6.1.nupkg.sha512",
     "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\xamarin.forms\\5.0.0.2012\\xamarin.forms.5.0.0.2012.nupkg.sha512"
   ],
