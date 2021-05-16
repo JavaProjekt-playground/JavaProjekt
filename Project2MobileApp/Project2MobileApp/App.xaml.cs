@@ -18,7 +18,7 @@ namespace Project2MobileApp
             DB = new DatabaseManager();
 
             DependencyService.Register<MockDataStore>();
-            MainPage = new AppShell();
+            MainPage = new NavigationPage(new MainPage());
         }
 
         protected override void OnStart()

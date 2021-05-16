@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Npgsql;
 
 namespace Project2MobileApp.Database
@@ -13,10 +15,44 @@ namespace Project2MobileApp.Database
 
         private NpgsqlConnection _conn;
 
+        private SemaphoreSlim semaphore;
+
+        private int requestCount;
+
         public DatabaseManager()
         {
             string connString = $"Host={_server}:{_port};Username={_user};Password={_password};Database={_database}";
             _conn = new NpgsqlConnection(connString);
+            semaphore = new SemaphoreSlim(1, 1);
+            requestCount = 0;
+        }
+
+        private async Task OpenConn()
+        {
+            requestCount++;
+            await semaphore.WaitAsync();
+            if(_conn.State == System.Data.ConnectionState.Closed) await _conn.OpenAsync();
+        }
+
+        private async Task CloseConn()
+        {
+            requestCount--;
+            if (requestCount <= 0 && _conn.State == System.Data.ConnectionState.Open) await _conn.CloseAsync();
+            semaphore.Release();
+        }
+
+        public async Task<InfoBundle> GetInfoBundle()
+        {
+            var res = new InfoBundle();
+
+            await OpenConn();
+
+            
+
+
+            await CloseConn();
+
+            return res;
         }
 
     }
