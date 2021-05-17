@@ -11,7 +11,7 @@ public class Register implements IFormWindow {
     private JButton registerButton;
     public JPanel mainPanel;
     private JTextField nameTF;
-    private JTextField bdate;
+    private JSpinner bDateSpinner;
     private JPasswordField password1PF;
     private JPasswordField password2PF;
     private JTextField phoneTF;
@@ -33,6 +33,8 @@ public class Register implements IFormWindow {
     }
 
     public Register() {
+        bDateSpinner.setModel(new SpinnerDateModel());
+
         registerButton.addActionListener(e -> registerUser());
         goBackButton.addActionListener(e -> App.goBack());
     }
@@ -44,7 +46,7 @@ public class Register implements IFormWindow {
         String email = emailTF.getText();
         String surname = surnameTF.getText();
         String phone = phoneTF.getText();
-        Timestamp bDate = new Timestamp(0);
+        Timestamp bDate = new Timestamp(((java.util.Date)bDateSpinner.getValue()).getTime());
 
         if (!pass1.equals(pass2)) {
             JOptionPane.showMessageDialog(mainPanel, "Passwords don't match.");
