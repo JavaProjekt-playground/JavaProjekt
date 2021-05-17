@@ -206,6 +206,9 @@ public class ReservationsForm implements IFormWindow {
         final int MILLI_TO_HOUR = 1000 * 60 * 60;
         double a =  (res.ToDate.getTime() - res.FromDate.getTime()) / MILLI_TO_HOUR;
         double b = (res.ToDate.getTime() - res.FromDate.getTime()) % MILLI_TO_HOUR;
+        if(a==0){
+            return a;
+        }
         if(b != 0){a++;}
         return a * play.PricePerHour;
     }
