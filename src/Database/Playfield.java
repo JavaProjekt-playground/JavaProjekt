@@ -17,6 +17,7 @@ public class Playfield implements IUpdatableTable, IInsertableTable{
     // Stats
     private double avgScore;
     public double getAvgScore() {return avgScore;}
+    public void setAvgScore(double value) {avgScore = value;}
     public double PricePerHour;
     private int pendingReservations;
     public int getPendingReservations(){return pendingReservations;}

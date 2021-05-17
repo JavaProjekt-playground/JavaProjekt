@@ -5,8 +5,9 @@ import java.sql.*;
 public class Review implements IUpdatableTable, IInsertableTable {
     private int id;
     public String message;
-    public Double score;
+    public int score;
     public int getId(){return id;}
+    public void setId(int i){id = i;}
     private int userID;
     public int getUserID() {return userID;}
     private  int playfieldID;
@@ -14,7 +15,7 @@ public class Review implements IUpdatableTable, IInsertableTable {
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
-    public Review(String message, double score, int plafieldid, int userid) {
+    public Review(String message, int score, int plafieldid, int userid) {
         this.message = message;
         this.score = score;
         playfieldID = plafieldid;
@@ -27,7 +28,7 @@ public class Review implements IUpdatableTable, IInsertableTable {
 
     @Override
     public boolean selfInsert(Connection conn, Object... extra) throws SQLException {
-        String command = String.format("SELECT * FROM add_review('%s', %d, %d %d);",
+        String command = String.format("SELECT * FROM add_review('%s', %d, %d, %d);",
                 message, score, playfieldID, userID
         );
 
@@ -65,7 +66,8 @@ public class Review implements IUpdatableTable, IInsertableTable {
     private void getDataFromResultSet(ResultSet rs) throws SQLException {
         id = rs.getInt("id");
         message = rs.getString("message");
-        score = rs.getDouble("score");
+        userID = rs.getInt("user_id");
+        score = rs.getInt("score");
         playfieldID = rs.getInt("playfield_id");
         createdAt = rs.getTimestamp("created_at");
         updatedAt = rs.getTimestamp("updated_at");

@@ -138,6 +138,16 @@ public class DatabaseManager {
     // Playfield related functions
     //
 
+    public double getPlayfieldAvgScore(int id) throws SQLException {
+        String sql = String.format("SELECT avg_score FROM playfields WHERE id = %d;", id);
+
+        ResultSet rs = conn.createStatement().executeQuery(sql);
+
+        if(rs.next()) return rs.getDouble(1);
+
+        return -1;
+    }
+
     /**
      * Inserts a new playfield into the database.
      * @param playfield Playfield to insert.
@@ -282,6 +292,7 @@ public class DatabaseManager {
 
 
     //PLAYFIELD TYPES
+
     public Vector<Playfield_type> getPlayfield_types() throws SQLException{
         Vector<Playfield_type> res = new Vector<>(100);
         String sql = String.format("SELECT * FROM playfield_types;");
@@ -443,7 +454,7 @@ public class DatabaseManager {
     }
 
     public boolean deleteReviews(Review review) throws SQLException {
-        String sql = String.format("SELECT * FROM delete_reviews(%d,);", review.getId());
+        String sql = String.format("SELECT * FROM delete_reviews(%d);", review.getId());
         ResultSet rs = conn.createStatement().executeQuery(sql);
         if(rs.next()) return rs.getBoolean(1);
         return false;
@@ -499,6 +510,15 @@ public class DatabaseManager {
         User res = null;
         if(rs.next()) res = new User(rs);
 
+        return res;
+    }
+
+
+    public int CheckDateReservation(Timestamp from, Timestamp to, Integer p_id) throws SQLException {
+        String sql = String.format("SELECT * FROM check_date_reservation('%s', '%s', %d)", from, to, p_id);
+        ResultSet rs = conn.createStatement().executeQuery(sql);
+        Integer res = null;
+        if(rs.next()) res = rs.getInt(1);
         return res;
     }
 }
