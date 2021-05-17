@@ -1,6 +1,12 @@
 package FrontEnd;
 
+import Database.Reservation;
+import FrontEnd.Models.CellRenderers.ReservationCellRenderer;
+import FrontEnd.Models.ReservationsListModel;
+
 import javax.swing.*;
+import java.sql.SQLException;
+import java.util.Vector;
 
 public class SeeReservations implements IFormWindow{
     private JLabel TitleL;
@@ -20,14 +26,36 @@ public class SeeReservations implements IFormWindow{
 
     public String title;
     private boolean Mode;
+    private Vector<Reservation> r;
 
 
     public SeeReservations(boolean mode){
         Mode = mode;
         ModeAdd();
+        setup();
+        AddIntoList();
         SeeReservationsButton.addActionListener(e -> SetMode());
     }
 
+
+    private void AddIntoList(){
+        if(Mode){
+            try {
+                r = App.DB.getReservationsUser(App.getCurrentUser().getID());
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+        else{
+            try {
+                r = App.DB.getYourReservations(App.getCurrentUser().getID());
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+        //System.out.println(r);
+        ReservationsL.setModel(new ReservationsListModel(r));
+    }
     private void ModeAdd(){
         if(Mode){
             TitleL.setText("Naročila za tvoja igrišča");
@@ -51,6 +79,12 @@ public class SeeReservations implements IFormWindow{
         else
             Mode = true;
         ModeAdd();
+        setup();
+        AddIntoList();
+    }
+
+    private void setup() {
+        ReservationsL.setCellRenderer(new ReservationCellRenderer());
     }
 
 }

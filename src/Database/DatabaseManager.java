@@ -521,4 +521,23 @@ public class DatabaseManager {
         if(rs.next()) res = rs.getInt(1);
         return res;
     }
+
+    public Vector<Reservation> getReservationsUser(int user_id) throws  SQLException{
+        Vector<Reservation> res = new Vector<Reservation>(100);
+        String sql = String.format("SELECT * FROM reviews r INNER JOIN playfields p ON " +
+                "p.id = r.playfield_id INNER JOIN user id ON u.id = p.user_id WHERE u.id = %d ;", user_id);
+        Statement stmnt = conn.createStatement();
+        ResultSet rs = stmnt.executeQuery(sql);
+        while(rs.next()) res.add(new Reservation(rs));
+        return res;
+    }
+
+    public Vector<Reservation> getYourReservations(int user_id) throws  SQLException{
+        Vector<Reservation> res = new Vector<Reservation>(100);
+        String sql = String.format("SELECT * FROM reviews r WHERE r.user_id = %d ;", user_id);
+        Statement stmnt = conn.createStatement();
+        ResultSet rs = stmnt.executeQuery(sql);
+        while(rs.next()) res.add(new Reservation(rs));
+        return res;
+    }
 }
