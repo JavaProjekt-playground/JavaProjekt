@@ -6,9 +6,10 @@ import FrontEnd.App;
 import FrontEnd.ViewPlayfieldForm;
 
 import javax.swing.*;
+import java.awt.*;
 import java.sql.SQLException;
 
-public class ReviewSpace{
+public class ReviewSpace {
     private JPanel contentPane;
     private JLabel userLabel;
     private JLabel scoreLabel;
@@ -36,4 +37,5 @@ public class ReviewSpace{
     public JPanel getContentPane() {
         return contentPane;
     }
+
 }
