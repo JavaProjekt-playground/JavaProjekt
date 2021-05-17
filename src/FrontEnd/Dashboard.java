@@ -12,11 +12,8 @@ import java.util.Vector;
 
 public class Dashboard implements IFormWindow {
     public JPanel mainPanel;
-    private JButton OrderButton;
-    private JButton SearchButton;
     private JButton SettingsButton;
     private JTable PlayfieldsTable;
-    private JTextField SearchTextField;
     private JButton AddButton;
     private JButton UpdateButton;
     private JButton inspectButton;
