@@ -1,5 +1,4 @@
-﻿using Project2MobileApp.Services;
-using Project2MobileApp.Views;
+﻿using Project2MobileApp.Views;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -17,8 +16,7 @@ namespace Project2MobileApp
 
             DB = new DatabaseManager();
 
-            DependencyService.Register<MockDataStore>();
-            MainPage = new NavigationPage(new MainPage());
+            MainPage = new MainPage();
         }
 
         protected override void OnStart()

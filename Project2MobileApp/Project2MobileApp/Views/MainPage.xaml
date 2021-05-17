@@ -1,12 +1,72 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ViewModels="clr-namespace:Project2MobileApp.ViewModels"
+             x:DataType="ViewModels:MainPageViewModel"
              x:Class="Project2MobileApp.Views.MainPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <ScrollView>
+            <Grid VerticalOptions="Start" Margin="30">
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Text="Število uporabnikov:" 
+                       HorizontalTextAlignment="End"
+                       Grid.Column="0"
+                       Grid.Row="0"/>
+                <Label Text="{Binding Bundle.UserCount}"
+                       HorizontalTextAlignment="Start"
+                       Grid.Column="1"
+                       Grid.Row="0"/>
+
+                <Label Text="Število igrišč:" 
+                       HorizontalTextAlignment="End"
+                       Grid.Column="0"
+                       Grid.Row="1"/>
+                <Label Text="{Binding Bundle.PlayfieldCount}"
+                       HorizontalTextAlignment="Start"
+                       Grid.Column="1"
+                       Grid.Row="1"/>
+
+                <Label Text="Število slik:" 
+                       HorizontalTextAlignment="End"
+                       Grid.Column="0"
+                       Grid.Row="2"/>
+                <Label Text="{Binding Bundle.ImageCount}"
+                       HorizontalTextAlignment="Start"
+                       Grid.Column="1"
+                       Grid.Row="2"/>
+
+                <Label Text="Najvišja ocena:" 
+                       HorizontalTextAlignment="End"
+                       Grid.Column="0"
+                       Grid.Row="3"/>
+                <Label Text="{Binding Bundle.MaxScore}"
+                       HorizontalTextAlignment="Start"
+                       Grid.Column="1"
+                       Grid.Row="3"/>
+
+                <Label Text="Najnižja ocena:" 
+                       HorizontalTextAlignment="End"
+                       Grid.Column="0"
+                       Grid.Row="4"/>
+                <Label Text="{Binding Bundle.MinScore}"
+                       HorizontalTextAlignment="Start"
+                       Grid.Column="1"
+                       Grid.Row="4"/>
+
+                <Label Text="Povprečna ocena:" 
+                       HorizontalTextAlignment="End"
+                       Grid.Column="0"
+                       Grid.Row="5"/>
+                <Label Text="{Binding Bundle.AvgScore}"
+                       HorizontalTextAlignment="Start"
+                       Grid.Column="1"
+                       Grid.Row="5"/>
+            </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

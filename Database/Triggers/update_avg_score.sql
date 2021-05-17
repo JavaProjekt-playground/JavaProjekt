@@ -1,16 +1,16 @@
-CREATE FUNCTION update_avg_score()
+CREATE OR REPLACE FUNCTION update_avg_score()
 RETURNS TRIGGER AS
 $$
 DECLARE
  	p_id INT;
 BEGIN
-	IF tg_op = 'insert' THEN
+	IF NEW IS NOT NULL THEN
 		p_id := NEW.playfield_id;
 	ELSE
 		p_id := OLD.playfield_id;
 	END IF;
 	
-	UPDATE playfield
+	UPDATE playfields
 	SET avg_score = (SELECT AVG(score) FROM reviews WHERE playfield_id = p_id)
 	WHERE id = p_id;
 	
@@ -20,5 +20,5 @@ $$ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER trig_update_avg_score
 AFTER INSERT OR UPDATE OR DELETE
-ON reviews FOR EACH STATEMENT
+ON reviews FOR EACH ROW
 EXECUTE PROCEDURE update_avg_score();

@@ -4,12 +4,6 @@ C:\Users\Poti\Documents\School\UPB\Projekt2\Project2MobileApp\Project2MobileApp\
 C:\Users\Poti\Documents\School\UPB\Projekt2\Project2MobileApp\Project2MobileApp\bin\Debug\netstandard2.0\Project2MobileApp.pdb
 C:\Users\Poti\Documents\School\UPB\Projekt2\Project2MobileApp\Project2MobileApp\obj\Debug\netstandard2.0\Project2MobileApp.csprojAssemblyReference.cache
 C:\Users\Poti\Documents\School\UPB\Projekt2\Project2MobileApp\Project2MobileApp\obj\Debug\netstandard2.0\App.xaml.g.cs
-C:\Users\Poti\Documents\School\UPB\Projekt2\Project2MobileApp\Project2MobileApp\obj\Debug\netstandard2.0\AppShell.xaml.g.cs
-C:\Users\Poti\Documents\School\UPB\Projekt2\Project2MobileApp\Project2MobileApp\obj\Debug\netstandard2.0\Views\AboutPage.xaml.g.cs
-C:\Users\Poti\Documents\School\UPB\Projekt2\Project2MobileApp\Project2MobileApp\obj\Debug\netstandard2.0\Views\ItemDetailPage.xaml.g.cs
-C:\Users\Poti\Documents\School\UPB\Projekt2\Project2MobileApp\Project2MobileApp\obj\Debug\netstandard2.0\Views\ItemsPage.xaml.g.cs
-C:\Users\Poti\Documents\School\UPB\Projekt2\Project2MobileApp\Project2MobileApp\obj\Debug\netstandard2.0\Views\LoginPage.xaml.g.cs
-C:\Users\Poti\Documents\School\UPB\Projekt2\Project2MobileApp\Project2MobileApp\obj\Debug\netstandard2.0\Views\NewItemPage.xaml.g.cs
 C:\Users\Poti\Documents\School\UPB\Projekt2\Project2MobileApp\Project2MobileApp\obj\Debug\netstandard2.0\Project2MobileApp.AssemblyInfoInputs.cache
 C:\Users\Poti\Documents\School\UPB\Projekt2\Project2MobileApp\Project2MobileApp\obj\Debug\netstandard2.0\Project2MobileApp.AssemblyInfo.cs
 C:\Users\Poti\Documents\School\UPB\Projekt2\Project2MobileApp\Project2MobileApp\obj\Debug\netstandard2.0\Project2MobileApp.csproj.CoreCompileInputs.cache
@@ -17,3 +11,4 @@ C:\Users\Poti\Documents\School\UPB\Projekt2\Project2MobileApp\Project2MobileApp\
 C:\Users\Poti\Documents\School\UPB\Projekt2\Project2MobileApp\Project2MobileApp\obj\Debug\netstandard2.0\Project2MobileApp.dll
 C:\Users\Poti\Documents\School\UPB\Projekt2\Project2MobileApp\Project2MobileApp\obj\Debug\netstandard2.0\ref\Project2MobileApp.dll
 C:\Users\Poti\Documents\School\UPB\Projekt2\Project2MobileApp\Project2MobileApp\obj\Debug\netstandard2.0\Project2MobileApp.pdb
+C:\Users\Poti\Documents\School\UPB\Projekt2\Project2MobileApp\Project2MobileApp\obj\Debug\netstandard2.0\Views\MainPage.xaml.g.cs
