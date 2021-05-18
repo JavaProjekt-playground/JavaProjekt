@@ -60,7 +60,7 @@ public class App extends JFrame{
         goBackButton.addActionListener(e -> goBack());
         logoutButton.addActionListener(e -> logout());
         profileButton.addActionListener(e -> goTo(new SettingsEditor()));
-        Naročila.addActionListener(e -> goTo(new SeeReservations(false)));
+        //Naročila.addActionListener(e -> goTo(new SeeReservations(false)));
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         add(basePanel);
